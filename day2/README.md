@@ -25,9 +25,9 @@ Slurm scripts:
 
 ## Setup
 
-1. Login to Taito-GPU using a training account:
+1. Login to Taito-GPU using a training account or your CSC account:
 
-        ssh -l training0xx -X taito-gpu.csc.fi
+        ssh -l trainingxxx -X taito-gpu.csc.fi
 
 2. Set up the module environment:
 
@@ -42,11 +42,12 @@ Slurm scripts:
 4. Edit and submit jobs:
 
         emacs/vim/nano keras-test.py
-        sbatch run-python-gpu-1h.sh keras-test.py
+        sbatch run-python-gpu-1h.sh keras-test.py  # when using a training account
+        sbatch run-python-gpu-1h-nores.sh keras-test.py  # when using own CSC account
 
 5. See the status of your jobs or the queue you are using:
 
-        squeue -l -u training0xx
+        squeue -l -u trainingxxx
         squeue -l -p gpu
 
 6. After the job has finished, examine the results:
