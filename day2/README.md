@@ -49,7 +49,7 @@ Slurm scripts:
         squeue -l -u training0xx
         squeue -l -p gpu
 
-6. See the results:
+6. After the job has finished, examine the results:
 
         less slurm-xxxxxxxx.out
         sxiv results-figure.png
