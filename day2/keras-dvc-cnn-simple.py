@@ -18,12 +18,15 @@ from keras.layers.convolutional import Conv2D
 from keras.preprocessing.image import (ImageDataGenerator, array_to_img, 
                                       img_to_array, load_img)
 from keras import applications, optimizers
+from keras.callbacks import TensorBoard
 
 from keras.utils import np_utils
 from keras import backend as K
 
 from distutils.version import LooseVersion as LV
 from keras import __version__
+
+import os, datetime
 
 import numpy as np
 import matplotlib
@@ -104,6 +107,19 @@ for batch, _ in augm_generator:
     plt.savefig("dvc-input-augmented.png")
     break
 
+logdir = os.path.join(os.getcwd(), "logs",
+                     datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
+os.makedirs(logdir)
+
+import tensorflow as tf
+imgs = tf.convert_to_tensor(batch)
+summary_op = tf.summary.image("augmented", imgs, max_outputs=9)
+with tf.Session() as sess:
+    summary = sess.run(summary_op)
+    writer = tf.summary.FileWriter(logdir)
+    writer.add_summary(summary)
+    writer.close()
+
 # ### Data loaders
 # 
 # Let's now define our real data loaders for training and validation data.
@@ -162,7 +178,6 @@ print(model.summary())
 
 # In[ ]:
 
-
 epochs = 20
 
 history = model.fit_generator(train_generator,
@@ -170,7 +185,7 @@ history = model.fit_generator(train_generator,
                               epochs=epochs,
                               validation_data=validation_generator,
                               validation_steps=nimages_validation // batch_size,
-                              verbose=2)
+                              verbose=2, callbacks=[TensorBoard(log_dir=logdir)])
 
 model.save_weights("dvc-small-cnn.h5")
 

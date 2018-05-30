@@ -18,12 +18,15 @@ from keras.layers.convolutional import Conv2D
 from keras.preprocessing.image import (ImageDataGenerator, array_to_img, 
                                       img_to_array, load_img)
 from keras import applications, optimizers
+from keras.callbacks import TensorBoard
 
 from keras.utils import np_utils
 from keras import backend as K
 
 from distutils.version import LooseVersion as LV
 from keras import __version__
+
+import os, datetime
 
 import numpy as np
 import matplotlib
@@ -169,6 +172,9 @@ print(model.summary())
 
 # In[ ]:
 
+logdir = os.path.join(os.getcwd(), "logs",
+                      datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
+os.makedirs(logdir)
 
 epochs = 20
 
@@ -177,7 +183,7 @@ history = model.fit_generator(train_generator,
                               epochs=epochs,
                               validation_data=validation_generator,
                               validation_steps=nimages_validation // batch_size,
-                              verbose=2)
+                              verbose=2, callbacks=[TensorBoard(log_dir=logdir)])
 
 model.save_weights("dvc-vgg16-reuse.h5")
 
