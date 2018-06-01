@@ -25,6 +25,8 @@ Slurm scripts:
 
 ## Setup
 
+### First terminal window
+
 1. Login to Taito-GPU using a training account or your CSC account:
 
         ssh -l trainingxxx -X taito-gpu.csc.fi
@@ -58,3 +60,9 @@ Slurm scripts:
         sxiv results-figure.png
 
 7. Go to 4 until you are happy with the results.
+
+### Second terminal window
+
+1. Login to Taito-GPU with SSH port forwarding:
+
+        ssh -l trainingxxx -L 8899:localhost:8899 taito-gpu.csc.fi
