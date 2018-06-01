@@ -28,6 +28,8 @@ Slurm scripts:
 1. Login to Taito-GPU using a training account or your CSC account:
 
         ssh -l trainingxxx -X taito-gpu.csc.fi
+        
+   (Remove the option `-X` from above if you are using Windows or otherwise do not want to use X11 forwarding.)
 
 2. Set up the module environment:
 
