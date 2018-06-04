@@ -65,4 +65,14 @@ Slurm scripts:
 
 1. Login to Taito-GPU with SSH port forwarding:
 
-        ssh -l trainingxxx -L 8899:localhost:8899 taito-gpu.csc.fi
+        ssh -l trainingxxx -L PORT:localhost:PORT taito-gpu.csc.fi
+        
+   Replace `PORT` with a freely selectable port number (>1023). By default, TensorBoard uses the port 6006, but **select a different port** to avoid overlaps. 
+
+2. Set up the module environment and start the TensorBoard server:
+
+        module purge
+        module load python-env/3.5.3-ml
+        python3 -m tensorboard.main --logdir=intro-to-dl/day2/logs --port=PORT
+
+    To access TensorBoard, point your web browser to *localhost:PORT* .
