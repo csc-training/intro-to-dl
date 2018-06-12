@@ -21,6 +21,10 @@ Text categorization and labeling: 20 newsgroups; Ted talks.
 * *keras-ted-cnn.py*: Ted talks labeling with a 1D-CNN
 * *keras-ted-rnn.py*: Ted talks labeling with a RNN
 
+### Exercise 3
+
+Using multiple GPUs.
+
 ## Setup
 
 ### First terminal window
