@@ -2,7 +2,7 @@
 
 ## Exercise sessions
 
-### Exercise 1
+### Exercise 4
 
 Image classification: dogs vs. cats; traffic signs.
 
@@ -12,7 +12,7 @@ Image classification: dogs vs. cats; traffic signs.
 * *keras-gtsrb-cnn-simple.py*: Traffic signs with a CNN trained from scratch
 * *keras-gtsrb-cnn-pretrained.py*: Traffic signs with a pre-trained CNN
 
-### Exercise 2
+### Exercise 5
 
 Text categorization and labeling: 20 newsgroups; Ted talks.
 
@@ -21,7 +21,7 @@ Text categorization and labeling: 20 newsgroups; Ted talks.
 * *keras-ted-cnn.py*: Ted talks labeling with a 1D-CNN
 * *keras-ted-rnn.py*: Ted talks labeling with a RNN
 
-### Exercise 3
+### Exercise 6
 
 Using multiple GPUs.
 
