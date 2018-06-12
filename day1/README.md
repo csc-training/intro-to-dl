@@ -6,23 +6,30 @@
 
 Introduction to Notebooks, Keras fundamentals.
 
-Jupyter notebook: *keras-test-setup.ipynb*
+* *keras-test-setup.ipynb*
 
 ### Exercise 2
 
 Image classification with MLPs and CNNs.
 
-Jupyter notebooks: *keras-mnist-mlp.ipynb*, *keras-mnist-cnn.ipynb*
+* *keras-mnist-mlp.ipynb*
+* *keras-mnist-cnn.ipynb*
 
-Optional: *tf-mnist-mlp.ipynb*, *pytorch-mnist-mlp.ipynb*
+Optional: 
+
+* *tf-mnist-mlp.ipynb* 
+* *pytorch-mnist-mlp.ipynb*
 
 ### Exercise 3
 
 Text sentiment classification with CNNs and RNNs.
 
-Jupyter notebooks: *keras-imdb-cnn.ipynb*, *keras-imdb-rnn.ipynb*
+* *keras-imdb-cnn.ipynb*
+* *keras-imdb-rnn.ipynb*
 
-Optional: *keras-mnist-rnn.ipynb*
+Optional: 
+
+* *keras-mnist-rnn.ipynb*
 
 ## Setup
 
