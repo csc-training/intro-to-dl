@@ -30,10 +30,8 @@ Using multiple GPUs.
 
 1. Login to Taito-GPU using a training account or your CSC account:
 
-        ssh -l trainingxxx -X taito-gpu.csc.fi
+        ssh -l trainingxxx taito-gpu.csc.fi
         
-   (Remove the option `-X` from above if you are using Windows or otherwise do not want to use X11 forwarding.)
-
 2. Set up the module environment:
 
         module purge
@@ -58,7 +56,6 @@ Using multiple GPUs.
 6. After the job has finished, examine the results:
 
         less slurm-xxxxxxxx.out
-        sxiv results-figure.png
 
 7. Go to 4 until you are happy with the results.
 
