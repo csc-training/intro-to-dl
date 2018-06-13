@@ -8,7 +8,6 @@ Image classification: dogs vs. cats; traffic signs.
 
 * *keras-dvc-cnn-simple.py*: Dogs vs. cats with a CNN trained from scratch
 * *keras-dvc-cnn-pretrained.py*: Dogs vs. cats with a pre-trained CNN
-* *keras-gtsrb-cnn-empty.py*: Traffic signs, only data loading implemented
 * *keras-gtsrb-cnn-simple.py*: Traffic signs with a CNN trained from scratch
 * *keras-gtsrb-cnn-pretrained.py*: Traffic signs with a pre-trained CNN
 
