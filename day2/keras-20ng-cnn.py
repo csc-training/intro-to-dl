@@ -3,47 +3,57 @@
 
 # # 20 Newsgroups text classification with pre-trained word embeddings
 # 
-# In this notebook, we'll use pre-trained [GloVe word embeddings](http://nlp.stanford.edu/projects/glove/) for text classification using Keras (version $\ge$ 2 is required). This notebook is largely based on the blog post [Using pre-trained word embeddings in a Keras model](https://blog.keras.io/using-pre-trained-word-embeddings-in-a-keras-model.html) by François Chollet.
+# In this script, we'll use pre-trained [GloVe word embeddings]
+# (http://nlp.stanford.edu/projects/glove/) for text classification
+# using Keras (version $\ge$ 2 is required). This script is largely
+# based on the blog post [Using pre-trained word embeddings in a Keras
+# model]
+# (https://blog.keras.io/using-pre-trained-word-embeddings-in-a-keras-model.html)
+# by François Chollet.
 # 
-# **Note that using a GPU with this notebook is highly recommended.**
+# **Note that using a GPU with this script is highly recommended.**
 # 
-# First, the needed imports. Keras tells us which backend (Theano, Tensorflow, CNTK) it will be using.
-
-# In[ ]:
-
+# First, the needed imports. Keras tells us which backend (Theano,
+# Tensorflow, CNTK) it will be using.
 
 from keras.preprocessing import sequence, text
 from keras.models import Sequential
 from keras.layers import Dense, Dropout
 from keras.layers import Embedding
 from keras.layers import Conv1D, MaxPooling1D, GlobalMaxPooling1D
-from keras.layers import LSTM
+from keras.layers import LSTM, CuDNNLSTM
 from keras.utils import to_categorical
 
 from distutils.version import LooseVersion as LV
 from keras import __version__
 from keras import backend as K
 
-from IPython.display import SVG
-from keras.utils.vis_utils import model_to_dot
+from sklearn.model_selection import train_test_split
 
 import os
 import sys
 
 import numpy as np
-import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
-import seaborn as sns
 
 print('Using Keras version:', __version__, 'backend:', K.backend())
 assert(LV(__version__) >= LV("2.0.0"))
 
+# If we are using TensorFlow as the backend, we can use TensorBoard to
+# visualize our progress during training.
+
+if K.backend() == "tensorflow":
+    import tensorflow as tf
+    from keras.callbacks import TensorBoard
+    import os, datetime
+    logdir = os.path.join(os.getcwd(), "logs",
+                     "20ng-cnn-"+datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
+    print('TensorBoard log directory:', logdir)
+    os.makedirs(logdir)
+    callbacks = [TensorBoard(log_dir=logdir)]
+else:
+    callbacks =  None
 
 # ## GloVe word embeddings
-
-# In[ ]:
-
 
 GLOVE_DIR = "/wrk/makoskel/glove.6B"
 
@@ -63,36 +73,20 @@ print('Examples of embeddings:')
 for w in ['some', 'random', 'words']:
     print(w, embeddings_index[w])
 
-
 # ## 20 Newsgroups data set
 # 
-# Next we'll load the [20 Newsgroups](http://www.cs.cmu.edu/afs/cs.cmu.edu/project/theo-20/www/data/news20.html) data set. 
+# Next we'll load the [20 Newsgroups]
+# (http://www.cs.cmu.edu/afs/cs.cmu.edu/project/theo-20/www/data/news20.html)
+# data set.
 # 
-# The dataset contains 20000 messages collected from 20 different Usenet newsgroups (1000 messages from each group):
+# The dataset contains 20000 messages collected from 20 different
+# Usenet newsgroups (1000 messages from each group):
 # 
-# * alt.atheism
-# * talk.politics.guns
-# * talk.politics.mideast
-# * talk.politics.misc
-# * talk.religion.misc
-# * soc.religion.christian
-# * comp.sys.ibm.pc.hardware
-# * comp.graphics
-# * comp.os.ms-windows.misc
-# * comp.sys.mac.hardware
-# * comp.windows.x
-# * rec.autos
-# * rec.motorcycles
-# * rec.sport.baseball
-# * rec.sport.hockey
-# * sci.crypt
-# * sci.electronics
-# * sci.space
-# * sci.med
-# * misc.forsale
-
-# In[ ]:
-
+# alt.atheism           | soc.religion.christian   | comp.windows.x     | sci.crypt               
+# talk.politics.guns    | comp.sys.ibm.pc.hardware | rec.autos          | sci.electronics              
+# talk.politics.mideast | comp.graphics            | rec.motorcycles    | sci.space                    
+# talk.politics.misc    | comp.os.ms-windows.misc  | rec.sport.baseball | sci.med                      
+# talk.religion.misc    | comp.sys.mac.hardware    | rec.sport.hockey   | misc.forsale
 
 TEXT_DATA_DIR = "/wrk/makoskel/20_newsgroup"
 
@@ -120,20 +114,7 @@ for name in sorted(os.listdir(TEXT_DATA_DIR)):
 
 print('Found %s texts.' % len(texts))
 
-
-# First message and its label:
-
-# In[ ]:
-
-
-print(texts[0])
-print('label:', labels[0], labels_index)
-
-
 # Vectorize the text samples into a 2D integer tensor.
-
-# In[ ]:
-
 
 MAX_NUM_WORDS = 10000
 MAX_SEQUENCE_LENGTH = 1000 
@@ -151,34 +132,26 @@ labels = to_categorical(np.asarray(labels))
 print('Shape of data tensor:', data.shape)
 print('Shape of label tensor:', labels.shape)
 
-
 # Split the data into a training set and a validation set
 
-# In[ ]:
+VALIDATION_SET, TEST_SET = 1000, 4000
 
+x_train, x_test, y_train, y_test = train_test_split(data, labels, 
+                                                    test_size=TEST_SET,
+                                                    shuffle=True, random_state=42)
 
-VALIDATION_SPLIT = 0.2
+x_train, x_val, y_train, y_val = train_test_split(x_train, y_train, 
+                                                  test_size=VALIDATION_SET,
+                                                  shuffle=False)
 
-indices = np.arange(data.shape[0])
-np.random.shuffle(indices)
-data = data[indices]
-labels = labels[indices]
-num_validation_samples = int(VALIDATION_SPLIT * data.shape[0])
-
-x_train = data[:-num_validation_samples]
-y_train = labels[:-num_validation_samples]
-x_val = data[-num_validation_samples:]
-y_val = labels[-num_validation_samples:]
 print('Shape of training data tensor:', x_train.shape)
 print('Shape of training label tensor:', y_train.shape)
 print('Shape of validation data tensor:', x_val.shape)
 print('Shape of validation label tensor:', y_val.shape)
+print('Shape of test data tensor:', x_test.shape)
+print('Shape of test label tensor:', y_test.shape)
 
-
-# Prepare embedding matrix
-
-# In[ ]:
-
+# Prepare the embedding matrix:
 
 print('Preparing embedding matrix.')
 
@@ -196,14 +169,7 @@ for word, i in word_index.items():
         
 print('Shape of embedding matrix:', embedding_matrix.shape)
 
-
-# ## 1-D CNN
-# 
 # ### Initialization
-# 
-
-# In[ ]:
-
 
 print('Build model...')
 model = Sequential()
@@ -231,35 +197,18 @@ model.compile(loss='categorical_crossentropy',
 
 print(model.summary())
 
-
-
-
 # ### Learning
 
-# In[ ]:
-
-
 epochs = 10
+batch_size=128
 
-history = model.fit(x_train, y_train, batch_size=128,
+history = model.fit(x_train, y_train,
+                    batch_size=batch_size,
                     epochs=epochs,
-                    validation_data=(x_val, y_val))
+                    validation_data=(x_val, y_val),
+                    verbose=2, callbacks=callbacks)
 
-model.save_weights("20ng-1dcnn.h5")
+# ### Inference
 
-# In[ ]:
-
-
-plt.figure(figsize=(5,3))
-plt.plot(history.epoch,history.history['loss'], label='training')
-plt.plot(history.epoch,history.history['val_loss'], label='validation')
-plt.title('loss')
-plt.legend(loc='best')
-plt.savefig("20ng-1dcnn-loss.png")
-
-plt.figure(figsize=(5,3))
-plt.plot(history.epoch,history.history['acc'], label='training')
-plt.plot(history.epoch,history.history['val_acc'], label='validation')
-plt.title('accuracy')
-plt.legend(loc='best')
-plt.savefig("20ng-1dcnn-accuracy.png")
+scores = model.evaluate(x_test, y_test, verbose=2)
+print("Test set %s: %.2f%%" % (model.metrics_names[1], scores[1]*100))
