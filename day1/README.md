@@ -6,23 +6,30 @@
 
 Introduction to Notebooks, Keras fundamentals.
 
-Jupyter notebook: *keras-test-setup.ipynb*
+* *keras-test-setup.ipynb*
 
 ### Exercise 2
 
 Image classification with MLPs and CNNs.
 
-Jupyter notebooks: *keras-mnist-mlp.ipynb*, *keras-mnist-cnn.ipynb*
+* *keras-mnist-mlp.ipynb*
+* *keras-mnist-cnn.ipynb*
 
-Optional: *tf-mnist-mlp.ipynb*, *pytorch-mnist-mlp.ipynb*
+Optional: 
+
+* *tf-mnist-mlp.ipynb* 
+* *pytorch-mnist-mlp.ipynb*
 
 ### Exercise 3
 
 Text sentiment classification with CNNs and RNNs.
 
-Jupyter notebooks: *keras-imdb-cnn.ipynb*, *keras-imdb-rnn.ipynb*
+* *keras-imdb-cnn.ipynb*
+* *keras-imdb-rnn.ipynb*
 
-Optional: *keras-mnist-rnn.ipynb*
+Optional: 
+
+* *keras-mnist-rnn.ipynb*
 
 ## Setup
 
@@ -34,11 +41,14 @@ This is the default option. There should be enough resources for launching a not
 
 * point your browser to https://notebooks.csc.fi
 * login using Haka (or using a separate username and password)
-* “Launch new” Jupyter ML (Machine Learning) environment
+* “Launch new” *Jupyter ML (Machine Learning)* environment
 * wait until “Open in browser” link appears, then click on it
 * the jupyter notebook dashboard should appear
 * click “New” on the right side of the screen, then “Python 3”
-* run the following command:
+* if you are not familiar with Jupyter, take a moment to get to know the interface
+    * write some Python code to a Jupyter *cell*
+    * execute the cell with *shift-enter*
+* run the following command on an empty cell:
 
     `!git clone https://github.com/csc-training/intro-to-dl.git`
 
