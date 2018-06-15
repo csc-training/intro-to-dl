@@ -22,7 +22,10 @@ Text categorization and labeling: 20 newsgroups; Ted talks.
 
 ### Exercise 6
 
-Using multiple GPUs.
+Using multiple GPUs.  
+
+* Do you get the same accuracy than with a single GPU?
+* Do you get improvements in speed?
 
 ## Setup
 
