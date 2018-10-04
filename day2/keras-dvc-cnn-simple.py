@@ -167,7 +167,8 @@ history = model.fit_generator(train_generator,
                               epochs=epochs,
                               validation_data=validation_generator,
                               validation_steps=nimages_validation // batch_size,
-                              verbose=2, callbacks=callbacks)
+                              verbose=2, callbacks=callbacks,
+                              use_multiprocessing=True, workers=4)
 
 model.save("dvc-small-cnn.h5")
 
