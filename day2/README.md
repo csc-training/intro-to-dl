@@ -74,6 +74,6 @@ Using multiple GPUs.
 
         module purge
         module load python-env/3.5.3-ml
-        python3 -m tensorboard.main --logdir=intro-to-dl/day2/logs --port=PORT
+        tensorboard --logdir=intro-to-dl/day2/logs --port=PORT
 
     To access TensorBoard, point your web browser to *localhost:PORT* .
