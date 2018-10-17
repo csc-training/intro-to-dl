@@ -46,7 +46,7 @@ if K.backend() == "tensorflow":
     from keras.callbacks import TensorBoard
     import os, datetime
     logdir = os.path.join(os.getcwd(), "logs",
-                     "ted-cnn-"+datetime.datetime.now()
+                     "ted-rnn-"+datetime.datetime.now()
                           .strftime('%Y-%m-%d_%H-%M-%S'))
     print('TensorBoard log directory:', logdir)
     os.makedirs(logdir)
