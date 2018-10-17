@@ -1,17 +1,16 @@
-
 # coding: utf-8
 
 # # Ted talks keyword labeling with pre-trained word embeddings
-# 
+#
 # In this script, we'll use pre-trained [GloVe word embeddings]
 # (http://nlp.stanford.edu/projects/glove/) for keyword labeling using
 # Keras (version $\ge$ 2 is required). This script is largely based on
 # the blog post [Using pre-trained word embeddings in a Keras model]
 # (https://blog.keras.io/using-pre-trained-word-embeddings-in-a-keras-model.html)
 # by François Chollet.
-# 
+#
 # **Note that using a GPU with this script is highly recommended.**
-# 
+#
 # First, the needed imports. Keras tells us which backend (Theano,
 # Tensorflow, CNTK) it will be using.
 
@@ -46,7 +45,8 @@ if K.backend() == "tensorflow":
     from keras.callbacks import TensorBoard
     import os, datetime
     logdir = os.path.join(os.getcwd(), "logs",
-                     "ted-cnn-"+datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
+                     "ted-cnn-"+datetime.datetime.now()
+                          .strftime('%Y-%m-%d_%H-%M-%S'))
     print('TensorBoard log directory:', logdir)
     os.makedirs(logdir)
     callbacks = [TensorBoard(log_dir=logdir)]
@@ -54,7 +54,7 @@ else:
     callbacks =  None
 
 # ## GloVe word embeddings
-# 
+#
 # Let's begin by loading a datafile containing pre-trained word
 # embeddings.  The datafile contains 100-dimensional embeddings for
 # 400,000 English words.
@@ -71,91 +71,104 @@ with open(os.path.join(GLOVE_DIR, 'glove.6B.100d.txt')) as f:
         coefs = np.asarray(values[1:], dtype='float32')
         embeddings_index[word] = coefs
 
-print('Found %s word vectors.' % len(embeddings_index))
+embedding_dim = len(coefs)
+print('Found %d word vectors of dimensionality %d.' % (len(embeddings_index),
+                                                       embedding_dim))
 
 # ## Ted talks data set
-# 
-# Next we'll load the Ted talks data set. 
-# 
-# The dataset contains transcripts and metadata of 2085 Ted
-# talks. Each talk is annotated with a set of keywords. In this
-# notebook, we'll use the 10 most common keywords.
+#
+# Next we'll load the TED Talks data set (Kaggle TED Talks, 2017 edition).
+# The data is stored in two CSV files, so we load both of them and
+# merge them into a single DataFrame.
+#xs
+# The merged dataset contains transcripts and metadata of 2467 TED talks.
+# Each talk is also annotated with a set of tags.
 
-TEXT_DATA_DIR = "/wrk/makoskel/ted"
+TEXT_DATA_DIR = "/wrk/makoskel/ted/kaggle-ted-talks"
 
-keywords = {"technology": 0, "culture": 1, "science": 2, "global issues": 3, "design": 4, 
-            "business": 5, "entertainment": 6, "arts": 7, "education": 8, "politics": 9}
+df1 = pd.read_csv(TEXT_DATA_DIR+'/ted_main.csv')
+df2 = pd.read_csv(TEXT_DATA_DIR+'/transcripts.csv')
+df = pd.merge(left=df1, right=df2, how='inner', left_on='url', right_on='url')
 
-print('Processing xml')
+print(len(df), 'talks')
 
-tree = ET.parse(TEXT_DATA_DIR+"/ted_en-20160408.xml")
-root = tree.getroot() 
+# Now we decide to use either the `transcipt` or the `description` column:
 
-talks = []
-
-for i in root:
-    labels = np.zeros(10)
-    kws = i.find("./head/keywords").text.split(",")
-    kws = [x.strip() for x in kws]
-    for k in kws:
-        if k in keywords:
-            labels[keywords[k]] = 1.
-    title = i.find("./head/title").text
-    date = i.find("./head/date").text
-    description = i.find("./head/description").text
-    content = i.find("./content").text
-    
-    talks.append({"title": title, "date": date, "description": description,
-                  "content": content, "labels": labels})
-
-print('Found %s talks.' % len(talks))
-
-l = np.empty(len(talks))
-for i in range(len(talks)):
-    l[i]=np.sum(talks[i]["labels"])
-nlabels_mean = np.mean(l)
-
-# Let's take a look at *i*th talk:
-
-i = 3
-print('* Title:', talks[i]["title"])
-print('* Date:', talks[i]["date"])
-print('* Description:', talks[i]["description"])
-print('* Content:', talks[i]["content"][:1000], '...',
-      '(%d chars in total)' % len(talks[i]["content"])) 
-print('* Labels:', talks[i]["labels"])
-print('* Keywords:')
-kwlist = sorted(keywords, key=lambda key: keywords[key])
-for l, lval in enumerate(talks[i]["labels"]):
-    if lval>0.5:
-        print('  ['+kwlist[l]+']')
-
-# Now we decide whether to use the `description` or `content` fields.
-
-texttype = "content"
+texttype = "transcript"
 #texttype = "description"
 
-# Vectorize the text samples into a 2D integer tensor.
+# ### Keywords
+#
+# Let's start by converting the string-type lists of tags to Python
+# lists.  Then, we take a look at a histogram of number of tags attached
+# to talks:
+
+import ast
+df['taglist']=df['tags'].apply(lambda x: ast.literal_eval(x))
+
+# We use the `NLABELS` most frequent tags as keyword labels we wish
+# to predict:
+
+NLABELS=100
+
+ntags = dict()
+for tl in df['taglist']:
+    for t in tl:
+        if t in ntags:
+            ntags[t] += 1
+        else:
+            ntags[t] = 1
+
+ntagslist_sorted = sorted(ntags, key=ntags.get, reverse=True)
+print('Total of', len(ntagslist_sorted), 'tags found. Showing',
+      NLABELS, 'most common tags:')
+for i, t in enumerate(ntagslist_sorted[:NLABELS]):
+    print(i, t, ntags[t])
+
+def tags_to_indices(x):
+    ilist = []
+    for t in x:
+        ilist.append(ntagslist_sorted.index(t))
+    return ilist
+
+df['tagidxlist'] = df['taglist'].apply(tags_to_indices)
+
+def indices_to_labels(x):
+    labels = np.zeros(NLABELS)
+    for i in x:
+        if i < NLABELS:
+            labels[i] = 1
+    return labels
+
+df['labels'] = df['tagidxlist'].apply(indices_to_labels)
+
+# ### Produce input and label tensors
+#
+# We vectorize the text samples and labels into a 2D integer tensors.
+#`MAX_NUM_WORDS` is the number of different words to use as tokens,
+# selected based on word frequency. `MAX_SEQUENCE_LENGTH` is the fixed
+# sequence length obtained by truncating or padding the original sequences.
 
 MAX_NUM_WORDS = 10000
-MAX_SEQUENCE_LENGTH = 1000 
+MAX_SEQUENCE_LENGTH = 1000
 
 tokenizer = text.Tokenizer(num_words=MAX_NUM_WORDS)
-tokenizer.fit_on_texts([x[texttype] for x in talks])
-sequences = tokenizer.texts_to_sequences([x[texttype] for x in talks])
+tokenizer.fit_on_texts([x for x in df[texttype]])
+sequences = tokenizer.texts_to_sequences([x for x in df[texttype]])
 
 word_index = tokenizer.word_index
 print('Found %s unique tokens.' % len(word_index))
 
 data = sequence.pad_sequences(sequences, maxlen=MAX_SEQUENCE_LENGTH)
-labels = np.asarray([x['labels'] for x in talks])
+labels = np.asarray([x for x in df['labels']])
 
 print('Shape of data tensor:', data.shape)
 print('Shape of labels tensor:', labels.shape)
 
-# Split the data into a training set and a validation set.  Note that
-# we do not use a separate test set in this notebook, due to the small
-# size of the dataset.
+# Next, we split the data into a training set and a validation set.  We
+# use a fraction of the data specified by `VALIDATION_SPLIT` for validation.
+# Note that we do not use a separate test set in this notebook, due to the
+# small size of the dataset.
 
 VALIDATION_SPLIT = 0.2
 
@@ -174,12 +187,12 @@ print('Shape of training label tensor:', y_train.shape)
 print('Shape of validation data tensor:', x_val.shape)
 print('Shape of validation label tensor:', y_val.shape)
 
-# Prepare the embedding matrix:
+# We prepare the embedding matrix by retrieving the corresponding
+# word embedding for each token in our vocabulary:
 
 print('Preparing embedding matrix.')
 
 num_words = min(MAX_NUM_WORDS, len(word_index) + 1)
-embedding_dim = 100
 
 embedding_matrix = np.zeros((num_words, embedding_dim))
 for word, i in word_index.items():
@@ -189,7 +202,7 @@ for word, i in word_index.items():
     if embedding_vector is not None:
         # words not found in embedding index will be all-zeros.
         embedding_matrix[i] = embedding_vector
-        
+
 print('Shape of embedding matrix:', embedding_matrix.shape)
 
 # ### Initialization
@@ -212,7 +225,7 @@ model.add(Conv1D(128, 5, activation='relu'))
 model.add(GlobalMaxPooling1D())
 
 model.add(Dense(64, activation='relu'))
-model.add(Dense(10, activation='sigmoid'))
+model.add(Dense(NLABELS, activation='sigmoid'))
 
 model.compile(loss='binary_crossentropy',
               optimizer='rmsprop')
@@ -231,28 +244,39 @@ history = model.fit(x_train, y_train,
                     verbose=2, callbacks=callbacks)
 
 # ### Inference
-# 
+#
 # To further analyze the results, we can produce the actual
 # predictions for the validation data.
 
 predictions = model.predict(x_val)
 
+# The selected threshold controls the number of label predictions we'll make:
+
+threshold = 0.5
+
+avg_n_gt, avg_n_pred = 0, 0
+for t in range(len(y_val)):
+    avg_n_gt += len(np.where(y_val[t]>0.5)[0])
+    avg_n_pred += len(np.where(predictions[t]>threshold)[0])
+avg_n_gt /= len(y_val)
+avg_n_pred /= len(y_val)
+print('Average number of ground-truth labels per talk: %.2f' % avg_n_gt)
+print('Average number of predicted labels per talk: %.2f' % avg_n_pred)
+
 # Let's look at the correct and predicted labels for some talks in the
 # validation set.
 
-threshold = 0.5
 nb_talks_to_show = 20
 
-inv_keywords = {v: k for k, v in keywords.items()}
 for t in range(nb_talks_to_show):
     print(t,':')
     print('    correct: ', end='')
     for idx in np.where(y_val[t]>0.5)[0].tolist():
-        sys.stdout.write('['+inv_keywords[idx]+'] ')
+        sys.stdout.write('['+ntagslist_sorted[idx]+'] ')
     print()
     print('  predicted: ', end='')
     for idx in np.where(predictions[t]>threshold)[0].tolist():
-        sys.stdout.write('['+inv_keywords[idx]+'] ')
+        sys.stdout.write('['+ntagslist_sorted[idx]+'] ')
     print()
 
 # Scikit-learn has some applicable performance [metrics]
@@ -260,15 +284,23 @@ for t in range(nb_talks_to_show):
 # we can try:
 
 print('Precision: {0:.3f} (threshold: {1:.2f})'
-      .format(metrics.precision_score(y_val.flatten(), predictions.flatten()>threshold), threshold))
+      .format(metrics.precision_score(y_val.flatten(),
+                                      predictions.flatten()>threshold),
+              threshold))
 print('Recall: {0:.3f} (threshold: {1:.2f})'
-      .format(metrics.recall_score(y_val.flatten(), predictions.flatten()>threshold), threshold))
+      .format(metrics.recall_score(y_val.flatten(),
+                                   predictions.flatten()>threshold),
+              threshold))
 print('F1 score: {0:.3f} (threshold: {1:.2f})'
-      .format(metrics.f1_score(y_val.flatten(), predictions.flatten()>threshold), threshold))
+      .format(metrics.f1_score(y_val.flatten(),
+                               predictions.flatten()>threshold),
+              threshold))
 
-average_precision = metrics.average_precision_score(y_val.flatten(), predictions.flatten())
+average_precision = metrics.average_precision_score(y_val.flatten(),
+                                                    predictions.flatten())
 print('Average precision: {0:.3f}'.format(average_precision))
-print('Coverage: {0:.3f}, optimal: {1:.3f}'
-      .format(metrics.coverage_error(y_val, predictions), nlabels_mean))
+print('Coverage: {0:.3f}'
+      .format(metrics.coverage_error(y_val, predictions)))
 print('LRAP: {0:.3f}'
-      .format(metrics.label_ranking_average_precision_score(y_val, predictions)))
+      .format(metrics.label_ranking_average_precision_score(y_val,
+                                                            predictions)))
