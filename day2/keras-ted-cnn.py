@@ -32,6 +32,7 @@ import xml.etree.ElementTree as ET
 import os
 import sys
 
+import pandas as pd
 import numpy as np
 
 print('Using Keras version:', __version__, 'backend:', K.backend())
