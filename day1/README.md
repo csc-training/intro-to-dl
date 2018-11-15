@@ -51,6 +51,7 @@ This is the default option. There should be enough resources for launching a not
 * run the following commands on an empty cell:
 
         !git clone https://github.com/csc-training/intro-to-dl.git
+        !cd intro-to-dl
         !git checkout hpc2n
 
 * go back to the dashboard, the exercises are located in the directory "intro-to-dl/day1".
@@ -59,9 +60,11 @@ This is the default option. There should be enough resources for launching a not
 
 If you have a laptop that has both jupyter and the other necessary python packages installed, it is possible to use it. In particular, if the laptop has an Nvidia GPU and it that has been properly set up (CUDA, cuDNN).
 
-* `git clone https://github.com/csc-training/intro-to-dl.git`
-* `git checkout hpc2n`
-* try to run the "day1/keras-test-setup.ipynb" notebook without errors
+        git clone https://github.com/csc-training/intro-to-dl.git
+        cd intro-to-dl
+        git checkout hpc2n
+
+Verify that you are able to run the *day1/keras-test-setup.ipynb* notebook without errors.
 
 ### 3. Google Colaboratory
 
