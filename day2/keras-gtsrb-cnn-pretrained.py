@@ -1,5 +1,8 @@
-
 # coding: utf-8
+
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
 
 # # Traffic sign classification with CNNs
 # 
@@ -59,7 +62,7 @@ else:
 # The validation and test sets consist of 999 and 12630 images,
 # respectively.
 
-datapath = "/wrk/makoskel/gtsrb/train-5535"
+DATAPATH = "/pfs/nobackup/home/m/makoskel/data/gtsrb/train-5535"
 (nimages_train, nimages_validation, nimages_test) = (5535, 999, 12630)
 
 # ### Data augmentation
@@ -90,8 +93,8 @@ noopgen = ImageDataGenerator(rescale=1./255)
 # TensorBoard event file.
 
 augm_generator = datagen.flow_from_directory(
-        datapath+'/train',  
-        target_size=input_image_size,  
+        DATAPATH+'/train',
+        target_size=input_image_size,
         batch_size=10)
 
 for batch, _ in augm_generator:
@@ -114,19 +117,19 @@ batch_size = 50
 
 print('Train: ', end="")
 train_generator = datagen.flow_from_directory(
-        datapath+'/train',  
+        DATAPATH+'/train',
         target_size=input_image_size,
         batch_size=batch_size)
 
 print('Validation: ', end="")
 validation_generator = noopgen.flow_from_directory(
-        datapath+'/validation',  
+        DATAPATH+'/validation',
         target_size=input_image_size,
         batch_size=batch_size)
 
 print('Test: ', end="")
 test_generator = noopgen.flow_from_directory(
-        datapath+'/test',  
+        DATAPATH+'/test',
         target_size=input_image_size,
         batch_size=batch_size)
 
