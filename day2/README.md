@@ -31,29 +31,25 @@ Using multiple GPUs.
 
 ### First terminal window
 
-1. Login to Taito-GPU using a training account or your CSC account:
+1. Login to Kebnekaise using a provided training account or your existing account:
 
-        ssh -l trainingxxx taito-gpu.csc.fi
+        ssh USERNAME@kebnekaise.hpc2n.umu.se
         
-2. Set up the module environment:
-
-        module purge
-        module load python-env/3.5.3-ml
-    
-3. Clone and cd to the exercise repository:
+2. Clone and cd to the exercise repository:
 
         git clone https://github.com/csc-training/intro-to-dl.git
+        git checkout hpc2n
         cd intro-to-dl/day2
 
 4. Edit and submit jobs:
 
         emacs/vim/nano keras-test.py
-        sbatch run-python-gpu-1h.sh keras-test.py  # when using a training account
-        sbatch run-python-gpu-1h-nores.sh keras-test.py  # when using own CSC account
+        sbatch run.sh keras-test.py  # when using the reserved nodes
+        sbatch run-nores.sh keras-test.py  # when not using the reserved nodes
 
 5. See the status of your jobs or the queue you are using:
 
-        squeue -l -u trainingxxx
+        squeue -l -u USERNAME
         squeue -l -p gpu
 
 6. After the job has finished, examine the results:
@@ -66,14 +62,14 @@ Using multiple GPUs.
 
 1. Login to Taito-GPU with SSH port forwarding:
 
-        ssh -l trainingxxx -L PORT:localhost:PORT taito-gpu.csc.fi
+        ssh -L PORT:localhost:PORT USERNAME@kebnekaise.hpc2n.umu.se
         
    Replace `PORT` with a freely selectable port number (>1023). By default, TensorBoard uses the port 6006, but **select a different port** to avoid overlaps. 
 
 2. Set up the module environment and start the TensorBoard server:
 
         module purge
-        module load python-env/3.5.3-ml
+        module load TENSORFLOWMODULE
         tensorboard --logdir=intro-to-dl/day2/logs --port=PORT
 
     To access TensorBoard, point your web browser to *localhost:PORT* .
