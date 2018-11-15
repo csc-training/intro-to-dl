@@ -1,5 +1,8 @@
-
 # coding: utf-8
+
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
 
 # # Dogs-vs-cats classification with CNNs
 # 
@@ -55,7 +58,7 @@ else:
 # in half.  In addition, the validation set consists of 1000 images,
 # and the test set of 22000 images.
 
-datapath = "/wrk/makoskel/dogs-vs-cats/train-2000"
+DATAPATH = "/pfs/nobackup/home/m/makoskel/data/dogs-vs-cats/train-2000"
 (nimages_train, nimages_validation, nimages_test) = (2000, 1000, 22000)
 
 # ### Data augmentation
@@ -86,8 +89,8 @@ noopgen = ImageDataGenerator(rescale=1./255)
 # TensorBoard event file.
 
 augm_generator = datagen.flow_from_directory(
-        datapath+'/train',  
-        target_size=input_image_size,  
+        DATAPATH+'/train',
+        target_size=input_image_size,
         batch_size=10)
 
 for batch, _ in augm_generator:
@@ -110,21 +113,21 @@ batch_size = 25
 
 print('Train: ', end="")
 train_generator = datagen.flow_from_directory(
-        datapath+'/train',  
+        DATAPATH+'/train',
         target_size=input_image_size,
-        batch_size=batch_size, 
+        batch_size=batch_size,
         class_mode='binary')
 
 print('Validation: ', end="")
 validation_generator = noopgen.flow_from_directory(
-        datapath+'/validation',  
+        DATAPATH+'/validation',
         target_size=input_image_size,
         batch_size=batch_size,
         class_mode='binary')
 
 print('Test: ', end="")
 test_generator = noopgen.flow_from_directory(
-        datapath+'/test',  
+        DATAPATH+'/test',
         target_size=input_image_size,
         batch_size=batch_size,
         class_mode='binary')
@@ -138,8 +141,8 @@ test_generator = noopgen.flow_from_directory(
 
 model = Sequential()
 
-vgg_model = applications.VGG16(weights='imagenet', 
-                               include_top=False, 
+vgg_model = applications.VGG16(weights='imagenet',
+                               include_top=False,
                                input_shape=input_image_size+(3,))
 for layer in vgg_model.layers:
     model.add(layer)
@@ -187,7 +190,7 @@ model.save("dvc-vgg16-reuse.h5")
 for layer in model.layers[15:]:
     layer.trainable = True
     print(layer.name, "now trainable")
-    
+
 model.compile(loss='binary_crossentropy',
     optimizer=optimizers.RMSprop(lr=1e-5),
     metrics=['accuracy'])
