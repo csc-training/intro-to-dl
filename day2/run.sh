@@ -1,6 +1,7 @@
 #!/bin/bash
 #SBATCH -A SNIC2018-5-131
 #SBATCH -N 1 --gres=gpu:k80:1 -t 1:00:00 --mem=32G
+#SBATCH --reservation=snic2018-5-131
 
 module purge
 module load GCC/7.3.0-2.30  CUDA/9.2.88  OpenMPI/3.1.1
