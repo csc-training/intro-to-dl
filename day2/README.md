@@ -34,9 +34,19 @@ Using multiple GPUs.
 1. Login to Kebnekaise using a provided training account or your existing account:
 
         ssh USERNAME@kebnekaise.hpc2n.umu.se
-        
-2. Clone and cd to the exercise repository:
 
+2. Create the following links to parallel file system:
+        
+        cd $HOME
+        ln -s /pfs/nobackup$HOME pfs
+        cd pfs
+        mkdir .keras 
+        cd $HOME 
+        ln -s pfs/.keras .keras
+
+3. Clone and cd to the exercise repository:
+
+        cd ~/pfs
         git clone https://github.com/csc-training/intro-to-dl.git
         git checkout hpc2n
         cd intro-to-dl/day2
@@ -60,7 +70,7 @@ Using multiple GPUs.
 
 ### Second terminal window
 
-1. Login to Taito-GPU with SSH port forwarding:
+1. Login to Kebnekaise with SSH port forwarding:
 
         ssh -L PORT:localhost:PORT USERNAME@kebnekaise.hpc2n.umu.se
         
@@ -68,8 +78,8 @@ Using multiple GPUs.
 
 2. Set up the module environment and start the TensorBoard server:
 
-        module purge
-        module load TENSORFLOWMODULE
-        tensorboard --logdir=intro-to-dl/day2/logs --port=PORT
+        module load GCC/7.3.0-2.30  CUDA/9.2.88  OpenMPI/3.1.1
+        module load TensorFlow/1.10.1-Python-2.7.15
+        tensorboard --logdir=pfs/intro-to-dl/day2/logs --port=PORT
 
     To access TensorBoard, point your web browser to *localhost:PORT* .
