@@ -48,19 +48,20 @@ Using multiple GPUs.
 
         cd ~/pfs
         git clone https://github.com/csc-training/intro-to-dl.git
-        git checkout hpc2n
         cd intro-to-dl/day2
+        git checkout hpc2n
 
 4. Edit and submit jobs:
 
         emacs/vim/nano keras-test.py
-        sbatch run.sh keras-test.py  # when using the reserved nodes
+        sbatch run.sh keras-test.py        # when using the reserved nodes
         sbatch run-nores.sh keras-test.py  # when not using the reserved nodes
 
 5. See the status of your jobs or the queue you are using:
 
         squeue -l -u USERNAME
         squeue -l -p gpu
+        squeue -l -R RESERVATION
 
 6. After the job has finished, examine the results:
 
