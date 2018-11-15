@@ -1,5 +1,8 @@
-
 # coding: utf-8
+
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
 
 # # 20 Newsgroups text classification with pre-trained word embeddings
 # 
@@ -28,7 +31,7 @@ from distutils.version import LooseVersion as LV
 from keras import __version__
 from keras import backend as K
 
-from sklearn.model_selection import train_test_split
+#from sklearn.model_selection import train_test_split
 
 import os
 import sys
@@ -59,7 +62,7 @@ else:
 # embeddings.  The datafile contains 100-dimensional embeddings for
 # 400,000 English words.
 
-GLOVE_DIR = "/wrk/makoskel/glove.6B"
+GLOVE_DIR = "/pfs/nobackup/home/m/makoskel/data/glove.6B"
 
 print('Indexing word vectors.')
 
@@ -88,7 +91,7 @@ print('Found %s word vectors.' % len(embeddings_index))
 # talk.politics.misc    | comp.os.ms-windows.misc  | rec.sport.baseball | sci.med                      
 # talk.religion.misc    | comp.sys.mac.hardware    | rec.sport.hockey   | misc.forsale
 
-TEXT_DATA_DIR = "/wrk/makoskel/20_newsgroup"
+TEXT_DATA_DIR = "/pfs/nobackup/home/m/makoskel/data/20_newsgroup"
 
 print('Processing text dataset')
 
@@ -136,13 +139,21 @@ print('Shape of label tensor:', labels.shape)
 
 VALIDATION_SET, TEST_SET = 1000, 4000
 
-x_train, x_test, y_train, y_test = train_test_split(data, labels, 
-                                                    test_size=TEST_SET,
-                                                    shuffle=True, random_state=42)
+# x_train, x_test, y_train, y_test = train_test_split(data, labels, 
+#                                                     test_size=TEST_SET,
+#                                                     shuffle=True, random_state=42)
 
-x_train, x_val, y_train, y_val = train_test_split(x_train, y_train, 
-                                                  test_size=VALIDATION_SET,
-                                                  shuffle=False)
+# x_train, x_val, y_train, y_val = train_test_split(x_train, y_train, 
+#                                                   test_size=VALIDATION_SET,
+#                                                   shuffle=False)
+
+indices = np.arange(data.shape[0])
+np.random.shuffle(indices)
+data = data[indices]
+labels = labels[indices]
+
+x_val, x_test, x_train = np.split(data, [VALIDATION_SET, VALIDATION_SET+TEST_SET])
+y_val, y_test, y_train = np.split(labels, [VALIDATION_SET, VALIDATION_SET+TEST_SET])
 
 print('Shape of training data tensor:', x_train.shape)
 print('Shape of training label tensor:', y_train.shape)
