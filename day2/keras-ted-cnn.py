@@ -268,11 +268,11 @@ nb_talks_to_show = 20
 
 for t in range(nb_talks_to_show):
     print(t,':')
-    print('    correct: ', end='')
+    sys.stdout.write('    correct: ')
     for idx in np.where(y_val[t]>0.5)[0].tolist():
         sys.stdout.write('['+ntagslist_sorted[idx]+'] ')
     print()
-    print('  predicted: ', end='')
+    sys.stdout.write('  predicted: ')
     for idx in np.where(predictions[t]>threshold)[0].tolist():
         sys.stdout.write('['+ntagslist_sorted[idx]+'] ')
     print()
