@@ -26,9 +26,6 @@ from distutils.version import LooseVersion as LV
 from keras import __version__
 from keras import backend as K
 
-from sklearn import metrics
-
-import xml.etree.ElementTree as ET
 import os
 import sys
 
@@ -276,28 +273,45 @@ for t in range(nb_talks_to_show):
         sys.stdout.write('['+ntagslist_sorted[idx]+'] ')
     print()
 
-# Scikit-learn has some applicable performance [metrics]
-# (http://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics)
-# we can try:
+# Precision, recall, the F1 measure, and NDCG (normalized discounted
+# cumulative gain) after k returned labels are common performance
+# metrics for multi-label classification:
 
-print('Precision: {0:.3f} (threshold: {1:.2f})'
-      .format(metrics.precision_score(y_val.flatten(),
-                                      predictions.flatten()>threshold),
-              threshold))
-print('Recall: {0:.3f} (threshold: {1:.2f})'
-      .format(metrics.recall_score(y_val.flatten(),
-                                   predictions.flatten()>threshold),
-              threshold))
-print('F1 score: {0:.3f} (threshold: {1:.2f})'
-      .format(metrics.f1_score(y_val.flatten(),
-                               predictions.flatten()>threshold),
-              threshold))
+def dcg_at_k(vals, k):
+    res = 0
+    for i in range(k):
+        res += vals[i][1] / np.log2(i + 2)
+    return res
 
-average_precision = metrics.average_precision_score(y_val.flatten(),
-                                                    predictions.flatten())
-print('Average precision: {0:.3f}'.format(average_precision))
-print('Coverage: {0:.3f}'
-      .format(metrics.coverage_error(y_val, predictions)))
-print('LRAP: {0:.3f}'
-      .format(metrics.label_ranking_average_precision_score(y_val,
-                                                            predictions)))
+def scores_at_k(truevals, predvals, k):
+    precision_at_k, recall_at_k, f1score_at_k, ndcg_at_k = 0, 0, 0, 0
+
+    for j in range(len(truevals)): 
+        z = list(zip(predvals[j], truevals[j]))
+        sorted_z = sorted(z, reverse=True, key=lambda tup: tup[0])
+        opt_z = sorted(z, reverse=True, key=lambda tup: tup[1])
+        truesum = 0
+        for i in range(k):
+            truesum += sorted_z[i][1]
+        pr = truesum / k
+        rc = truesum / np.sum(truevals[0])
+        if truesum>0:
+            f1score_at_k += 2*((pr*rc)/(pr+rc))
+        precision_at_k += pr
+        recall_at_k += rc
+        cg = dcg_at_k(sorted_z, k) / (dcg_at_k(opt_z, k) + 0.00000001)
+        ndcg_at_k += cg
+
+    precision_at_k /= len(truevals)
+    recall_at_k /= len(truevals)
+    f1score_at_k /= len(truevals)
+    ndcg_at_k /= len(truevals)
+    
+    print('Precision@{0} : {1:.2f}'.format(k, precision_at_k))
+    print('Recall@{0}    : {1:.2f}'.format(k, recall_at_k))
+    print('F1@{0}        : {1:.2f}'.format(k, f1score_at_k))
+    print('NDCG@{0}      : {1:.2f}'.format(k, ndcg_at_k))
+
+scores_at_k(y_val, predictions, 5)
+print()
+scores_at_k(y_val, predictions, 10)
