@@ -1,5 +1,9 @@
 # coding: utf-8
 
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+
 # # Ted talks keyword labeling with pre-trained word embeddings
 #
 # In this script, we'll use pre-trained [GloVe word embeddings]
