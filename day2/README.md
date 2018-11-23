@@ -61,7 +61,7 @@ Using multiple GPUs.
 
         squeue -l -u USERNAME
         squeue -l -p gpu
-        squeue -l -R RESERVATION
+        squeue -l -R snic2018-5-131
 
 6. After the job has finished, examine the results:
 
