@@ -172,13 +172,16 @@ history = model.fit_generator(train_generator,
                               epochs=epochs,
                               validation_data=validation_generator,
                               validation_steps=nimages_validation // batch_size,
-                              verbose=2, callbacks=callbacks)
+                              verbose=2, callbacks=callbacks,
+                              use_multiprocessing=True, workers=4)
 
 model.save("gtsrb-small-cnn.h5")
 
 # ### Inference
 
 scores = model.evaluate_generator(test_generator,
-                                  steps=nimages_test // batch_size)
+                                  steps=nimages_test // batch_size,
+                                  use_multiprocessing=True, workers=4)
+)
 
 print("Test set %s: %.2f%%" % (model.metrics_names[1], scores[1]*100))
