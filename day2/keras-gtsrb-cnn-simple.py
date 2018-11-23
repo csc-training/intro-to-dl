@@ -182,6 +182,5 @@ model.save("gtsrb-small-cnn.h5")
 scores = model.evaluate_generator(test_generator,
                                   steps=nimages_test // batch_size,
                                   use_multiprocessing=True, workers=4)
-)
 
 print("Test set %s: %.2f%%" % (model.metrics_names[1], scores[1]*100))
