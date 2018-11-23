@@ -48,11 +48,9 @@ This is the default option. There should be enough resources for launching a not
 * if you are not familiar with Jupyter, take a moment to get to know the interface
     * write some Python code to a Jupyter *cell*
     * execute the cell with *shift-enter*
-* run the following commands on an empty cell:
+* run the following command on an empty cell:
 
-        !git clone https://github.com/csc-training/intro-to-dl.git
-        !cd intro-to-dl
-        !git checkout hpc2n
+        !git clone https://github.com/csc-training/intro-to-dl.git -b hpc2n
 
 * go back to the dashboard, the exercises are located in the directory "intro-to-dl/day1".
   
