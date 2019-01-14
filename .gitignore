@@ -2,3 +2,7 @@ day2/*.png
 day2/*.out
 day2/*.h5
 .ipynb_checkpoints
+*~
+/day1/data
+/day1/optional/data
+
