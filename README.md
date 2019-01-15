@@ -1,3 +1,3 @@
 # Introduction to deep learning [![Gitter chat](https://badges.gitter.im/csc_training/intro-to-dl.svg)](https://gitter.im/csc_training/intro-to-dl)
 
-This repository contains the exercise materials for the [CSC](https://www.csc.fi/) course [Introduction to deep learning](https://www.csc.fi/web/training/-/dlintro_2_2018).
+This repository contains the exercise materials for the HiDATA course [CSC Course on Deep Learning](https://helsinginyliopisto.etapahtuma.fi/en-us/Kalenteri/English?id=54468).
