@@ -1,39 +1,29 @@
-# Day 1
+# Notebooks
 
 ## Exercise sessions
 
 ### Exercise 1
 
-Introduction to Notebooks, Keras fundamentals.
+Introduction to Notebooks, Keras fundamentals, MLPs.
 
 * *keras-test-setup.ipynb*
+* *keras-mnist-mlp.ipynb*
 
 ### Exercise 2
 
-Image classification with MLPs and CNNs.
+Image classification with CNNs.
 
-* *keras-mnist-mlp.ipynb*
 * *keras-mnist-cnn.ipynb*
-
-Optional: 
-
-* *tf-mnist-mlp.ipynb* 
-* *pytorch-mnist-mlp.ipynb*
 
 ### Exercise 3
 
-Text sentiment classification with CNNs and RNNs.
+Text sentiment classification with RNNs.
 
-* *keras-imdb-cnn.ipynb*
 * *keras-imdb-rnn.ipynb*
-
-Optional: 
-
-* *keras-mnist-rnn.ipynb*
 
 ## Setup
 
-We will use Jupyter Notebooks for all exercises on Day 1. There are several ways to set up a Jupyter environment for running the exercises:
+We will use Jupyter Notebooks for Exercises 1-3. There are several ways to set up a Jupyter environment for running the exercises:
 
 ### 1. CSC’s Notebooks
 
@@ -41,7 +31,7 @@ This is the default option. There should be enough resources for launching a not
 
 * point your browser to https://notebooks.csc.fi
 * login using Haka (or using a separate username and password)
-* “Launch new” *Jupyter ML (Machine Learning)* environment
+* “Launch new” *Jupyter Machine Learning* environment
 * wait until “Open in browser” link appears, then click on it
 * the jupyter notebook dashboard should appear
 * click “New” on the right side of the screen, then “Python 3”
@@ -65,11 +55,7 @@ If you have a laptop that has both jupyter and the other necessary python packag
 
 Google has a free Jupyter Notebooks service you may want to try out. No guarantees, but it does have GPUs available!
 
-* point your browser to https://github.com/csc-training/intro-to-dl/tree/master/day1 
+* point your browser to https://github.com/csc-training/intro-to-dl/tree/hidata2019/notebooks 
 * select a notebook file
 * at the end of the file, there is a link: “Run this notebook in Google Colaboratory using this link”
 * to use a GPU, select: Runtime => Change runtime type => Hardware accelerator: GPU
-
-### 4. Local installation to classroom desktops
-
-A last resort, hopefully we don’t have to do this.
