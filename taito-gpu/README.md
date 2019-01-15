@@ -1,44 +1,23 @@
-# Day 2
+# Taito-GPU
 
 ## Exercise sessions
 
 ### Exercise 4
 
-Image classification: dogs vs. cats; traffic signs.
+Image classification: dogs vs. cats; Text categorization: 20 newsgroups.
 
 * *keras-dvc-cnn-simple.py*: Dogs vs. cats with a CNN trained from scratch
 * *keras-dvc-cnn-pretrained.py*: Dogs vs. cats with a pre-trained CNN
-* *keras-gtsrb-cnn-simple.py*: Traffic signs with a CNN trained from scratch
-* *keras-gtsrb-cnn-pretrained.py*: Traffic signs with a pre-trained CNN
-
-### Exercise 5
-
-Text categorization and labeling: 20 newsgroups; Ted talks.
-
-* *keras-20ng-cnn.py*: 20 newsgroups classification with a 1D-CNN
+* *keras-dvc-cnn-evaluate.py*: Dogs vs. cats evaluation with test set
 * *keras-20ng-rnn.py*: 20 newsgroups classification with a RNN
-* *keras-ted-cnn.py*: Ted talks labeling with a 1D-CNN
-* *keras-ted-rnn.py*: Ted talks labeling with a RNN
-
-### Exercise 6
-
-Using multiple GPUs with a chosen script from Exercise 4 or 5.
-
-* Do you get improvements in speed?
-* Do you get the same accuracy than with a single GPU?
-
-Extracurricular:
-
-1. Copy training data to compute node `$TMPDIR` and read it from there
-   in your script. See Section 6.5.5 in
-   https://research.csc.fi/taito-gpu-running for more information.
-2. Use Horovod to implement multi-GPU training. See [run-hvd.sh](run-hvd.sh).
 
 ## Setup
 
-### First terminal window
+We will use Taito-GPU in groups for Exercise 4. 
 
-1. Login to Taito-GPU using a training account or your CSC account:
+### Login
+
+1. Login to Taito-GPU using a training account (or your own CSC account):
 
         ssh -l trainingxxx taito-gpu.csc.fi
         
@@ -69,7 +48,7 @@ Extracurricular:
 
 7. Go to 4 until you are happy with the results.
 
-### Second terminal window
+### Optional: TensorBoard
 
 1. Login to Taito-GPU with SSH port forwarding:
 
