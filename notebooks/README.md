@@ -27,7 +27,7 @@ We will use Jupyter Notebooks for Exercises 1-3. There are several ways to set u
 
 ### 1. CSC’s Notebooks
 
-This is the default option. There should be enough resources for launching a notebooks instance for everyone, but unfortunately no GPUs. CSC’s Notebooks (https://notebooks.csc.fi) provides easy-to-use environments for working with data and programming. You can access everything via your web browser and CSC cloud environment computes on the background.
+*The default option.* CSC’s Notebooks (https://notebooks.csc.fi) provides easy-to-use environments for working with data and programming. You can access everything via your web browser and CSC cloud environment computes on the background. There should be enough resources for launching a notebooks instance for everyone, but unfortunately no GPUs. 
 
 * point your browser to https://notebooks.csc.fi
 * login using Haka (or using a separate username and password)
