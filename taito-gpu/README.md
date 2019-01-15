@@ -28,8 +28,8 @@ We will use Taito-GPU in groups for Exercise 4.
     
 3. Clone and cd to the exercise repository:
 
-        git clone https://github.com/csc-training/intro-to-dl.git
-        cd intro-to-dl/day2
+        git clone https://github.com/csc-training/intro-to-dl.git -b hidata2019
+        cd intro-to-dl/taito-gpu
 
 4. Edit and submit jobs:
 
@@ -37,7 +37,7 @@ We will use Taito-GPU in groups for Exercise 4.
         sbatch run.sh keras-test.py  # when using a training account
         sbatch run-nores.sh keras-test.py  # when using own CSC account
 
-5. See the status of your jobs or the queue you are using:
+5. See the status of *your jobs* or *the queue you are using*:
 
         squeue -l -u trainingxxx
         squeue -l -p gpu
@@ -60,6 +60,6 @@ We will use Taito-GPU in groups for Exercise 4.
 
         module purge
         module load python-env/3.5.3-ml
-        tensorboard --logdir=intro-to-dl/day2/logs --port=PORT
+        tensorboard --logdir=intro-to-dl/taito-gpu/logs --port=PORT
 
     To access TensorBoard, point your web browser to *localhost:PORT* .
