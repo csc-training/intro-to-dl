@@ -4,11 +4,14 @@
 
 ### Exercise 4
 
-Image classification: dogs vs. cats; Text categorization: 20 newsgroups.
+Image classification: dogs vs. cats.
 
 * *keras-dvc-cnn-simple.py*: Dogs vs. cats with a CNN trained from scratch
 * *keras-dvc-cnn-pretrained.py*: Dogs vs. cats with a pre-trained CNN
 * *keras-dvc-cnn-evaluate.py*: Dogs vs. cats evaluation with test set
+
+Text categorization: 20 newsgroups.
+
 * *keras-20ng-rnn.py*: 20 newsgroups classification with a RNN
 
 ## Setup
