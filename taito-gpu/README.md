@@ -18,8 +18,6 @@ Text categorization: 20 newsgroups.
 
 We will use Taito-GPU in groups for Exercise 4. 
 
-### Login
-
 1. Login to Taito-GPU using a training account (or your own CSC account):
 
         ssh -l trainingxxx taito-gpu.csc.fi
@@ -34,24 +32,30 @@ We will use Taito-GPU in groups for Exercise 4.
         git clone https://github.com/csc-training/intro-to-dl.git -b hidata2019
         cd intro-to-dl/taito-gpu
 
-4. Edit and submit jobs:
+## Edit and submit jobs
 
-        emacs/vim/nano keras-test.py
+1. Edit and submit jobs:
+
+        nano keras-test.py  # or substitute with your favorite text editor
         sbatch run.sh keras-test.py  # when using a training account
         sbatch run-nores.sh keras-test.py  # when using own CSC account
+        
+    You can also specify additional command line arguments, e.g.:
+    
+        sbatch run.sh keras-dvc-rcnn-evaluate.py dvc-small-cnn.h5
 
-5. See the status of *your jobs* or *the queue you are using*:
+2. See the status of *your jobs* or *the queue you are using*:
 
         squeue -l -u trainingxxx
         squeue -l -p gpu
 
-6. After the job has finished, examine the results:
+3. After the job has finished, examine the results:
 
         less slurm-xxxxxxxx.out
 
-7. Go to 4 until you are happy with the results.
+4. Repeat until you are happy with the results.
 
-### Optional: TensorBoard
+## Optional: TensorBoard
 
 1. Login to Taito-GPU with SSH port forwarding:
 
