@@ -29,20 +29,15 @@ We will use Jupyter Notebooks for Exercises 1-3. There are several ways to set u
 
 *The default option.* CSC’s Notebooks (https://notebooks.csc.fi) provides easy-to-use environments for working with data and programming. You can access everything via your web browser and CSC cloud environment computes on the background. There should be enough resources for launching a notebooks instance for everyone, but unfortunately no GPUs. 
 
-* point your browser to https://notebooks.csc.fi
-* login using Haka (or using a separate username and password)
-* “Launch new” *Jupyter Machine Learning* environment
-* wait until “Open in browser” link appears, then click on it
-* the jupyter notebook dashboard should appear
-* click “New” on the right side of the screen, then “Python 3”
+* Point your browser to https://notebooks.csc.fi
+* Login using Haka (or using a separate username and password)
+* Find *Course Practical Deep Learning* and click “Launch new”
+* Wait until the “Open in browser” link appears, then click on it
+* The jupyter notebook dashboard should appear
+* Navigate to `intro-to-dl/notebooks` 
 * if you are not familiar with Jupyter, take a moment to get to know the interface
     * write some Python code to a Jupyter *cell*
     * execute the cell with *shift-enter*
-* run the following command on an empty cell:
-
-    `!git clone https://github.com/csc-training/intro-to-dl.git -b hidata2019`
-
-* go back to the dashboard, the exercises are located in the directory "intro-to-dl/notebooks".
   
 ### 2. Running Jupyter on your laptop
 
