@@ -69,7 +69,7 @@ print(model.summary())
 
 # ### Inference
 
-workers = 14
+workers = 4
 use_multiprocessing = True
 
 print('Evaluating model', sys.argv[1], 'with', workers,
