@@ -36,6 +36,7 @@ We will use Jupyter Notebooks for Exercises 1-3. There are several ways to set u
 * The jupyter notebook dashboard should appear
 * Navigate to `intro-to-dl/notebooks` 
 * if you are not familiar with Jupyter, take a moment to get to know the interface
+    * open a new notebook (*New* -> *Python 3*, located top-right on the dashboard) 
     * write some Python code to a Jupyter *cell*
     * execute the cell with *shift-enter*
   
