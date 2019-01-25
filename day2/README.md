@@ -22,10 +22,17 @@ Text categorization and labeling: 20 newsgroups; Ted talks.
 
 ### Exercise 6
 
-Using multiple GPUs.  
+Using multiple GPUs with a chosen script from Exercise 4 or 5.
 
-* Do you get the same accuracy than with a single GPU?
 * Do you get improvements in speed?
+* Do you get the same accuracy than with a single GPU?
+
+Extracurricular:
+
+1. Copy training data to compute node `$TMPDIR` and read it from there
+   in your script. See Section 6.5.5 in
+   https://research.csc.fi/taito-gpu-running for more information.
+2. Use Horovod to implement multi-GPU training. See [run-hvd.sh](run-hvd.sh).
 
 ## Setup
 
@@ -48,8 +55,8 @@ Using multiple GPUs.
 4. Edit and submit jobs:
 
         emacs/vim/nano keras-test.py
-        sbatch run-python-gpu-1h.sh keras-test.py  # when using a training account
-        sbatch run-python-gpu-1h-nores.sh keras-test.py  # when using own CSC account
+        sbatch run.sh keras-test.py  # when using a training account
+        sbatch run-nores.sh keras-test.py  # when using own CSC account
 
 5. See the status of your jobs or the queue you are using:
 
