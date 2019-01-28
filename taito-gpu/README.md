@@ -57,7 +57,7 @@ We will use Taito-GPU in groups for Exercise 4.
 
 ## Optional: TensorBoard
 
-1. Login to Taito-GPU with SSH port forwarding:
+1. Login again in a second terminal window to Taito-GPU, with SSH port forwarding:
 
         ssh -l trainingxxx -L PORT:localhost:PORT taito-gpu.csc.fi
         
