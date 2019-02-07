@@ -18,6 +18,7 @@
 
 from keras.models import Sequential
 from keras.layers import Dense, Activation, Dropout, Flatten, MaxPooling2D
+from keras.layers import InputLayer
 from keras.layers.convolutional import Conv2D 
 from keras.preprocessing.image import (ImageDataGenerator, array_to_img, 
                                       img_to_array, load_img)
@@ -122,13 +123,6 @@ validation_generator = noopgen.flow_from_directory(
         batch_size=batch_size,
         class_mode='binary')
 
-print('Test: ', end="")
-test_generator = noopgen.flow_from_directory(
-        datapath+'/test',  
-        target_size=input_image_size,
-        batch_size=batch_size,
-        class_mode='binary')
-
 # We now reuse a pretrained network.  Here we'll use the
 # [VGG16](https://keras.io/applications/#vgg16) network architecture
 # with weights learned using Imagenet.  We remove the top layers and
@@ -137,6 +131,8 @@ test_generator = noopgen.flow_from_directory(
 # ### Initialization
 
 model = Sequential()
+
+model.add(InputLayer(input_shape=input_image_size+(3,))) # possibly needed due to a bug in Keras
 
 vgg_model = applications.VGG16(weights='imagenet', 
                                include_top=False, 
@@ -154,7 +150,6 @@ print(model.summary())
 
 model.add(Flatten())
 model.add(Dense(64, activation='relu'))
-#model.add(Dropout(0.5))
 model.add(Dense(1, activation='sigmoid'))
 
 model.compile(loss='binary_crossentropy',
