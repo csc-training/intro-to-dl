@@ -6,23 +6,37 @@
 
 Image classification: dogs vs. cats; traffic signs.
 
+#### Keras
+
 * *keras-dvc-cnn-simple.py*: Dogs vs. cats with a CNN trained from scratch
 * *keras-dvc-cnn-pretrained.py*: Dogs vs. cats with a pre-trained CNN
+* *keras-dvc-cnn-evaluate.py*: Evaluate a trained CNN with test data
 * *keras-gtsrb-cnn-simple.py*: Traffic signs with a CNN trained from scratch
 * *keras-gtsrb-cnn-pretrained.py*: Traffic signs with a pre-trained CNN
+* *keras-gtsrb-cnn-evaluate.py*: Evaluate a trained CNN with test data
+
+#### PyTorch
+
+*TODO*
 
 ### Exercise 5
 
 Text categorization and labeling: 20 newsgroups; Ted talks.
+
+#### Keras
 
 * *keras-20ng-cnn.py*: 20 newsgroups classification with a 1D-CNN
 * *keras-20ng-rnn.py*: 20 newsgroups classification with a RNN
 * *keras-ted-cnn.py*: Ted talks labeling with a 1D-CNN
 * *keras-ted-rnn.py*: Ted talks labeling with a RNN
 
+#### PyTorch
+
+*TODO*
+
 ### Exercise 6
 
-Using multiple GPUs with a chosen script from Exercise 4 or 5.
+Convert a script or scripts from Exercise 4 or 5 to use multiple GPUs.
 
 * Do you get improvements in speed?
 * Do you get the same accuracy than with a single GPU?
@@ -32,7 +46,7 @@ Extracurricular:
 1. Copy training data to compute node `$TMPDIR` and read it from there
    in your script. See Section 6.5.5 in
    https://research.csc.fi/taito-gpu-running for more information.
-2. Use Horovod to implement multi-GPU training. See [run-hvd.sh](run-hvd.sh).
+2. Experiment with Horovod to implement multi-GPU training. See [run-hvd.sh](run-hvd.sh) and [keras-dvc-cnn-simple-hvd.py](keras-dvc-cnn-simple-hvd.py).
 
 ## Setup
 
@@ -45,7 +59,7 @@ Extracurricular:
 2. Set up the module environment:
 
         module purge
-        module load python-env/3.5.3-ml
+        module load python-env/3.6.3-ml
     
 3. Clone and cd to the exercise repository:
 
