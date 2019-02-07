@@ -10,17 +10,17 @@ Introduction to Notebooks, Keras fundamentals.
 
 ### Exercise 2
 
-Image classification with MLPs and CNNs.
+Classification with MLPs.
 
 * *keras-mnist-mlp.ipynb*
-* *keras-mnist-cnn.ipynb*
-
-Optional: 
-
-* *tf-mnist-mlp.ipynb* 
-* *pytorch-mnist-mlp.ipynb*
 
 ### Exercise 3
+
+Image classification with CNNs.
+
+* *keras-mnist-cnn.ipynb*
+
+### Exercise 4
 
 Text sentiment classification with CNNs and RNNs.
 
@@ -37,23 +37,19 @@ We will use Jupyter Notebooks for all exercises on Day 1. There are several ways
 
 ### 1. CSC’s Notebooks
 
-This is the default option. There should be enough resources for launching a notebooks instance for everyone, but unfortunately no GPUs. CSC’s Notebooks (https://notebooks.csc.fi) provides easy-to-use environments for working with data and programming. You can access everything via your web browser and CSC cloud environment computes on the background.
+*The default option.* CSC’s Notebooks (https://notebooks.csc.fi) provides easy-to-use environments for working with data and programming. You can access everything via your web browser and CSC cloud environment computes on the background. There should be enough resources for launching a notebooks instance for everyone, but unfortunately no GPUs. 
 
-* point your browser to https://notebooks.csc.fi
-* login using Haka (or using a separate username and password)
-* “Launch new” *Jupyter ML (Machine Learning)* environment
-* wait until “Open in browser” link appears, then click on it
-* the jupyter notebook dashboard should appear
-* click “New” on the right side of the screen, then “Python 3”
+* Point your browser to https://notebooks.csc.fi
+* Login using Haka (or using a separate username and password)
+* Find *Course Practical Deep Learning* and click “Launch new”
+* Wait until the “Open in browser” link appears, then click on it
+* The jupyter notebook dashboard should appear
+* Navigate to `intro-to-dl/day1` 
 * if you are not familiar with Jupyter, take a moment to get to know the interface
+    * open a new notebook (*New* -> *Python 3*, located top-right on the dashboard) 
     * write some Python code to a Jupyter *cell*
     * execute the cell with *shift-enter*
-* run the following command on an empty cell:
-
-    `!git clone https://github.com/csc-training/intro-to-dl.git`
-
-* go back to the dashboard, the exercises are located in the directory "intro-to-dl/day1".
-  
+    
 ### 2. Running Jupyter on your laptop
 
 If you have a laptop that has both jupyter and the other necessary python packages installed, it is possible to use it. In particular, if the laptop has an Nvidia GPU and it that has been properly set up (CUDA, cuDNN).
@@ -69,7 +65,3 @@ Google has a free Jupyter Notebooks service you may want to try out. No guarante
 * select a notebook file
 * at the end of the file, there is a link: “Run this notebook in Google Colaboratory using this link”
 * to use a GPU, select: Runtime => Change runtime type => Hardware accelerator: GPU
-
-### 4. Local installation to classroom desktops
-
-A last resort, hopefully we don’t have to do this.
