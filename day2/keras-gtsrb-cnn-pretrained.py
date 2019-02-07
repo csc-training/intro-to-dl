@@ -133,6 +133,7 @@ validation_generator = noopgen.flow_from_directory(
 # ### Initialization
 
 model = Sequential()
+
 model.add(InputLayer(input_shape=input_image_size+(3,))) # possibly needed due to a bug in Keras
 
 vgg_model = applications.VGG16(weights='imagenet', 
@@ -151,7 +152,6 @@ print(model.summary())
 
 model.add(Flatten())
 model.add(Dense(256, activation='relu'))
-#model.add(Dropout(0.5))
 model.add(Dense(43, activation='softmax'))
 
 model.compile(loss='categorical_crossentropy',
