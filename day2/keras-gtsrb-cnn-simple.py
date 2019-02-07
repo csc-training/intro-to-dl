@@ -124,12 +124,6 @@ validation_generator = noopgen.flow_from_directory(
         target_size=input_image_size,
         batch_size=batch_size)
 
-print('Test: ', end="")
-test_generator = noopgen.flow_from_directory(
-        datapath+'/test',  
-        target_size=input_image_size,
-        batch_size=batch_size)
-
 # Similarly as with MNIST digits, we can start from scratch and train
 # a CNN for the classification task. However, due to the small number
 # of training images, a large network will easily overfit, regardless
@@ -164,7 +158,7 @@ print(model.summary())
 
 epochs = 10
 workers = 4
-use_multiprocessing = True
+use_multiprocessing = False
 
 print('Training for', epochs, 'epochs with', workers,
       'workers, use_multiprocessing is', use_multiprocessing)

@@ -125,12 +125,6 @@ validation_generator = noopgen.flow_from_directory(
         target_size=input_image_size,
         batch_size=batch_size)
 
-print('Test: ', end="")
-test_generator = noopgen.flow_from_directory(
-        datapath+'/test',  
-        target_size=input_image_size,
-        batch_size=batch_size)
-
 # We now reuse a pretrained network.  Here we'll use the
 # [VGG16](https://keras.io/applications/#vgg16) network architecture
 # with weights learned using Imagenet.  We remove the top layers and
@@ -170,7 +164,7 @@ print(model.summary())
 
 epochs = 10
 workers = 4
-use_multiprocessing = True
+use_multiprocessing = False
 
 print('Training for', epochs, 'epochs with', workers,
       'workers, use_multiprocessing is', use_multiprocessing)
