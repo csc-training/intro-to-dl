@@ -2,7 +2,7 @@
 
 ## Exercise sessions
 
-### Exercise 4
+### Exercise 5
 
 Image classification: dogs vs. cats; traffic signs.
 
@@ -19,7 +19,7 @@ Image classification: dogs vs. cats; traffic signs.
 
 *TODO*
 
-### Exercise 5
+### Exercise 6
 
 Text categorization and labeling: 20 newsgroups; Ted talks.
 
@@ -34,9 +34,9 @@ Text categorization and labeling: 20 newsgroups; Ted talks.
 
 *TODO*
 
-### Exercise 6
+### Exercise 7
 
-Convert a script or scripts from Exercise 4 or 5 to use multiple GPUs.
+Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
 
 * Do you get improvements in speed?
 * Do you get the same accuracy than with a single GPU?
@@ -50,9 +50,7 @@ Extracurricular:
 
 ## Setup
 
-### First terminal window
-
-1. Login to Taito-GPU using a training account or your CSC account:
+1. Login to Taito-GPU using a training account (or your own CSC account):
 
         ssh -l trainingxxx taito-gpu.csc.fi
         
@@ -66,26 +64,32 @@ Extracurricular:
         git clone https://github.com/csc-training/intro-to-dl.git
         cd intro-to-dl/day2
 
-4. Edit and submit jobs:
+## Edit and submit jobs
 
-        emacs/vim/nano keras-test.py
+1. Edit and submit jobs:
+
+        nano keras-test.py  # or substitute with your favorite text editor
         sbatch run.sh keras-test.py  # when using a training account
         sbatch run-nores.sh keras-test.py  # when using own CSC account
 
-5. See the status of your jobs or the queue you are using:
+   You can also specify additional command line arguments, e.g.
+
+        sbatch run.sh keras-dvc-cnn-evaluate.py dvc-small-cnn.h5      
+
+2. See the status of your jobs or the queue you are using:
 
         squeue -l -u trainingxxx
         squeue -l -p gpu
 
-6. After the job has finished, examine the results:
+3. After the job has finished, examine the results:
 
         less slurm-xxxxxxxx.out
 
 7. Go to 4 until you are happy with the results.
 
-### Second terminal window
+## Optional: TensorBoard
 
-1. Login to Taito-GPU with SSH port forwarding:
+1. Login again in a second terminal window to Taito-GPU with SSH port forwarding:
 
         ssh -l trainingxxx -L PORT:localhost:PORT taito-gpu.csc.fi
         
