@@ -80,7 +80,7 @@ print('Found %d word vectors of dimensionality %d.' % (len(embeddings_index),
 # Next we'll load the TED Talks data set (Kaggle TED Talks, 2017 edition).
 # The data is stored in two CSV files, so we load both of them and
 # merge them into a single DataFrame.
-#xs
+#
 # The merged dataset contains transcripts and metadata of 2467 TED talks.
 # Each talk is also annotated with a set of tags.
 
@@ -144,10 +144,11 @@ df['labels'] = df['tagidxlist'].apply(indices_to_labels)
 
 # ### Produce input and label tensors
 #
-# We vectorize the text samples and labels into a 2D integer tensors.
-#`MAX_NUM_WORDS` is the number of different words to use as tokens,
-# selected based on word frequency. `MAX_SEQUENCE_LENGTH` is the fixed
-# sequence length obtained by truncating or padding the original sequences.
+# We vectorize the text samples and labels into a 2D integer
+# tensors. `MAX_NUM_WORDS` is the number of different words to use as
+# tokens, selected based on word frequency. `MAX_SEQUENCE_LENGTH` is
+# the fixed sequence length obtained by truncating or padding the
+# original sequences.
 
 MAX_NUM_WORDS = 10000
 MAX_SEQUENCE_LENGTH = 1000
@@ -165,10 +166,10 @@ labels = np.asarray([x for x in df['labels']])
 print('Shape of data tensor:', data.shape)
 print('Shape of labels tensor:', labels.shape)
 
-# Next, we split the data into a training set and a validation set.  We
-# use a fraction of the data specified by `VALIDATION_SPLIT` for validation.
-# Note that we do not use a separate test set in this notebook, due to the
-# small size of the dataset.
+# Next, we split the data into a training set and a validation set.
+# We use a fraction of the data specified by `VALIDATION_SPLIT` for
+# validation.  Note that we do not use a separate test set in this
+# notebook, due to the small size of the dataset.
 
 VALIDATION_SPLIT = 0.2
 

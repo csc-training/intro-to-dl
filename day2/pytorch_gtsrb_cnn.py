@@ -1,15 +1,16 @@
 # coding: utf-8
 
-# Dogs-vs-cats classification with CNNs
+# Traffic sign classification with CNNs
 #
-# In this script, we'll train a convolutional neural network (CNN,
-# ConvNet) to classify images of dogs from images of cats using
-# PyTorch. This script is largely based on the blog post [Building
-# powerful image classification models using very little
-# data](https://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html)
-# by François Chollet.
+# In this notebook, we'll train a convolutional neural network (CNN,
+# ConvNet) to classify images of traffic signs from [The German
+# Traffic Sign Recognition
+# Benchmark](http://benchmark.ini.rub.de/?section=gtsrb&subsection=news)
+# using PyTorch. This notebook is largely based on the blog post
+# [Building powerful image classification models using very little
+# data](https://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html) by François Chollet.
 #
-# **Note that using a GPU with this script is highly recommended.**
+# **Note that using a GPU with this notebook is highly recommended.**
 
 import torch
 from torch.utils.data import DataLoader
@@ -26,14 +27,14 @@ print('Using PyTorch version:', torch.__version__, ' Device:', device)
 assert(LV(torch.__version__) >= LV("1.0.0"))
 
 datapath = os.path.join(os.environ['TMPDIR'], os.environ['SLURM_JOB_ID'],
-                        'dogs-vs-cats/train-2000')
+                        'gtsrb/train-5535')
 if not os.path.isdir(datapath):
-    # datapath = "/media/data/dogs-vs-cats/train-2000"
-    datapath = "/wrk/makoskel/dogs-vs-cats/train-2000"
+    # datapath = "/media/data/gtsrb/train-5535"
+    datapath = "/wrk/makoskel/gtsrb/train-5535"
 
 print('Reading data from path:', datapath)
 
-(nimages_train, nimages_validation, nimages_test) = (2000, 1000, 22000)
+(nimages_train, nimages_validation, nimages_test) = (5535, 999, 12630)
 
 
 def get_tensorboard(log_name):
@@ -42,7 +43,7 @@ def get_tensorboard(log_name):
         import os
         import datetime
         logdir = os.path.join(os.getcwd(), "logs",
-                              "dvc-" + log_name + "-" +
+                              "gtsrb-" + log_name + "-" +
                               datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
         print('Logging TensorBoard to:', logdir)
         os.makedirs(logdir)
@@ -67,10 +68,9 @@ def train(model, loader, criterion, optimizer, epoch, log=None):
 
         # Pass data through the network
         output = model(data)
-        output = torch.squeeze(output)
 
         # Calculate loss
-        loss = criterion(output, target.to(torch.float32))
+        loss = criterion(output, target)
         epoch_loss += loss.data.item()
 
         # Backpropagate
@@ -93,13 +93,12 @@ def evaluate(model, loader, criterion=None, epoch=None, log=None):
         data = data.to(device)
         target = target.to(device)
 
-        output = torch.squeeze(model(data))
+        output = model(data)
 
         if criterion is not None:
-            loss += criterion(output, target.to(torch.float32)).data.item()
+            loss += criterion(output, target).data.item()
 
-        pred = output > 0.5
-        pred = pred.to(torch.int64)
+        _, pred = output.max(1)
         correct += pred.eq(target.data).cpu().sum()
 
     if criterion is not None:
@@ -115,7 +114,7 @@ def evaluate(model, loader, criterion=None, epoch=None, log=None):
         log.add_scalar('val_acc', accuracy, epoch-1)
 
 
-input_image_size = (150, 150)
+input_image_size = (75, 75)
 
 data_transform = transforms.Compose([
         transforms.Resize(input_image_size),
@@ -131,7 +130,7 @@ noop_transform = transforms.Compose([
     ])
 
 
-def get_train_loader(batch_size=25):
+def get_train_loader(batch_size=50):
     print('Train: ', end="")
     train_dataset = datasets.ImageFolder(root=datapath+'/train',
                                          transform=data_transform)
@@ -142,7 +141,7 @@ def get_train_loader(batch_size=25):
     return train_loader
 
 
-def get_validation_loader(batch_size=25):
+def get_validation_loader(batch_size=50):
     print('Validation: ', end="")
     validation_dataset = datasets.ImageFolder(root=datapath+'/validation',
                                               transform=noop_transform)
@@ -152,7 +151,7 @@ def get_validation_loader(batch_size=25):
           len(validation_dataset.classes), 'classes')
     return validation_loader
 
-def get_test_loader(batch_size=25):
+def get_test_loader(batch_size=50):
     print('Test: ', end="")
     test_dataset = datasets.ImageFolder(root=datapath+'/test',
                                         transform=noop_transform)
