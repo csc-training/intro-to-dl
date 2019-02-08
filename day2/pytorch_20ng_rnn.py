@@ -210,26 +210,15 @@ class Net(nn.Module):
         super(Net, self).__init__()
         self.embed = nn.Embedding.from_pretrained(embedding_matrix,
                                                   freeze=True)
-        self.conv1 = nn.Conv1d(100, 128, 5)
-        self.pool1 = nn.MaxPool1d(5)
-        self.conv2 = nn.Conv1d(128, 128, 5)
-        self.pool2 = nn.MaxPool1d(5)
-        self.conv3 = nn.Conv1d(128, 128, 5)
-        self.pool3 = nn.MaxPool1d(35)
+        self.lstm = nn.LSTM(100, 128, num_layers=2, batch_first=True)
 
         self.fc1 = nn.Linear(128, 128)
         self.fc2 = nn.Linear(128, 20)
 
     def forward(self, x):
         x = self.embed(x)
-        x = x.transpose(1,2)
-        x = F.relu(self.conv1(x))
-        x = self.pool1(x)
-        x = F.relu(self.conv2(x))
-        x = self.pool2(x)
-        x = F.relu(self.conv3(x))
-        x = self.pool3(x)
-        x = x.view(-1, 128)
+        _, (h_n, _) = self.lstm(x)
+        x = h_n[1,:,:]
         x = F.relu(self.fc1(x))
         return F.log_softmax(self.fc2(x), dim=1)
 
@@ -241,70 +230,6 @@ print(model)
 
 # ### Learning
 
-def train(epoch, log_interval=200):
-    # Set model to training mode
-    model.train()
-
-    # Loop over each batch from the training set
-    for batch_idx, (data, target) in enumerate(train_loader):
-
-        # Copy data to GPU if needed
-        data = data.to(device)
-        target = target.to(device)
-
-        # Zero gradient buffers
-        optimizer.zero_grad()
-
-        # Pass data through the network
-        output = model(data)
-
-        # Calculate loss
-        loss = criterion(output, target)
-
-        # Backpropagate
-        loss.backward()
-
-        # Update weights
-        optimizer.step()
-
-        if batch_idx % log_interval == 0:
-            print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
-                epoch, batch_idx * len(data), len(train_loader.dataset),
-                100. * batch_idx / len(train_loader), loss.data.item()))
-
-def evaluate(loader, loss_vector=None, accuracy_vector=None):
-    model.eval()
-    loss, correct = 0, 0
-    pred_vector = torch.LongTensor()
-    pred_vector = pred_vector.to(device)
-
-    for data, target in loader:
-        data = data.to(device)
-        target = target.to(device)
-
-        output = model(data)
-
-        loss += criterion(output, target).data.item()
-
-        pred = output.data.max(1)[1] # get the index of the max log-probability
-        pred_vector = torch.cat((pred_vector, pred))
-
-        correct += pred.eq(target.data).cpu().sum()
-
-    loss /= len(validation_loader)
-    if loss_vector is not None:
-        loss_vector.append(loss)
-
-    accuracy = 100. * correct.to(torch.float32) / len(loader.dataset)
-    if accuracy_vector is not None:
-        accuracy_vector.append(accuracy)
-
-    print('Average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)\n'.format(
-        loss, correct, len(loader.dataset), accuracy))
-
-    return np.array(pred_vector.cpu())
-
-
 epochs = 20
 
 lossv, accv = [], []
@@ -315,10 +240,6 @@ for epoch in range(1, epochs + 1):
         evaluate(validation_loader, lossv, accv)
 
 # ### Inference
-#
-# We evaluate the model using the test set. If accuracy on the test
-# set is notably worse than with the training set, the model has
-# likely overfitted to the training samples.
 
 with torch.no_grad():
     evaluate(test_loader)
