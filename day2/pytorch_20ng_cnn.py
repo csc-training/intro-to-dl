@@ -48,7 +48,7 @@ try:
     import tensorboardX
     import os, datetime
     logdir = os.path.join(os.getcwd(), "logs",
-                          "20ng-cnn"+datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
+                          "20ng-cnn-"+datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
     print('TensorBoard log directory:', logdir)
     os.makedirs(logdir)
     log = tensorboardX.SummaryWriter(logdir)
@@ -235,9 +235,10 @@ print(model)
 
 # ### Learning
 
-def train(epoch, log_interval=200):
+def train(epoch):
     # Set model to training mode
     model.train()
+    epoch_loss = 0.
 
     # Loop over each batch from the training set
     for batch_idx, (data, target) in enumerate(train_loader):
@@ -254,6 +255,7 @@ def train(epoch, log_interval=200):
 
         # Calculate loss
         loss = criterion(output, target)
+        epoch_loss += loss.data.item()
 
         # Backpropagate
         loss.backward()
@@ -261,12 +263,13 @@ def train(epoch, log_interval=200):
         # Update weights
         optimizer.step()
 
-        if batch_idx % log_interval == 0:
-            print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
-                epoch, batch_idx * len(data), len(train_loader.dataset),
-                100. * batch_idx / len(train_loader), loss.data.item()))
+    epoch_loss /= len(train_loader)
+    print('Train Epoch: {}, Loss: {:.4f}'.format(epoch, epoch_loss))
 
-def evaluate(loader, loss_vector=None, accuracy_vector=None):
+    if log is not None:
+        log.add_scalar('loss', epoch_loss, epoch-1)
+
+def evaluate(loader, epoch=None):
     model.eval()
     loss, correct = 0, 0
     pred_vector = torch.LongTensor()
@@ -285,27 +288,26 @@ def evaluate(loader, loss_vector=None, accuracy_vector=None):
 
         correct += pred.eq(target.data).cpu().sum()
 
-    loss /= len(validation_loader)
-    if loss_vector is not None:
-        loss_vector.append(loss)
+    loss /= len(loader.dataset)
 
     accuracy = 100. * correct.to(torch.float32) / len(loader.dataset)
-    if accuracy_vector is not None:
-        accuracy_vector.append(accuracy)
 
     print('Average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)\n'.format(
         loss, correct, len(loader.dataset), accuracy))
+
+    if log is not None and epoch is not None:
+        log.add_scalar('val_loss', loss, epoch-1)
+        log.add_scalar('val_acc', accuracy, epoch-1)
 
     return np.array(pred_vector.cpu())
 
 epochs = 20
 
-lossv, accv = [], []
 for epoch in range(1, epochs + 1):
     train(epoch)
     with torch.no_grad():
         print('\nValidation set:')
-        evaluate(validation_loader, lossv, accv)
+        evaluate(validation_loader, epoch)
 
 # ### Inference
 #
@@ -315,4 +317,4 @@ for epoch in range(1, epochs + 1):
 
 with torch.no_grad():
     print('\nTest set:')
-    evaluate(test_loader)
+    evaluate(test_loader, None)
