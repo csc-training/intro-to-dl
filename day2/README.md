@@ -19,9 +19,12 @@ Image classification: dogs vs. cats; traffic signs.
 
 The PyTorch scripts have a slightly different setup:
 
-* *pytorch_dvc_cnn_simple.py*: Dogs vs cats CNN trained from scratch
-* *pytorch_dvc_cnn_pretrained.py*: Dogs vs cats with pre-trained CNN
-* *pytorch_dvc_cnn.py*: common functions for Dogs vs cats (don't run this one directly)
+* *pytorch_dvc_cnn_simple.py*: Dogs vs cats with a CNN trained from scratch
+* *pytorch_dvc_cnn_pretrained.py*: Dogs vs cats with a pre-trained CNN
+* *pytorch_dvc_cnn.py*: Common functions for Dogs vs cats (don't run this one directly)
+* *pytorch_gtsrb_cnn_simple.py*: Traffic signs with a CNN trained from scratch
+* *pytorch_gtsrb_cnn_pretrained.py*: Traffic signs with a pre-trained CNN
+* *pytorch_gtsrb_cnn.py*:  Common functions for Traffic signs (don't run this one directly)
 
 To evaluate on the test set run with the `--test` option, e.g. `sbatch run.sh pytorch_dvc_cnn_simple.py --test` 
 
