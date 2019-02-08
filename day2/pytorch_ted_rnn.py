@@ -48,7 +48,7 @@ try:
     import tensorboardX
     import os, datetime
     logdir = os.path.join(os.getcwd(), "logs",
-                          "ted-"+datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
+                          "ted-rnn-"+datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
     print('TensorBoard log directory:', logdir)
     os.makedirs(logdir)
     log = tensorboardX.SummaryWriter(logdir)
@@ -248,17 +248,18 @@ class Net(nn.Module):
         return torch.sigmoid(self.fc2(x))
 
 model = Net().to(device)
-optimizer = optim.RMSprop(model.parameters(), lr=0.005)
+optimizer = optim.RMSprop(model.parameters(), lr=0.001)
 criterion = nn.BCELoss()
 
 print(model)
 
 # ### Learning
 
-def train(epoch, log_interval=200):
+def train(epoch):
     # Set model to training mode
     model.train()
-    
+    epoch_loss = 0.
+
     # Loop over each batch from the training set
     for batch_idx, (data, target) in enumerate(train_loader):
 
@@ -274,25 +275,27 @@ def train(epoch, log_interval=200):
         
         # Calculate loss
         loss = criterion(output, target)
+        epoch_loss += loss.data.item()
 
         # Backpropagate
         loss.backward()
         
         # Update weights
         optimizer.step()
-        
-        if batch_idx % log_interval == 0:
-            print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
-                epoch, batch_idx * len(data), len(train_loader.dataset),
-                100. * batch_idx / len(train_loader), loss.data.item()))
 
-def evaluate(loader, loss_vector=None):
+    epoch_loss /= len(train_loader)
+    print('Train Epoch: {}, Loss: {:.4f}'.format(epoch, epoch_loss))
+
+    if log is not None:
+        log.add_scalar('loss', epoch_loss, epoch-1)
+
+def evaluate(epoch=None):
     model.eval()
     loss, correct = 0, 0
     pred_vector = torch.FloatTensor()
     pred_vector = pred_vector.to(device)
     
-    for data, target in loader:
+    for data, target in validation_loader:
         data = data.to(device)
         target = target.to(device)
 
@@ -304,26 +307,25 @@ def evaluate(loader, loss_vector=None):
         pred_vector = torch.cat((pred_vector, pred))
 
     loss /= len(validation_loader)
-    if loss_vector is not None:
-        loss_vector.append(loss)
     
-    print('Average loss: {:.4f}\n'.format(loss))
+    print('Validation Epoch: {}, Loss: {:.4f}'.format(epoch, loss))
+
+    if log is not None and epoch is not None:
+        log.add_scalar('val_loss', loss, epoch-1)
 
     return np.array(pred_vector.cpu())
 
 epochs = 20
 
-lossv = []
 for epoch in range(1, epochs + 1):
     train(epoch)
     with torch.no_grad():
-        print('\nValidation set:')
-        evaluate(validation_loader, lossv)
+        evaluate(epoch)
 
 # ### Inference
 
 with torch.no_grad():
-    predictions = evaluate(validation_loader)
+    predictions = evaluate(None)
 
 # The selected threshold controls the number of label predictions
 # we'll make:
