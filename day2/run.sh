@@ -5,4 +5,5 @@
 module load python-env/3.6.3-ml
 module list
 
+set -xv
 srun python3.6 $*
