@@ -253,6 +253,7 @@ predictions = model.predict(x_val)
 # The selected threshold controls the number of label predictions we'll make:
 
 threshold = 0.5
+print('Label prediction threshold:', threshold)
 
 avg_n_gt, avg_n_pred = 0, 0
 for t in range(len(y_val)):
@@ -278,6 +279,7 @@ for t in range(nb_talks_to_show):
     for idx in np.where(predictions[t]>threshold)[0].tolist():
         sys.stdout.write('['+ntagslist_sorted[idx]+'] ')
     print()
+print()
 
 # Precision, recall, the F1 measure, and NDCG (normalized discounted
 # cumulative gain) after k returned labels are common performance
