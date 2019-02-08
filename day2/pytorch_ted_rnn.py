@@ -308,7 +308,8 @@ def evaluate(epoch=None):
 
     loss /= len(validation_loader)
     
-    print('Validation Epoch: {}, Loss: {:.4f}'.format(epoch, loss))
+    if epoch is not None:
+        print('Validation Epoch: {}, Loss: {:.4f}'.format(epoch, loss))
 
     if log is not None and epoch is not None:
         log.add_scalar('val_loss', loss, epoch-1)
