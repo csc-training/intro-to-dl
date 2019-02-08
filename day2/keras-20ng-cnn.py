@@ -83,9 +83,9 @@ print('Found %s word vectors.' % len(embeddings_index))
 # Usenet newsgroups (1000 messages from each group):
 # 
 # alt.atheism           | soc.religion.christian   | comp.windows.x     | sci.crypt               
-# talk.politics.guns    | comp.sys.ibm.pc.hardware | rec.autos          | sci.electronics              
-# talk.politics.mideast | comp.graphics            | rec.motorcycles    | sci.space                    
-# talk.politics.misc    | comp.os.ms-windows.misc  | rec.sport.baseball | sci.med                      
+# talk.politics.guns    | comp.sys.ibm.pc.hardware | rec.autos          | sci.electronics     
+# talk.politics.mideast | comp.graphics            | rec.motorcycles    | sci.space
+# talk.politics.misc    | comp.os.ms-windows.misc  | rec.sport.baseball | sci.med
 # talk.religion.misc    | comp.sys.mac.hardware    | rec.sport.hockey   | misc.forsale
 
 TEXT_DATA_DIR = "/wrk/makoskel/20_newsgroup"
@@ -179,7 +179,6 @@ model.add(Embedding(num_words,
                     weights=[embedding_matrix],
                     input_length=MAX_SEQUENCE_LENGTH,
                     trainable=False))
-#model.add(Dropout(0.2))
 
 model.add(Conv1D(128, 5, activation='relu'))
 model.add(MaxPooling1D(5))
