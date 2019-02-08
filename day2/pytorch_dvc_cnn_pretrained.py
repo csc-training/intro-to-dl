@@ -44,7 +44,9 @@ def train_main():
     # Learning 1: New layers
 
     model = PretrainedNet().to(device)
-    optimizer = optim.SGD(model.parameters(), lr=0.01)
+
+    params = filter(lambda p: p.requires_grad, model.parameters())
+    optimizer = optim.SGD(params, lr=0.01)
     criterion = nn.BCELoss()
 
     print(model)
