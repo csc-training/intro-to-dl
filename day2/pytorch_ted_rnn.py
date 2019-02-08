@@ -1,30 +1,28 @@
 # coding: utf-8
 
-# # Ted talks keyword labeling with pre-trained word embeddings
-#
-# In this script, we'll use pre-trained [GloVe word embeddings]
-# (http://nlp.stanford.edu/projects/glove/) for keyword labeling using
-# Keras (version >= 2 is required). This script is largely based on
-# the blog post [Using pre-trained word embeddings in a Keras model]
+# # TED Talks keyword labeling with pre-trained word embeddings
+# 
+# In this notebook, we'll use pre-trained [GloVe word
+# embeddings](http://nlp.stanford.edu/projects/glove/) for keyword
+# labeling using PyTorch. This notebook is largely based on the blog
+# post [Using pre-trained word embeddings in a Keras model]
 # (https://blog.keras.io/using-pre-trained-word-embeddings-in-a-keras-model.html)
 # by François Chollet.
-#
-# **Note that using a GPU with this script is highly recommended.**
-#
-# First, the needed imports. Keras tells us which backend (Theano,
-# Tensorflow, CNTK) it will be using.
+# 
+# **Note that using a GPU with this notebook is highly recommended.**
+# 
+# First, the needed imports.
 
-from keras.preprocessing import sequence, text
-from keras.models import Sequential
-from keras.layers import Dense, Dropout
-from keras.layers import Embedding
-from keras.layers import Conv1D, MaxPooling1D, GlobalMaxPooling1D
-from keras.layers import LSTM, CuDNNLSTM
-from keras.utils import to_categorical
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+import torch.optim as optim
+from torch.autograd import Variable
+from torch.utils.data import TensorDataset, DataLoader
 
 from distutils.version import LooseVersion as LV
-from keras import __version__
-from keras import backend as K
+
+from keras.preprocessing import sequence, text
 
 from sklearn import metrics
 
@@ -34,27 +32,31 @@ import sys
 import pandas as pd
 import numpy as np
 
-print('Using Keras version:', __version__, 'backend:', K.backend())
-assert(LV(__version__) >= LV("2.0.0"))
+if torch.cuda.is_available():
+    device = torch.device('cuda')
+else:
+    device = torch.device('cpu')
+    
+print('Using PyTorch version:', torch.__version__, ' Device:', device)
+assert(LV(torch.__version__) >= LV("1.0.0"))
 
-# If we are using TensorFlow as the backend, we can use TensorBoard to
-# visualize our progress during training.
+# TensorBoard is a tool for visualizing progress during training.
+# Although TensorBoard was created for TensorFlow, it can also be used
+# with PyTorch.  It is easiest to use it with the tensorboardX module.
 
-if K.backend() == "tensorflow":
-    import tensorflow as tf
-    from keras.callbacks import TensorBoard
+try:
+    import tensorboardX
     import os, datetime
     logdir = os.path.join(os.getcwd(), "logs",
-                     "ted-rnn-"+datetime.datetime.now()
-                          .strftime('%Y-%m-%d_%H-%M-%S'))
+                          "ted-"+datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
     print('TensorBoard log directory:', logdir)
     os.makedirs(logdir)
-    callbacks = [TensorBoard(log_dir=logdir)]
-else:
-    callbacks =  None
+    log = tensorboardX.SummaryWriter(logdir)
+except ImportError as e:
+    log = None
 
 # ## GloVe word embeddings
-#
+# 
 # Let's begin by loading a datafile containing pre-trained word
 # embeddings.  The datafile contains 100-dimensional embeddings for
 # 400,000 English words.
@@ -75,14 +77,15 @@ embedding_dim = len(coefs)
 print('Found %d word vectors of dimensionality %d.' % (len(embeddings_index),
                                                        embedding_dim))
 
-# ## Ted talks data set
-#
-# Next we'll load the TED Talks data set (Kaggle TED Talks, 2017 edition).
+# ## TED Talks data set
+# 
+# Next we'll load the TED Talks data set (Kaggle [TED Talks]
+# (https://www.kaggle.com/rounakbanik/ted-talks), 2017 edition).
 # The data is stored in two CSV files, so we load both of them and
 # merge them into a single DataFrame.
-#xs
-# The merged dataset contains transcripts and metadata of 2467 TED talks.
-# Each talk is also annotated with a set of tags.
+# 
+# The merged dataset contains transcripts and metadata of 2467 TED
+# talks. Each talk is also annotated with a set of tags.
 
 TEXT_DATA_DIR = "/wrk/makoskel/ted/kaggle-ted-talks"
 
@@ -98,16 +101,16 @@ texttype = "transcript"
 #texttype = "description"
 
 # ### Keywords
-#
+# 
 # Let's start by converting the string-type lists of tags to Python
-# lists.  Then, we take a look at a histogram of number of tags attached
-# to talks:
+# lists.  Then, we take a look at a histogram of number of tags
+# attached to talks:
 
 import ast
 df['taglist']=df['tags'].apply(lambda x: ast.literal_eval(x))
 
-# We use the `NLABELS` most frequent tags as keyword labels we wish
-# to predict:
+# We use the `NLABELS` most frequent tags as keyword labels we wish to
+# predict:
 
 NLABELS=100
 
@@ -143,14 +146,15 @@ def indices_to_labels(x):
 df['labels'] = df['tagidxlist'].apply(indices_to_labels)
 
 # ### Produce input and label tensors
-#
-# We vectorize the text samples and labels into a 2D integer tensors.
-#`MAX_NUM_WORDS` is the number of different words to use as tokens,
-# selected based on word frequency. `MAX_SEQUENCE_LENGTH` is the fixed
-# sequence length obtained by truncating or padding the original sequences.
+# 
+# We vectorize the text samples and labels into a 2D integer
+# tensors. `MAX_NUM_WORDS` is the number of different words to use as
+# tokens, selected based on word frequency. `MAX_SEQUENCE_LENGTH` is
+# the fixed sequence length obtained by truncating or padding the
+# original sequences.
 
 MAX_NUM_WORDS = 10000
-MAX_SEQUENCE_LENGTH = 1000
+MAX_SEQUENCE_LENGTH = 1000 
 
 tokenizer = text.Tokenizer(num_words=MAX_NUM_WORDS)
 tokenizer.fit_on_texts([x for x in df[texttype]])
@@ -165,10 +169,10 @@ labels = np.asarray([x for x in df['labels']])
 print('Shape of data tensor:', data.shape)
 print('Shape of labels tensor:', labels.shape)
 
-# Next, we split the data into a training set and a validation set.  We
-# use a fraction of the data specified by `VALIDATION_SPLIT` for validation.
-# Note that we do not use a separate test set in this notebook, due to the
-# small size of the dataset.
+# Next, we split the data into a training set and a validation set.
+# We use a fraction of the data specified by `VALIDATION_DATA` for
+# validation.  Note that we do not use a separate test set in this
+# notebook, due to the small size of the dataset.
 
 VALIDATION_SPLIT = 0.2
 
@@ -187,8 +191,26 @@ print('Shape of training label tensor:', y_train.shape)
 print('Shape of validation data tensor:', x_val.shape)
 print('Shape of validation label tensor:', y_val.shape)
 
-# We prepare the embedding matrix by retrieving the corresponding
-# word embedding for each token in our vocabulary:
+# Create PyTorch DataLoaders for both data sets:
+
+BATCH_SIZE = 16
+
+print('Train: ', end="")
+train_dataset = TensorDataset(torch.LongTensor(x_train),
+                              torch.FloatTensor(y_train))
+train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE,
+                          shuffle=True, num_workers=4)
+print(len(train_dataset), 'talks')
+
+print('Validation: ', end="")
+validation_dataset = TensorDataset(torch.LongTensor(x_val),
+                                   torch.FloatTensor(y_val))
+validation_loader = DataLoader(validation_dataset, batch_size=BATCH_SIZE,
+                               shuffle=False, num_workers=4)
+print(len(validation_dataset), 'talks')
+
+# We prepare the embedding matrix by retrieving the corresponding word
+# embedding for each token in our vocabulary:
 
 print('Preparing embedding matrix.')
 
@@ -203,49 +225,108 @@ for word, i in word_index.items():
         # words not found in embedding index will be all-zeros.
         embedding_matrix[i] = embedding_vector
 
+embedding_matrix = torch.FloatTensor(embedding_matrix)
 print('Shape of embedding matrix:', embedding_matrix.shape)
 
 # ### Initialization
 
-print('Build model...')
-model = Sequential()
+class Net(nn.Module):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.embed = nn.Embedding.from_pretrained(embedding_matrix,
+                                                  freeze=True)
+        self.lstm = nn.LSTM(100, 128, num_layers=2, batch_first=True)
 
-model.add(Embedding(num_words,
-                    embedding_dim,
-                    weights=[embedding_matrix],
-                    input_length=MAX_SEQUENCE_LENGTH,
-                    trainable=False))
+        self.fc1 = nn.Linear(128, 64)
+        self.fc2 = nn.Linear(64, NLABELS)
 
-model.add(CuDNNLSTM(128, return_sequences=True))
-model.add(CuDNNLSTM(128))
+    def forward(self, x):
+        x = self.embed(x)
+        _, (h_n, _) = self.lstm(x)
+        x = h_n[1,:,:]
+        x = F.relu(self.fc1(x))
+        return torch.sigmoid(self.fc2(x))
 
-model.add(Dense(128, activation='relu'))
-model.add(Dense(NLABELS, activation='sigmoid'))
+model = Net().to(device)
+optimizer = optim.RMSprop(model.parameters(), lr=0.005)
+criterion = nn.BCELoss()
 
-model.compile(loss='binary_crossentropy',
-              optimizer='rmsprop')
-
-print(model.summary())
+print(model)
 
 # ### Learning
 
-epochs = 20
-batch_size=16
+def train(epoch, log_interval=200):
+    # Set model to training mode
+    model.train()
+    
+    # Loop over each batch from the training set
+    for batch_idx, (data, target) in enumerate(train_loader):
 
-history = model.fit(x_train, y_train,
-                    batch_size=batch_size,
-                    epochs=epochs,
-                    validation_data=(x_val, y_val),
-                    verbose=2, callbacks=callbacks)
+        # Copy data to GPU if needed
+        data = data.to(device)
+        target = target.to(device)
+    
+        # Zero gradient buffers
+        optimizer.zero_grad() 
+        
+        # Pass data through the network
+        output = model(data)
+        
+        # Calculate loss
+        loss = criterion(output, target)
+
+        # Backpropagate
+        loss.backward()
+        
+        # Update weights
+        optimizer.step()
+        
+        if batch_idx % log_interval == 0:
+            print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
+                epoch, batch_idx * len(data), len(train_loader.dataset),
+                100. * batch_idx / len(train_loader), loss.data.item()))
+
+def evaluate(loader, loss_vector=None):
+    model.eval()
+    loss, correct = 0, 0
+    pred_vector = torch.FloatTensor()
+    pred_vector = pred_vector.to(device)
+    
+    for data, target in loader:
+        data = data.to(device)
+        target = target.to(device)
+
+        output = model(data)
+
+        loss += criterion(output, target).data.item()
+
+        pred = output.data
+        pred_vector = torch.cat((pred_vector, pred))
+
+    loss /= len(validation_loader)
+    if loss_vector is not None:
+        loss_vector.append(loss)
+    
+    print('Average loss: {:.4f}\n'.format(loss))
+
+    return np.array(pred_vector.cpu())
+
+epochs = 20
+
+lossv = []
+for epoch in range(1, epochs + 1):
+    train(epoch)
+    with torch.no_grad():
+        print('\nValidation set:')
+        evaluate(validation_loader, lossv)
 
 # ### Inference
-#
-# To further analyze the results, we can produce the actual
-# predictions for the validation data.
 
-predictions = model.predict(x_val)
+with torch.no_grad():
+    predictions = evaluate(validation_loader)
 
-# The selected threshold controls the number of label predictions we'll make:
+# The selected threshold controls the number of label predictions
+# we'll make:
 
 threshold = 0.5
 print('Label prediction threshold:', threshold)
