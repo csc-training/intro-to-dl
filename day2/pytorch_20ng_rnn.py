@@ -76,11 +76,6 @@ with open(os.path.join(GLOVE_DIR, 'glove.6B.100d.txt')) as f:
 
 print('Found %s word vectors.' % len(embeddings_index))
 
-print('Examples of embeddings:')
-for w in ['some', 'random', 'words']:
-    print(w, embeddings_index[w])
-
-
 # ## 20 Newsgroups data set
 #
 # Next we'll load the [20 Newsgroups]
@@ -230,16 +225,84 @@ print(model)
 
 # ### Learning
 
+def train(epoch, log_interval=200):
+    # Set model to training mode
+    model.train()
+
+    # Loop over each batch from the training set
+    for batch_idx, (data, target) in enumerate(train_loader):
+
+        # Copy data to GPU if needed
+        data = data.to(device)
+        target = target.to(device)
+
+        # Zero gradient buffers
+        optimizer.zero_grad()
+
+        # Pass data through the network
+        output = model(data)
+
+        # Calculate loss
+        loss = criterion(output, target)
+
+        # Backpropagate
+        loss.backward()
+
+        # Update weights
+        optimizer.step()
+
+        if batch_idx % log_interval == 0:
+            print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
+                epoch, batch_idx * len(data), len(train_loader.dataset),
+                100. * batch_idx / len(train_loader), loss.data.item()))
+
+def evaluate(loader, loss_vector=None, accuracy_vector=None):
+    model.eval()
+    loss, correct = 0, 0
+    pred_vector = torch.LongTensor()
+    pred_vector = pred_vector.to(device)
+
+    for data, target in loader:
+        data = data.to(device)
+        target = target.to(device)
+
+        output = model(data)
+
+        loss += criterion(output, target).data.item()
+
+        pred = output.data.max(1)[1] # get the index of the max log-probability
+        pred_vector = torch.cat((pred_vector, pred))
+
+        correct += pred.eq(target.data).cpu().sum()
+
+    loss /= len(validation_loader)
+    if loss_vector is not None:
+        loss_vector.append(loss)
+
+    accuracy = 100. * correct.to(torch.float32) / len(loader.dataset)
+    if accuracy_vector is not None:
+        accuracy_vector.append(accuracy)
+
+    print('Average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)\n'.format(
+        loss, correct, len(loader.dataset), accuracy))
+
+    return np.array(pred_vector.cpu())
+
 epochs = 20
 
 lossv, accv = [], []
 for epoch in range(1, epochs + 1):
     train(epoch)
     with torch.no_grad():
-        print('\\nValidation set:')
+        print('\nValidation set:')
         evaluate(validation_loader, lossv, accv)
 
 # ### Inference
+#
+# We evaluate the model using the test set. If accuracy on the test
+# set is notably worse than with the training set, the model has
+# likely overfitted to the training samples.
 
 with torch.no_grad():
+    print('\nTest set:')
     evaluate(test_loader)

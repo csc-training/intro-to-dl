@@ -76,11 +76,6 @@ with open(os.path.join(GLOVE_DIR, 'glove.6B.100d.txt')) as f:
 
 print('Found %s word vectors.' % len(embeddings_index))
 
-print('Examples of embeddings:')
-for w in ['some', 'random', 'words']:
-    print(w, embeddings_index[w])
-
-
 # ## 20 Newsgroups data set
 #
 # Next we'll load the [20 Newsgroups]
@@ -304,14 +299,13 @@ def evaluate(loader, loss_vector=None, accuracy_vector=None):
 
     return np.array(pred_vector.cpu())
 
-
 epochs = 20
 
 lossv, accv = [], []
 for epoch in range(1, epochs + 1):
     train(epoch)
     with torch.no_grad():
-        print('\\nValidation set:')
+        print('\nValidation set:')
         evaluate(validation_loader, lossv, accv)
 
 # ### Inference
@@ -321,4 +315,5 @@ for epoch in range(1, epochs + 1):
 # likely overfitted to the training samples.
 
 with torch.no_grad():
+    print('\nTest set:')
     evaluate(test_loader)
