@@ -209,9 +209,9 @@ if K.backend() == "tensorflow":
     logdir_ft = logdir + "-ft"
     try:
         os.makedirs(logdir_ft)
-        callbacks = [TensorBoard(log_dir=logdir_ft)]
+        callbacks_ft = [TensorBoard(log_dir=logdir_ft)]
     except FileExistsError:
-        callbacks =  None
+        callbacks_ft =  None
 else:
     callbacks_ft = None
 
