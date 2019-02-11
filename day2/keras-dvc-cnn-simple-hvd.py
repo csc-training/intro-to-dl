@@ -57,8 +57,11 @@ if hvd.rank() == 0 and K.backend() == "tensorflow":
     logdir = os.path.join(os.getcwd(), "logs",
                      "dvc-simple-hvd-"+datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
     print('TensorBoard log directory:', logdir)
-    os.makedirs(logdir)
-    callbacks.append(TensorBoard(log_dir=logdir))
+    try:
+        os.makedirs(logdir)
+        callbacks.append(TensorBoard(log_dir=logdir))
+    except FileExistsError:
+        pass
 
 # ## Data
 # 

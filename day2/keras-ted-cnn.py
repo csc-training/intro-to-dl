@@ -48,8 +48,11 @@ if K.backend() == "tensorflow":
                      "ted-cnn-"+datetime.datetime.now()
                           .strftime('%Y-%m-%d_%H-%M-%S'))
     print('TensorBoard log directory:', logdir)
-    os.makedirs(logdir)
-    callbacks = [TensorBoard(log_dir=logdir)]
+    try:
+        os.makedirs(logdir)
+        callbacks = [TensorBoard(log_dir=logdir)]
+    except FileExistsError:
+        callbacks =  None
 else:
     callbacks =  None
 

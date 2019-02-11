@@ -45,8 +45,11 @@ if K.backend() == "tensorflow":
     logdir = os.path.join(os.getcwd(), "logs",
                      "dvc-pretrained-"+datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
     print('TensorBoard log directory:', logdir)
-    os.makedirs(logdir)
-    callbacks = [TensorBoard(log_dir=logdir)]
+    try:
+        os.makedirs(logdir)
+        callbacks = [TensorBoard(log_dir=logdir)]
+    except FileExistsError:
+        callbacks =  None
 else:
     callbacks =  None
 
@@ -204,8 +207,11 @@ epochs_ft = 20
 
 if K.backend() == "tensorflow":
     logdir_ft = logdir + "-ft"
-    os.makedirs(logdir_ft)
-    callbacks_ft = [TensorBoard(log_dir=logdir_ft)]
+    try:
+        os.makedirs(logdir_ft)
+        callbacks = [TensorBoard(log_dir=logdir_ft)]
+    except FileExistsError:
+        callbacks =  None
 else:
     callbacks_ft = None
 
