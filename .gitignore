@@ -1,5 +1,6 @@
 day2/*.png
 day2/*.out
 day2/*.h5
+day2/*.pt
 .ipynb_checkpoints
 *~
