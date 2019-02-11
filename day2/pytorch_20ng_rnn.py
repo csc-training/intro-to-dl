@@ -52,7 +52,7 @@ try:
     print('TensorBoard log directory:', logdir)
     os.makedirs(logdir)
     log = tensorboardX.SummaryWriter(logdir)
-except ImportError as e:
+except (ImportError, FileExistsError):
     log = None
 
 # ## GloVe word embeddings

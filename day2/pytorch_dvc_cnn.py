@@ -53,7 +53,7 @@ def get_tensorboard(log_name):
         print('Logging TensorBoard to:', logdir)
         os.makedirs(logdir)
         return tensorboardX.SummaryWriter(logdir)
-    except ImportError:
+    except (ImportError, FileExistsError):
         return None
 
 
