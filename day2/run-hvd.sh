@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -N 1 -n 4 -c 6 -p gpu --gres=gpu:k80:4 -t 1:00:00 --mem=0
+#SBATCH -N 1 -n 4 -c 6 -p gpu --gres=gpu:k80:4 -t 1:00:00 --mem=32G
 #SBATCH --reservation dlintro
 
 module load python-env/3.6.3-ml
