@@ -37,7 +37,7 @@ assert(LV(__version__) >= LV("2.0.0"))
 # in half.  In addition, the validation set consists of 1000 images,
 # and the test set of 22000 images.
 
-datapath = "/wrk/makoskel/dogs-vs-cats/train-2000"
+datapath = "/cfs/klemming/scratch/m/mvsjober/dogs-vs-cats/train-2000"
 (nimages_train, nimages_validation, nimages_test) = (2000, 1000, 22000)
 
 input_image_size = (150, 150)

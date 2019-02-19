@@ -1,9 +1,13 @@
 #!/bin/bash
-#SBATCH -N 1 -c 4 -p gpu --gres=gpu:k80:1 -t 1:00:00 --mem=8G
-#SBATCH --reservation dlintro
+#SBATCH -N 1 -c 4 --gres=gpu:K420:1 -t 1:00:00 --mem=8G
+#SBATCH -A pdc-test-2019
 
-module load python-env/3.6.3-ml
-module list
+module load anaconda/py36/5.0.1
+source activate tensorflow1.6
+pip install Pillow --user
 
-set -xv
-srun python3.6 $*
+echo Running $*
+time python $*
+
+rm -Rf /tmp/.keras
+source deactivate
