@@ -41,7 +41,7 @@ assert(LV(__version__) >= LV("2.0.0"))
 # The validation and test sets consist of 999 and 12630 images,
 # respectively.
 
-datapath = "/wrk/makoskel/gtsrb/train-5535"
+datapath = "/cfs/klemming/scratch/m/mvsjober/data/gtsrb/train-5535"
 (nimages_train, nimages_validation, nimages_test) = (5535, 999, 12630)
 
 input_image_size = (75, 75)

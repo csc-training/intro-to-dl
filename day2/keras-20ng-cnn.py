@@ -62,12 +62,12 @@ else:
 # embeddings.  The datafile contains 100-dimensional embeddings for
 # 400,000 English words.
 
-GLOVE_DIR = "/wrk/makoskel/glove.6B"
+GLOVE_DIR = "/cfs/klemming/scratch/m/mvsjober/data/glove.6B"
 
 print('Indexing word vectors.')
 
 embeddings_index = {}
-with open(os.path.join(GLOVE_DIR, 'glove.6B.100d.txt')) as f:
+with open(os.path.join(GLOVE_DIR, 'glove.6B.100d.txt'), encoding='utf-8') as f:
     for line in f:
         values = line.split()
         word = values[0]
@@ -91,7 +91,7 @@ print('Found %s word vectors.' % len(embeddings_index))
 # talk.politics.misc    | comp.os.ms-windows.misc  | rec.sport.baseball | sci.med
 # talk.religion.misc    | comp.sys.mac.hardware    | rec.sport.hockey   | misc.forsale
 
-TEXT_DATA_DIR = "/wrk/makoskel/20_newsgroup"
+TEXT_DATA_DIR = "/cfs/klemming/scratch/m/mvsjober/data/20_newsgroup"
 
 print('Processing text dataset')
 
