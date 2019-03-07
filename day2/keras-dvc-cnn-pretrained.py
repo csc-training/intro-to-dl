@@ -1,8 +1,7 @@
-
 # coding: utf-8
 
-# # Dogs-vs-cats classification with CNNs
-# 
+# Dogs-vs-cats classification with CNNs
+#
 # In this script, we'll train a convolutional neural network (CNN,
 # ConvNet) to classify images of dogs from images of cats using Keras
 # (version $\ge$ 2 is required). This script is largely based on the
@@ -10,27 +9,24 @@
 # little data]
 # (https://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html)
 # by François Chollet.
-# 
+#
 # **Note that using a GPU with this script is highly recommended.**
-# 
+#
 # First, the needed imports. Keras tells us which backend (Theano,
 # Tensorflow, CNTK) it will be using.
 
+import os
+
 from keras.models import Sequential
-from keras.layers import Dense, Activation, Dropout, Flatten, MaxPooling2D
+from keras.layers import Dense, Flatten
 from keras.layers import InputLayer
-from keras.layers.convolutional import Conv2D 
-from keras.preprocessing.image import (ImageDataGenerator, array_to_img, 
-                                      img_to_array, load_img)
+from keras.preprocessing.image import ImageDataGenerator
 from keras import applications, optimizers
 
-from keras.utils import np_utils
 from keras import backend as K
 
 from distutils.version import LooseVersion as LV
 from keras import __version__
-
-import numpy as np
 
 print('Using Keras version:', __version__, 'backend:', K.backend())
 assert(LV(__version__) >= LV("2.0.0"))
@@ -41,20 +37,20 @@ assert(LV(__version__) >= LV("2.0.0"))
 if K.backend() == "tensorflow":
     import tensorflow as tf
     from keras.callbacks import TensorBoard
-    import os, datetime
+    import datetime
     logdir = os.path.join(os.getcwd(), "logs",
-                     "dvc-pretrained-"+datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
+                          "dvc-pretrained-"+datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
     print('TensorBoard log directory:', logdir)
     try:
         os.makedirs(logdir)
         callbacks = [TensorBoard(log_dir=logdir)]
     except FileExistsError:
-        callbacks =  None
+        callbacks = None
 else:
-    callbacks =  None
+    callbacks = None
 
-# ## Data
-# 
+# ### Data
+#
 # The training dataset consists of 2000 images of dogs and cats, split
 # in half.  In addition, the validation set consists of 1000 images,
 # and the test set of 22000 images.
@@ -63,9 +59,9 @@ datapath = "/cfs/klemming/scratch/m/mvsjober/data/dogs-vs-cats/train-2000"
 (nimages_train, nimages_validation, nimages_test) = (2000, 1000, 22000)
 
 # ### Data augmentation
-# 
+#
 # First, we'll resize all training and validation images to a fized size. 
-# 
+#
 # Then, to make the most of our limited number of training examples,
 # we'll apply random transformations to them each time we are looping
 # over them. This way, we "augment" our training dataset to contain
@@ -73,7 +69,11 @@ datapath = "/cfs/klemming/scratch/m/mvsjober/data/dogs-vs-cats/train-2000"
 # Keras, see [ImageDataGenerator]
 # (https://keras.io/preprocessing/image/) for more information.
 
-input_image_size = (150, 150)
+# MobileNet
+input_image_size = (160, 160)
+
+# VGG16
+# input_image_size = (150, 150)
 
 datagen = ImageDataGenerator(
         rescale=1./255,
@@ -90,8 +90,8 @@ noopgen = ImageDataGenerator(rescale=1./255)
 # TensorBoard event file.
 
 augm_generator = datagen.flow_from_directory(
-        datapath+'/train',  
-        target_size=input_image_size,  
+        datapath+'/train',
+        target_size=input_image_size,
         batch_size=10)
 
 for batch, _ in augm_generator:
@@ -107,49 +107,52 @@ if K.backend() == "tensorflow":
         writer.close()
 
 # ### Data loaders
-# 
+#
 # Let's now define our real data loaders for training and validation data.
 
 batch_size = 25
 
 print('Train: ', end="")
 train_generator = datagen.flow_from_directory(
-        datapath+'/train',  
-        target_size=input_image_size,
-        batch_size=batch_size, 
-        class_mode='binary')
-
-print('Validation: ', end="")
-validation_generator = noopgen.flow_from_directory(
-        datapath+'/validation',  
+        datapath+'/train',
         target_size=input_image_size,
         batch_size=batch_size,
         class_mode='binary')
 
-# We now reuse a pretrained network.  Here we'll use the
-# [VGG16](https://keras.io/applications/#vgg16) network architecture
-# with weights learned using Imagenet.  We remove the top layers and
+print('Validation: ', end="")
+validation_generator = noopgen.flow_from_directory(
+        datapath+'/validation',
+        target_size=input_image_size,
+        batch_size=batch_size,
+        class_mode='binary')
+
+# We now reuse a pretrained network. Here we'll use one of the
+# networks available from Keras: https://keras.io/applications/, which
+# have been pretrained using ImageNet. We remove the top layers and
 # freeze the pre-trained weights.
-# 
+#
 # ### Initialization
 
 model = Sequential()
 
-model.add(InputLayer(input_shape=input_image_size+(3,))) # possibly needed due to a bug in Keras
+model.add(InputLayer(input_shape=input_image_size+(3,)))  # possibly needed due to a bug in Keras
 
-vgg_model = applications.VGG16(weights='imagenet', 
-                               include_top=False, 
-                               input_shape=input_image_size+(3,))
-for layer in vgg_model.layers:
+pt_model = applications.MobileNet(weights='imagenet', include_top=False,
+                                  input_shape=input_image_size+(3,))
+# pt_model = applications.VGG16(weights='imagenet', include_top=False,
+#                               input_shape=input_image_size+(3,))
+
+pt_name = pt_model.name
+print('Using {} pre-trained model'.format(pt_name))
+
+for layer in pt_model.layers:
     model.add(layer)
 
 for layer in model.layers:
     layer.trainable = False
 
-print(model.summary())
-
 # We then stack our own, randomly initialized layers on top of the
-# VGG16 network.
+# pre-trained network.
 
 model.add(Flatten())
 model.add(Dense(64, activation='relu'))
@@ -163,7 +166,7 @@ print(model.summary())
 
 # ### Learning 1: New layers
 
-epochs = 20
+epochs = 10
 workers = 4
 use_multiprocessing = False
 
@@ -179,31 +182,32 @@ history = model.fit_generator(train_generator,
                               use_multiprocessing=use_multiprocessing,
                               workers=workers)
 
-fname = "dvc-vgg16-reuse.h5"
+fname = "dvc-" + pt_name + "-reuse.h5"
 print('Saving model to', fname)
 model.save(fname)
 
 # ### Learning 2: Fine-tuning
-# 
+#
 # Once the top layers have learned some reasonable weights, we can
-# continue training by unfreezing the last convolution block of VGG16
-# (`block5`) so that it may adapt to our data. The learning rate
+# continue training by unfreezing the last blocks of the pre-trained
+# network so that it may adapt to our data. The learning rate
 # should be smaller than usual.
 
-for layer in model.layers[15:]:
+# for layer in model.layers[15:]:
+for layer in model.layers[75:]:
     layer.trainable = True
     print(layer.name, "now trainable")
-    
+
 model.compile(loss='binary_crossentropy',
-    optimizer=optimizers.RMSprop(lr=1e-5),
-    metrics=['accuracy'])
+              optimizer=optimizers.RMSprop(lr=1e-5),
+              metrics=['accuracy'])
 
 print(model.summary())
 
 # Note that before continuing the training, we create a separate
 # TensorBoard log directory:
 
-epochs_ft = 20
+epochs_ft = 5
 
 if K.backend() == "tensorflow":
     logdir_ft = logdir + "-ft"
@@ -211,7 +215,7 @@ if K.backend() == "tensorflow":
         os.makedirs(logdir_ft)
         callbacks_ft = [TensorBoard(log_dir=logdir_ft)]
     except FileExistsError:
-        callbacks_ft =  None
+        callbacks_ft = None
 else:
     callbacks_ft = None
 
@@ -224,6 +228,6 @@ history = model.fit_generator(train_generator,
                               use_multiprocessing=use_multiprocessing,
                               workers=workers)
 
-fname_ft = "dvc-vgg16-finetune.h5"
+fname_ft = "dvc-" + pt_name + "-finetune.h5"
 print('Saving finetuned model to', fname_ft)
 model.save(fname_ft)

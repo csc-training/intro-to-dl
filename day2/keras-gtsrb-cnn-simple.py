@@ -1,8 +1,7 @@
-
 # coding: utf-8
 
 # # Traffic sign classification with CNNs
-# 
+#
 # In this script, we'll train a convolutional neural network (CNN,
 # ConvNet) to classify images of traffic signs from [The German
 # Traffic Sign Recognition Benchmark]
@@ -12,26 +11,22 @@
 # very little data]
 # (https://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html)
 # by François Chollet.
-# 
+#
 # **Note that using a GPU with this script is highly recommended.**
-# 
+#
 # First, the needed imports. Keras tells us which backend (Theano,
 # Tensorflow, CNTK) it will be using.
 
-from keras.models import Sequential
-from keras.layers import Dense, Activation, Dropout, Flatten, MaxPooling2D
-from keras.layers.convolutional import Conv2D 
-from keras.preprocessing.image import (ImageDataGenerator, array_to_img, 
-                                      img_to_array, load_img)
-from keras import applications, optimizers
+import os
 
-from keras.utils import np_utils
+from keras.models import Sequential
+from keras.layers import Dense, Dropout, Flatten, MaxPooling2D, Conv2D
+from keras.preprocessing.image import ImageDataGenerator
+
 from keras import backend as K
 
 from distutils.version import LooseVersion as LV
 from keras import __version__
-
-import numpy as np
 
 print('Using Keras version:', __version__, 'backend:', K.backend())
 assert(LV(__version__) >= LV("2.0.0"))
@@ -42,23 +37,23 @@ assert(LV(__version__) >= LV("2.0.0"))
 if K.backend() == "tensorflow":
     import tensorflow as tf
     from keras.callbacks import TensorBoard
-    import os, datetime
+    import datetime
     logdir = os.path.join(os.getcwd(), "logs",
-                     "gtsrb-simple-"+datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
+                          "gtsrb-simple-"+datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
     print('TensorBoard log directory:', logdir)
     try:
         os.makedirs(logdir)
         callbacks = [TensorBoard(log_dir=logdir)]
     except FileExistsError:
-        callbacks =  None
+        callbacks = None
 else:
-    callbacks =  None
+    callbacks = None
 
 # ## Data
-# 
+#
 # The training dataset consists of 5535 images of traffic signs of
 # varying size. There are 43 different types of traffic signs.
-# 
+#
 # The validation and test sets consist of 999 and 12630 images,
 # respectively.
 
@@ -66,9 +61,9 @@ datapath = "/cfs/klemming/scratch/m/mvsjober/data/gtsrb/train-5535"
 (nimages_train, nimages_validation, nimages_test) = (5535, 999, 12630)
 
 # ### Data augmentation
-# 
+#
 # First, we'll resize all training and validation images to a fized size. 
-# 
+#
 # Then, to make the most of our limited number of training examples,
 # we'll apply random transformations to them each time we are looping
 # over them. This way, we "augment" our training dataset to contain
@@ -76,7 +71,11 @@ datapath = "/cfs/klemming/scratch/m/mvsjober/data/gtsrb/train-5535"
 # Keras, see [ImageDataGenerator]
 # (https://keras.io/preprocessing/image/) for more information.
 
-input_image_size = (75, 75)
+# MobileNet
+input_image_size = (128, 128)
+
+# VGG16
+# input_image_size = (75, 75)
 
 datagen = ImageDataGenerator(
         rescale=1./255,
@@ -93,9 +92,9 @@ noopgen = ImageDataGenerator(rescale=1./255)
 # TensorBoard event file.
 
 augm_generator = datagen.flow_from_directory(
-        datapath+'/train',  
-        target_size=input_image_size,  
-        batch_size=10)
+    datapath+'/train',
+    target_size=input_image_size,
+    batch_size=10)
 
 for batch, _ in augm_generator:
     break
@@ -110,33 +109,33 @@ if K.backend() == "tensorflow":
         writer.close()
 
 # ### Data loaders
-# 
+#
 # Let's now define our real data loaders for training and validation data.
 
 batch_size = 50
 
 print('Train: ', end="")
 train_generator = datagen.flow_from_directory(
-        datapath+'/train',  
-        target_size=input_image_size,
-        batch_size=batch_size)
+    datapath+'/train',
+    target_size=input_image_size,
+    batch_size=batch_size)
 
 print('Validation: ', end="")
 validation_generator = noopgen.flow_from_directory(
-        datapath+'/validation',  
-        target_size=input_image_size,
-        batch_size=batch_size)
+    datapath+'/validation',
+    target_size=input_image_size,
+    batch_size=batch_size)
 
 # Similarly as with MNIST digits, we can start from scratch and train
 # a CNN for the classification task. However, due to the small number
 # of training images, a large network will easily overfit, regardless
 # of the data augmentation.
-# 
+#
 # ### Initialization
 
 model = Sequential()
 
-model.add(Conv2D(32, (3, 3), input_shape=input_image_size+(3,), 
+model.add(Conv2D(32, (3, 3), input_shape=input_image_size+(3,),
                  activation='relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 

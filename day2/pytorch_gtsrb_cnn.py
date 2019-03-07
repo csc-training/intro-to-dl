@@ -24,19 +24,9 @@ if torch.cuda.is_available():
 else:
     device = torch.device('cpu')
 print('Using PyTorch version:', torch.__version__, ' Device:', device)
-assert(LV(torch.__version__) >= LV("1.0.0"))
+# assert(LV(torch.__version__) >= LV("1.0.0"))
 
-datapath = None
-subpath = 'gtsrb/train-5535'
-
-slurm_job_id = os.environ.get('SLURM_JOB_ID')
-if slurm_job_id is not None:
-    datapath = os.path.join(os.environ.get('TMPDIR'), os.environ.get('SLURM_JOB_ID'),
-                            subpath)
-if datapath is None or not os.path.isdir(datapath):
-    datapath = '/wrk/makoskel/' + subpath
-if not os.path.isdir(datapath):
-    datapath = '/media/data/' + subpath
+datapath = '/cfs/klemming/scratch/m/mvsjober/data/gtsrb/train-5535'
 
 print('Reading data from path:', datapath)
 

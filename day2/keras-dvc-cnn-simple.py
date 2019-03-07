@@ -72,7 +72,8 @@ datapath = "/cfs/klemming/scratch/m/mvsjober/data/dogs-vs-cats/train-2000"
 # Keras, see [ImageDataGenerator]
 # (https://keras.io/preprocessing/image/) for more information.
 
-input_image_size = (150, 150)
+input_image_size = (160, 160)
+# input_image_size = (150, 150)
 
 datagen = ImageDataGenerator(
         rescale=1./255,
@@ -163,7 +164,7 @@ print(model.summary())
 
 # ### Learning
 
-epochs = 20
+epochs = 10
 workers = 4
 use_multiprocessing = False
 
