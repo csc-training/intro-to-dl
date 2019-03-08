@@ -71,8 +71,8 @@ Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
 1. Edit and submit jobs:
 
         nano keras-test.py  # or substitute with your favorite text editor
-        sbatch run.sh keras-test.py  # when using a training account
-        sbatch run-nores.sh keras-test.py  # when using own CSC account
+        sbatch run.sh keras-test.py  # when running during this course
+        sbatch run-nores.sh keras-test.py  # when running later (no course reservation)
 
    You can also specify additional command line arguments, e.g.
 
