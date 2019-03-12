@@ -39,12 +39,6 @@ Text categorization and labeling: 20 newsgroups; Ted talks.
 * *keras-ted-cnn.py*: Ted talks labeling with a 1D-CNN
 * *keras-ted-rnn.py*: Ted talks labeling with a RNN
 
-#### PyTorch
-
-* *pytorch_20ng_cnn.py*: 20 newsgroups classification with a 1D-CNN
-* *pytorch_20ng_rnn.py*: 20 newsgroups classification with a RNN
-* *pytorch_ted_cnn.py*: Ted talks labeling with a 1D-CNN
-* *pytorch_ted_rnn.py*: Ted talks labeling with a RNN
 
 ### Exercise 7
 

@@ -1,7 +1,6 @@
 #!/bin/bash
 #SBATCH -N 1 -c 4 --gres=gpu:K420:1 -t 1:00:00 --mem=8G
-#SBATCH -A edu19.dlprace
-#SBATCH --reservation dlp1903
+#SBATCH -A pdc-test-2019
 
 module load anaconda/py36/5.0.1
 source activate tensorflow1.6
