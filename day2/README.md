@@ -53,17 +53,28 @@ Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
 * Do you get improvements in speed?
 * Do you get the same accuracy than with a single GPU?
 
+Extracurricular:
+
+1. Copy training data to compute node `$TMPDIR` and read it from there
+   in your script. See Section 6.5.5 in
+   https://research.csc.fi/taito-gpu-running for more information.
+2. Experiment with Horovod to implement multi-GPU training. See [run-hvd.sh](run-hvd.sh) and [keras-dvc-cnn-simple-hvd.py](keras-dvc-cnn-simple-hvd.py), or 
+[pytorch_dvc_cnn_simple_hvd.py](pytorch_dvc_cnn_simple_hvd.py).
 
 ## Setup
 
-1. Login to Tegner, [see PDC Support documentation for more details](https://www.pdc.kth.se/support/documents/login/login.html):
+1. Login to Taito-GPU using a training account (or your own CSC account):
 
-        kinit -f <username>@NADA.KTH.SE
-        ssh tegner.pdc.kth.se
+        ssh -l trainingxxx taito-gpu.csc.fi
         
-2. Clone and cd to the exercise repository:
+2. Set up the module environment:
 
-        git clone -b kth2019 https://github.com/csc-training/intro-to-dl
+        module purge
+        module load python-env/3.6.3-ml
+    
+3. Clone and cd to the exercise repository:
+
+        git clone https://github.com/csc-training/intro-to-dl.git
         cd intro-to-dl/day2
 
 ## Edit and submit jobs
@@ -80,7 +91,7 @@ Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
 
 2. See the status of your jobs or the queue you are using:
 
-        squeue -l -u $USER
+        squeue -l -u trainingxxx
         squeue -l -p gpu
 
 3. After the job has finished, examine the results:
@@ -91,16 +102,16 @@ Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
 
 ## Optional: TensorBoard
 
-1. Login again in a second terminal window to Tegner with SSH port forwarding:
+1. Login again in a second terminal window to Taito-GPU with SSH port forwarding:
 
-        ssh -l <username> -L PORT:localhost:PORT tegner.pdc.kth.se
+        ssh -l trainingxxx -L PORT:localhost:PORT taito-gpu.csc.fi
         
    Replace `PORT` with a freely selectable port number (>1023). By default, TensorBoard uses the port 6006, but **select a different port** to avoid overlaps. 
 
 2. Set up the module environment and start the TensorBoard server:
 
-        module load anaconda/py36/5.0.1
-        source activate tensorflow1.6
+        module purge
+        module load python-env/3.5.3-ml
         tensorboard --logdir=intro-to-dl/day2/logs --port=PORT
 
     To access TensorBoard, point your web browser to *localhost:PORT* .
