@@ -73,11 +73,7 @@ datapath = "/cfs/klemming/scratch/m/mvsjober/data/gtsrb/train-5535"
 # Keras, see [ImageDataGenerator]
 # (https://keras.io/preprocessing/image/) for more information.
 
-# MobileNet
 input_image_size = (128, 128)
-
-# VGG16
-# input_image_size = (75, 75)
 
 datagen = ImageDataGenerator(
         rescale=1./255,

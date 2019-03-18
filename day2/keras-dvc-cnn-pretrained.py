@@ -69,11 +69,7 @@ datapath = "/cfs/klemming/scratch/m/mvsjober/data/dogs-vs-cats/train-2000"
 # Keras, see [ImageDataGenerator]
 # (https://keras.io/preprocessing/image/) for more information.
 
-# MobileNet
 input_image_size = (160, 160)
-
-# VGG16
-# input_image_size = (150, 150)
 
 datagen = ImageDataGenerator(
         rescale=1./255,
@@ -193,8 +189,8 @@ model.save(fname)
 # network so that it may adapt to our data. The learning rate
 # should be smaller than usual.
 
-# for layer in model.layers[15:]:
-for layer in model.layers[75:]:
+# for layer in model.layers[15:]:  # VGG16
+for layer in model.layers[75:]:    # MobileNet
     layer.trainable = True
     print(layer.name, "now trainable")
 
