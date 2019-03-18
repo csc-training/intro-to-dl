@@ -53,7 +53,7 @@ Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
 1. Login to Tegner, [see PDC Support documentation for more details](https://www.pdc.kth.se/support/documents/login/login.html):
 
         kinit -f <username>@NADA.KTH.SE
-        ssh tegner.pdc.kth.se
+        ssh -l <username> tegner.pdc.kth.se
         
 2. Clone and cd to the exercise repository:
 
@@ -65,17 +65,16 @@ Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
 1. Edit and submit jobs:
 
         nano keras-test.py  # or substitute with your favorite text editor
-        sbatch run.sh keras-test.py  # when running during this course
-        sbatch run-nores.sh keras-test.py  # when running later (no course reservation)
+        sbatch run.sh keras-test.py  # submits to slurm
 
    You can also specify additional command line arguments, e.g.
 
         sbatch run.sh keras-dvc-cnn-evaluate.py dvc-small-cnn.h5      
 
-2. See the status of your jobs or the queue you are using:
+2. See the status of your jobs or the account you are using:
 
         squeue -l -u $USER
-        squeue -l -p gpu
+        squeue -l -A edu19.dlprace
 
 3. After the job has finished, examine the results:
 
