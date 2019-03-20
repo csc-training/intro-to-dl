@@ -61,7 +61,7 @@ If you have a laptop that has both jupyter and the other necessary python packag
 
 Google has a free Jupyter Notebooks service you may want to try out. No guarantees, but it does have GPUs available!
 
-* point your browser to https://github.com/csc-training/intro-to-dl/tree/master/day1 
+* point your browser to https://github.com/csc-training/intro-to-dl/tree/kth2019/day1 
 * select a notebook file
 * at the end of the file, there is a link: “Run this notebook in Google Colaboratory using this link”
 * to use a GPU, select: Runtime => Change runtime type => Hardware accelerator: GPU
