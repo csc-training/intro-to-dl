@@ -95,6 +95,7 @@ Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
 
         module load anaconda/py36/5.0.1
         source activate tensorflow1.6
+        cd /cfs/klemming/nobackup/<initial>/<username>
         tensorboard --logdir=intro-to-dl/day2/logs --port=PORT
 
     To access TensorBoard, point your web browser to *localhost:PORT* .
