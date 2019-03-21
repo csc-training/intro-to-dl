@@ -53,10 +53,11 @@ Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
 1. Login to Tegner, [see PDC Support documentation for more details](https://www.pdc.kth.se/support/documents/login/login.html):
 
         kinit -f <username>@NADA.KTH.SE
-        ssh -l <username> tegner.pdc.kth.se
+        ssh -Y <username>@tegner.pdc.kth.se
         
 2. Clone and cd to the exercise repository:
 
+        cd /cfs/klemming/nobackup/<initial>/<username>
         git clone -b kth2019 https://github.com/csc-training/intro-to-dl
         cd intro-to-dl/day2
 
