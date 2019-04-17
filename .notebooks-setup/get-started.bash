@@ -6,8 +6,8 @@ cd /home/jovyan
 # even if you're only cloning
 export GIT_COMMITTER_NAME=anonymous
 export GIT_COMMITTER_EMAIL=anon@localhost
-git clone -b kth2019 --single-branch https://github.com/csc-training/intro-to-dl
-#git clone https://github.com/csc-training/intro-to-dl
+#git clone -b kth2019 --single-branch https://github.com/csc-training/intro-to-dl
+git clone https://github.com/csc-training/intro-to-dl
 
 rmdir work
 rm get-started.bash
