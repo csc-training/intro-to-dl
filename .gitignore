@@ -4,3 +4,4 @@ day2/*.h5
 day2/*.pt
 .ipynb_checkpoints
 *~
+data/
