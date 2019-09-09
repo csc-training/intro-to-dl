@@ -6,14 +6,15 @@
 
 Image classification: dogs vs. cats; traffic signs.
 
-#### Keras
+#### TF2/Keras
 
-* *keras-dvc-cnn-simple.py*: Dogs vs. cats with a CNN trained from scratch
-* *keras-dvc-cnn-pretrained.py*: Dogs vs. cats with a pre-trained CNN
-* *keras-dvc-cnn-evaluate.py*: Evaluate a trained CNN with test data
-* *keras-gtsrb-cnn-simple.py*: Traffic signs with a CNN trained from scratch
-* *keras-gtsrb-cnn-pretrained.py*: Traffic signs with a pre-trained CNN
-* *keras-gtsrb-cnn-evaluate.py*: Evaluate a trained CNN with test data
+* *tf2-dvc-cnn-simple.py*: Dogs vs. cats with a CNN trained from scratch
+* *tf2-dvc-cnn-pretrained.py*: Dogs vs. cats with a pre-trained CNN
+* *tf2-dvc-cnn-evaluate.py*: Evaluate a trained CNN with test data
+
+* *tf2-gtsrb-cnn-simple.py*: Traffic signs with a CNN trained from scratch
+* *tf2-gtsrb-cnn-pretrained.py*: Traffic signs with a pre-trained CNN
+* *tf2-gtsrb-cnn-evaluate.py*: Evaluate a trained CNN with test data
 
 #### PyTorch
 
@@ -22,11 +23,20 @@ The PyTorch scripts have a slightly different setup:
 * *pytorch_dvc_cnn_simple.py*: Dogs vs cats with a CNN trained from scratch
 * *pytorch_dvc_cnn_pretrained.py*: Dogs vs cats with a pre-trained CNN
 * *pytorch_dvc_cnn.py*: Common functions for Dogs vs cats (don't run this one directly)
+
 * *pytorch_gtsrb_cnn_simple.py*: Traffic signs with a CNN trained from scratch
 * *pytorch_gtsrb_cnn_pretrained.py*: Traffic signs with a pre-trained CNN
 * *pytorch_gtsrb_cnn.py*:  Common functions for Traffic signs (don't run this one directly)
 
 To evaluate on the test set run with the `--test` option, e.g. `sbatch run.sh pytorch_dvc_cnn_simple.py --test` 
+
+#### Extracurricular:
+
+Dogs vs. cats with data in TFRecord format: 
+
+* *tf2-dvc-cnn-simple.py*: Dogs vs. cats with a CNN trained from scratch
+* *tf2-dvc-cnn-pretrained.py*: Dogs vs. cats with a pre-trained CNN
+* *tf2-dvc-cnn-evaluate.py*: Evaluate a trained CNN with test data
 
 ### Exercise 6
 
@@ -36,15 +46,15 @@ Text categorization and labeling: 20 newsgroups; Ted talks.
 
 * *keras-20ng-cnn.py*: 20 newsgroups classification with a 1D-CNN
 * *keras-20ng-rnn.py*: 20 newsgroups classification with a RNN
-* *keras-ted-cnn.py*: Ted talks labeling with a 1D-CNN
-* *keras-ted-rnn.py*: Ted talks labeling with a RNN
 
 #### PyTorch
 
 * *pytorch_20ng_cnn.py*: 20 newsgroups classification with a 1D-CNN
 * *pytorch_20ng_rnn.py*: 20 newsgroups classification with a RNN
-* *pytorch_ted_cnn.py*: Ted talks labeling with a 1D-CNN
-* *pytorch_ted_rnn.py*: Ted talks labeling with a RNN
+
+#### PyTorch / BERT
+
+* *pytorch_20ng_bert.py*: 20 newsgroups classification with BERT pretraining
 
 ### Exercise 7
 
@@ -53,7 +63,7 @@ Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
 * Do you get improvements in speed?
 * Do you get the same accuracy than with a single GPU?
 
-Extracurricular:
+#### Extracurricular:
 
 1. Copy training data to compute node `$TMPDIR` and read it from there
    in your script. See Section 6.5.5 in
