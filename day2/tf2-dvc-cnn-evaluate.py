@@ -41,7 +41,13 @@ print('Using Tensorflow version:', tf.__version__,
 # 
 # The test set consists of 22000 images.
 
-datapath = "/media/data/dogs-vs-cats/train-2000/"
+# In Taito-GPU:
+DATADIR = "/wrk/makoskel/"
+# In Puhti:
+#DATADIR = "/projappl/project_2001756/data/"
+
+datapath = DATADIR + "dogs-vs-cats/train-2000/"
+
 nimages = dict()
 nimages['test'] = 22000
 

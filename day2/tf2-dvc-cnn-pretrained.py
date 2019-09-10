@@ -43,7 +43,13 @@ print('Using Tensorflow version:', tf.__version__,
 # The training dataset consists of 2000 images of dogs and cats, split
 # in half.  In addition, the validation set consists of 1000 images.
 
-datapath = "/media/data/dogs-vs-cats/train-2000/"
+# In Taito-GPU:
+DATADIR = "/wrk/makoskel/"
+# In Puhti:
+#DATADIR = "/projappl/project_2001756/data/"
+
+datapath = DATADIR + "dogs-vs-cats/train-2000/"
+
 nimages = dict()
 nimages['train'] = 2000
 nimages['validation'] = 1000
