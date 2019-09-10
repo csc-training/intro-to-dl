@@ -82,7 +82,7 @@ def test_main():
     test_loader = get_test_loader(25)
 
     print('=========')
-    print('Test set:')
+    print('Simple:')
     with torch.no_grad():
         evaluate(model, test_loader)
 
