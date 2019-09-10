@@ -115,5 +115,6 @@ model = load_model(sys.argv[1])
 
 print(model.summary())
 
+print('Evaluating model', sys.argv[1])
 scores = model.evaluate(test_dataset, verbose=2)
 print("Test set %s: %.2f%%" % (model.metrics_names[1], scores[1]*100))
