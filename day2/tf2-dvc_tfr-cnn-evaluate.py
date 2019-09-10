@@ -15,13 +15,13 @@
 # 
 # First, the needed imports.
 
-import os, datetime
+import os, datetime, sys
 import random
 import pathlib
 
 import tensorflow as tf
 
-from tensorflow.keras.models import Sequential
+from tensorflow.keras.models import Sequential, load_model
 from tensorflow.keras.layers import (Dense, Activation, Dropout, Conv2D,
                                     Flatten, MaxPooling2D, InputLayer)
 from tensorflow.keras.preprocessing.image import (ImageDataGenerator, 
@@ -37,29 +37,21 @@ print('Using Tensorflow version:', tf.__version__,
       'Keras version:', tf.keras.__version__,
       'backend:', tf.keras.backend.backend())
 
-
 # ## Data
 # 
-# The training dataset consists of 2000 images of dogs and cats, split
-# in half.  In addition, the validation set consists of 1000 images,
+# The test set consists of 22000 images.
 
 datapath = "/media/data/dogs-vs-cats/train-2000/tfrecord/"
 nimages = dict()
-nimages['train'] = 2000
-nimages['validation'] = 1000
+nimages['test'] = 22000
 
 # ### Data augmentation
 # 
-# We need to resize all training and validation images to a fixed
-# size. Here we'll use 160x160 pixels.
+# We need to resize all test images to a fixed size. Here we'll use
+# 160x160 pixels.
 # 
-# Then, to make the most of our limited number of training examples,
-# we'll apply random transformations (crop and horizontal flip) to
-# them each time we are looping over them. This way, we "augment" our
-# training dataset to contain more data. There are various
-# transformations readily available in TensorFlow, see tf.image
-# (https://www.tensorflow.org/versions/r2.0/api_docs/python/tf/image)
-# for more information.
+# Unlike the training images, we do not apply any random
+# transformations to the test images.
 
 INPUT_IMAGE_SIZE = [160, 160, 3]
 
@@ -98,82 +90,37 @@ def parse_and_not_augment_image(example_proto):
 
 # ### TF Datasets
 # 
-# Let's now define our TF Datasets
+# Let's now define our TF Dataset
 # (https://www.tensorflow.org/versions/r2.0/api_docs/python/tf/data/Dataset#class_dataset)
-# for training and validation data. We use the TFRecordDataset
+# for the test data. We use the TFRecordDataset
 # (https://www.tensorflow.org/versions/r2.0/api_docs/python/tf/data/TFRecordDataset)
 # class, which reads the data records from multiple TFRecord files.
 
-train_filenames = [datapath+"train-{0:05d}-of-00004".format(i)
-                   for i in range(4)]
-train_dataset = tf.data.TFRecordDataset(train_filenames)
-
-validation_filenames = [datapath+"validation-{0:05d}-of-00002".format(i)
-                        for i in range(2)]
-validation_dataset = tf.data.TFRecordDataset(validation_filenames)
+test_filenames = [datapath+"test-{0:05d}-of-00022".format(i)
+                   for i in range(22)]
+test_dataset = tf.data.TFRecordDataset(test_filenames)
 
 # We then map() the TFRecord examples to the actual image data and
-# decode the images.  Note that we shuffle and augment only the
-# training data.
+# decode the images.
 
 BATCH_SIZE = 32
 
-train_dataset = train_dataset.map(parse_and_augment_image, num_parallel_calls=10)
-train_dataset = train_dataset.shuffle(2000).batch(BATCH_SIZE, drop_remainder=True)
-train_dataset = train_dataset.prefetch(buffer_size=tf.data.experimental.AUTOTUNE)
+test_dataset = test_dataset.map(parse_and_not_augment_image, num_parallel_calls=10)
+test_dataset = test_dataset.batch(BATCH_SIZE, drop_remainder=False)
+test_dataset = test_dataset.prefetch(buffer_size=tf.data.experimental.AUTOTUNE)
 
-validation_dataset = validation_dataset.map(parse_and_not_augment_image,
-                                            num_parallel_calls=10)
-validation_dataset = validation_dataset.batch(BATCH_SIZE, drop_remainder=True)
-validation_dataset = validation_dataset.prefetch(buffer_size=tf.data.experimental.AUTOTUNE)
-
-# ## Train a small CNN from scratch
-# 
-# Similarly as with MNIST digits, we can start from scratch and train
-# a CNN for the classification task. However, due to the small number
-# of training images, a large network will easily overfit, regardless
-# of the data augmentation.
-# 
 # ### Initialization
 
-model = Sequential()
-
-model.add(Conv2D(32, (3, 3), input_shape=INPUT_IMAGE_SIZE, activation='relu'))
-model.add(MaxPooling2D(pool_size=(2, 2)))
-
-model.add(Conv2D(32, (3, 3), activation='relu'))
-model.add(MaxPooling2D(pool_size=(2, 2)))
-
-model.add(Conv2D(64, (3, 3), activation='relu'))
-model.add(MaxPooling2D(pool_size=(2, 2)))
-
-model.add(Flatten())
-model.add(Dense(64, activation='relu'))
-model.add(Dropout(0.5))
-model.add(Dense(1, activation='sigmoid'))
-
-model.compile(loss='binary_crossentropy',
-              optimizer='rmsprop',
-              metrics=['accuracy'])
+if len(sys.argv)<2:
+    print('ERROR: model file missing')
+    sys.exit()
+    
+model = load_model(sys.argv[1])
 
 print(model.summary())
 
-# ### Learning
+# ### Inference
 
-# We'll use TensorBoard to visualize our progress during training.
-
-logdir = os.path.join(os.getcwd(), "logs",
-                      "dvc_tfr-cnn-simple-"+datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
-print('TensorBoard log directory:', logdir)
-os.makedirs(logdir)
-callbacks = [TensorBoard(log_dir=logdir)]
-
-epochs = 20
-
-history = model.fit(train_dataset, epochs=epochs,
-                    validation_data=validation_dataset,
-                    callbacks=callbacks, verbose=2)
-
-fname = "dvc_tfr-cnn-simple.h5"
-print('Saving model to', fname)
-model.save(fname)
+print('Evaluating model', sys.argv[1])
+scores = model.evaluate(test_dataset, verbose=2)
+print("Test set %s: %.2f%%" % (model.metrics_names[1], scores[1]*100))

@@ -127,29 +127,50 @@ validation_dataset = validation_dataset.map(parse_and_not_augment_image,
 validation_dataset = validation_dataset.batch(BATCH_SIZE, drop_remainder=True)
 validation_dataset = validation_dataset.prefetch(buffer_size=tf.data.experimental.AUTOTUNE)
 
-# ## Train a small CNN from scratch
+# ## Reuse a pre-trained CNN
 # 
-# Similarly as with MNIST digits, we can start from scratch and train
-# a CNN for the classification task. However, due to the small number
-# of training images, a large network will easily overfit, regardless
-# of the data augmentation.
+# We now reuse a pretrained network.  Here we'll use one of the
+# pre-trained networks available from Keras
+# (https://keras.io/applications/).  We remove the top layers and
+# freeze the pre-trained weights.
 # 
+# We first choose either VGG16 or MobileNet as our pretrained network:
+
+pretrained = 'VGG16'
+#pretrained = 'MobileNet'
+
 # ### Initialization
 
 model = Sequential()
 
-model.add(Conv2D(32, (3, 3), input_shape=INPUT_IMAGE_SIZE, activation='relu'))
-model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(InputLayer(input_shape=INPUT_IMAGE_SIZE)) # possibly needed due to a bug in Keras
 
-model.add(Conv2D(32, (3, 3), activation='relu'))
-model.add(MaxPooling2D(pool_size=(2, 2)))
+if pretrained == 'VGG16':
+    pt_model = applications.VGG16(weights='imagenet', include_top=False,      
+                                  input_shape=INPUT_IMAGE_SIZE)
+    pretrained_first_trainable_layer = 15 
+elif pretrained == 'MobileNet':
+    pt_model = applications.MobileNet(weights='imagenet', include_top=False,
+                                      input_shape=INPUT_IMAGE_SIZE)
+    pretrained_first_trainable_layer = 75
+else:
+    assert 0, "Unknown model: "+pretrained
+    
+pt_name = pt_model.name
+print('Using {} pre-trained model'.format(pt_name))
 
-model.add(Conv2D(64, (3, 3), activation='relu'))
-model.add(MaxPooling2D(pool_size=(2, 2)))
+for layer in pt_model.layers:
+    model.add(layer)
+
+for layer in model.layers:
+    layer.trainable = False
+
+print(model.summary())
+
+# We then stack our own, randomly initialized layers on top of the pre-trained network.
 
 model.add(Flatten())
 model.add(Dense(64, activation='relu'))
-model.add(Dropout(0.5))
 model.add(Dense(1, activation='sigmoid'))
 
 model.compile(loss='binary_crossentropy',
@@ -158,12 +179,44 @@ model.compile(loss='binary_crossentropy',
 
 print(model.summary())
 
-# ### Learning
-
-# We'll use TensorBoard to visualize our progress during training.
+# ### Learning 1: New layers
 
 logdir = os.path.join(os.getcwd(), "logs",
-                      "dvc_tfr-cnn-simple-"+datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
+                      "dvc_tfr-"+pt_name+"-reuse-"+datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
+print('TensorBoard log directory:', logdir)
+os.makedirs(logdir)
+callbacks = [TensorBoard(log_dir=logdir)]
+
+epochs = 10
+
+history = model.fit(train_dataset, epochs=epochs,
+                    validation_data=validation_dataset,
+                    callbacks=callbacks, verbose=2)
+
+fname = "dvc_tfr-" + pt_name + "-reuse.h5"
+print('Saving model to', fname)
+model.save(fname)
+
+# ### Learning 2: Fine-tuning
+# 
+# Once the top layers have learned some reasonable weights, we can
+# continue training by unfreezing the last blocks of the pre-trained
+# network so that it may adapt to our data. The learning rate should
+# be smaller than usual.
+
+for i, layer in enumerate(model.layers):
+    print(i, layer.name, layer.trainable)
+
+for layer in model.layers[pretrained_first_trainable_layer:]:
+    layer.trainable = True
+    print(layer.name, "now trainable")
+    
+model.compile(loss='binary_crossentropy',
+    optimizer=optimizers.RMSprop(lr=1e-5),
+    metrics=['accuracy'])
+
+logdir = os.path.join(os.getcwd(), "logs",
+                      "dvc_tfr-"+pt_name+"-finetune-"+datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
 print('TensorBoard log directory:', logdir)
 os.makedirs(logdir)
 callbacks = [TensorBoard(log_dir=logdir)]
@@ -174,6 +227,6 @@ history = model.fit(train_dataset, epochs=epochs,
                     validation_data=validation_dataset,
                     callbacks=callbacks, verbose=2)
 
-fname = "dvc_tfr-cnn-simple.h5"
+fname = "dvc_tfr-" + pt_name + "-finetune.h5"
 print('Saving model to', fname)
 model.save(fname)
