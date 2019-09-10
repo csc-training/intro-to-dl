@@ -67,9 +67,10 @@ Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
 
 #### Extracurricular:
 
-1. Copy training data to compute node `$TMPDIR` and read it from there
-   in your script. See Section 6.5.5 in
-   https://research.csc.fi/taito-gpu-running for more information.
+1. First copy training data to local SSD on the compute node and read it from there
+   in your script. 
+   * Taito-GPU: Copy data to compute node `$TMPDIR`. See Section 6.5.5 in https://research.csc.fi/taito-gpu-running for more information.
+   * Puhti: Request for local storage in your Slurm script and copy data to compute node `$LOCAL_SCRATCH`. See https://docs.csc.fi/#computing/running/creating-job-scripts/#local-storage for more information
 2. Experiment with Horovod to implement multi-GPU training. See [run-hvd.sh](run-hvd.sh) and [keras-dvc-cnn-simple-hvd.py](keras-dvc-cnn-simple-hvd.py), or 
 [pytorch_dvc_cnn_simple_hvd.py](pytorch_dvc_cnn_simple_hvd.py).
 
