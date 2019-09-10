@@ -19,8 +19,6 @@
 #
 # First, the needed imports.
 
-get_ipython().run_line_magic('matplotlib', 'inline')
-
 import torch
 from torch.utils.data import (TensorDataset, DataLoader,
                               RandomSampler, SequentialSampler)
@@ -104,10 +102,10 @@ TEST_SET = 4000
                                                test_size=TEST_SET,
                                                shuffle=True, random_state=42)
 
-print('Length of training texts:', len(x_train))
-print('Length of training labels:', len(y_train))
-print('Length of test texts:', len(x_test))
-print('Length of test labels:', len(y_test))
+print('Length of training texts:', len(sentences_train))
+print('Length of training labels:', len(labels_train))
+print('Length of test texts:', len(sentences_test))
+print('Length of test labels:', len(labels_test))
 
 # The token [CLS] is a special token required by BERT at the beginning
 # of the sentence.
@@ -125,6 +123,8 @@ print(sentences_train[0], 'LABEL:', labels_train[0])
 # We load the used vocabulary from the BERT model, and use the BERT
 # tokenizer to convert the sentences into tokens that match the data
 # the BERT model was trained on.
+
+print('Initializing BertTokenizer')
 
 BERTMODEL='bert-base-uncased'
 
@@ -237,6 +237,8 @@ print(len(test_data), 'messages')
 #
 # We now load a pretrained BERT model with a single linear
 # classification layer added on top.
+
+print('Initializing BertForSequenceClassification')
 
 model = BertForSequenceClassification.from_pretrained(BERTMODEL,
                                                       num_labels=20)
