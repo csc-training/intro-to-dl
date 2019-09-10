@@ -43,7 +43,7 @@ if slurm_job_id is not None:
 if datapath is None or not os.path.isdir(datapath):
     datapath = '/wrk/makoskel/' + subpath
 if not os.path.isdir(datapath):
-    datapath = '/media/data/' + subpath
+    datapath = '/projappl/project_2001756/data/' + subpath
 
 if hvd.rank() == 0:
     print('Reading data from path:', datapath)
@@ -210,3 +210,7 @@ def get_test_loader(batch_size=25):
         print('Found', len(test_dataset), 'images belonging to',
               len(test_dataset.classes), 'classes')
     return test_loader
+
+if __name__ == '__main__':
+    print('\nThis Python script is only for common functions. *DON\'T RUN IT DIRECTLY!* :-)')
+
