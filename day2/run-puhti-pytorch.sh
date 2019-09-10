@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -A project_2001756 -N 1 -c 4 -p gpu --gres=gpu:v100:1 -t 1:00:00 --mem=8G
+#SBATCH -A project_2001756 -c 10 -p gpu --gres=gpu:v100:1 -t 1:00:00 --mem=64G
 
 module load pytorch/1.2.0
 module list
