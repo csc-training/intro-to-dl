@@ -185,7 +185,7 @@ print(model.summary())
 
 # We'll use TensorBoard to visualize our progress during training.
 
-logdir = os.path.join(os.getcwd(), "logs", "gtsrb-small-cnn-" +
+logdir = os.path.join(os.getcwd(), "logs", "gtsrb-cnn-simple-" +
                       datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
 print('TensorBoard log directory:', logdir)
 os.makedirs(logdir)
@@ -196,6 +196,6 @@ history = model.fit(train_dataset, epochs=epochs,
                     validation_data=validation_dataset,
                     callbacks=callbacks, verbose=2)
 
-fname = "gtsrb-small-cnn.h5"
+fname = "gtsrb-cnn-simple.h5"
 print('Saving model to', fname)
 model.save(fname)
