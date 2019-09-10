@@ -152,7 +152,7 @@ pretrained = 'VGG16'
 
 model = Sequential()
 
-model.add(InputLayer(input_shape=input_image_size+(3,))) # possibly needed due to a bug in Keras
+model.add(InputLayer(input_shape=INPUT_IMAGE_SIZE)) # possibly needed due to a bug in Keras
 
 if pretrained == 'VGG16':
     pt_model = applications.VGG16(weights='imagenet', include_top=False,      

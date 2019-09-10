@@ -21,7 +21,7 @@ import pathlib
 
 import tensorflow as tf
 
-from tensorflow.keras.models import Sequential
+from tensorflow.keras.models import Sequential, load_model
 from tensorflow.keras.layers import (Dense, Activation, Dropout, Conv2D,
                                     Flatten, MaxPooling2D, InputLayer)
 from tensorflow.keras.preprocessing.image import (ImageDataGenerator, 
@@ -129,6 +129,6 @@ print(model.summary())
 
 # ### Inference
 
-print('Evaluating model', sys.argv[1]
+print('Evaluating model', sys.argv[1])
 scores = model.evaluate(test_dataset, verbose=2)
 print("Test set %s: %.2f%%" % (model.metrics_names[1], scores[1]*100))
