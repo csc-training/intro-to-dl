@@ -28,13 +28,17 @@ The PyTorch scripts have a slightly different setup:
 
 To evaluate on the test set run with the `--test` option, e.g. `sbatch run.sh pytorch_dvc_cnn_simple.py --test` 
 
-#### Extracurricular:
+#### Extracurricular 1:
 
 Dogs vs. cats with data in TFRecord format: 
 
-* *tf2-dvc-cnn-simple.py*: Dogs vs. cats with a CNN trained from scratch
-* *tf2-dvc-cnn-pretrained.py*: Dogs vs. cats with a pre-trained CNN
-* *tf2-dvc-cnn-evaluate.py*: Evaluate a trained CNN with test data
+* *tf2-dvc_tfr-cnn-simple.py*: Dogs vs. cats with a CNN trained from scratch
+* *tf2-dvc_tfr-cnn-pretrained.py*: Dogs vs. cats with a pre-trained CNN
+* *tf2-dvc_tfr-cnn-evaluate.py*: Evaluate a trained CNN with test data
+
+#### Extracurricular 2:
+
+There is another, small dataset `avp`, of aliens and predators. Modify dogs vs. cats to classify between them.  
 
 ### Exercise 6
 
@@ -78,7 +82,7 @@ Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
 2. Set up the module environment:
 
         module purge
-        module load python-env/3.6.3-ml
+        module load python-env/3.7.4-ml
     
 3. Clone and cd to the exercise repository:
 
@@ -89,13 +93,13 @@ Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
 
 1. Edit and submit jobs:
 
-        nano keras-test.py  # or substitute with your favorite text editor
-        sbatch run.sh keras-test.py  # when using a training account
-        sbatch run-nores.sh keras-test.py  # when using own CSC account
+        nano tf2-test.py  # or substitute with your favorite text editor
+        sbatch run.sh tf2-test.py  # when using a training account
+        sbatch run-nores.sh tf2-test.py  # when using own CSC account
 
    You can also specify additional command line arguments, e.g.
 
-        sbatch run.sh keras-dvc-cnn-evaluate.py dvc-small-cnn.h5      
+        sbatch run.sh tf-dvc-cnn-evaluate.py dvc-cnn-simple.h5      
 
 2. See the status of your jobs or the queue you are using:
 
@@ -119,7 +123,7 @@ Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
 2. Set up the module environment and start the TensorBoard server:
 
         module purge
-        module load python-env/3.5.3-ml
+        module load python-env/3.7.4-ml
         tensorboard --logdir=intro-to-dl/day2/logs --port=PORT
 
     To access TensorBoard, point your web browser to *localhost:PORT* .
