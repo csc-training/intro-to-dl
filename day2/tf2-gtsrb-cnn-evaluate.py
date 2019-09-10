@@ -12,14 +12,14 @@ print('Using Tensorflow version: {}, and Keras version: {}.'.format(
 
 # # Data
 #
-# The training dataset consists of 5535 images of traffic signs of
-# varying size. There are 43 different types of traffic signs:
-#
-# The validation and test sets consist of 999 and 12630 images, respectively.
-#
-# ### Downloading the data
+# The test set consists of 12630 images.
 
-datapath = "/media/data/gtsrb/train-5535/"
+# In Taito-GPU:
+DATADIR = "/wrk/makoskel/"
+# In Puhti:
+#DATADIR = "/projappl/project_2001756/data/"
+
+datapath = DATADIR + "gtsrb/train-5535/"
 nimages = dict()
 nimages['test'] = 12630
 

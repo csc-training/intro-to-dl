@@ -33,13 +33,15 @@ print('Using Tensorflow version: {}, and Keras version: {}.'.format(
 # # Data
 #
 # The training dataset consists of 5535 images of traffic signs of
-# varying size. There are 43 different types of traffic signs:
-#
-# The validation and test sets consist of 999 and 12630 images, respectively.
-#
-# ### Downloading the data
+# varying size. There are 43 different types of traffic signs. In
+# addition, the validation consists of 999.
 
-datapath = "/media/data/gtsrb/train-5535/"
+# In Taito-GPU:
+DATADIR = "/wrk/makoskel/"
+# In Puhti:
+#DATADIR = "/projappl/project_2001756/data/"
+
+datapath = DATADIR + "gtsrb/train-5535/"
 nimages = dict()
 (nimages['train'], nimages['validation']) = (5535, 999)
 
@@ -130,25 +132,22 @@ def process_and_not_augment_image(image, label):
 
 
 # ### TF Datasets
-#
-# Let's now define our [TF
-# `Dataset`s](https://www.tensorflow.org/versions/r2.0/api_docs/python/tf/data/Dataset#class_dataset)
-# for training, validation, and test data. We augment only the
-# training data.
 
 train_dataset = tf.data.Dataset.from_tensor_slices(
     (image_paths['train'], image_labels['train']))
-train_dataset = train_dataset.map(load_image)
+train_dataset = train_dataset.map(load_image,
+                                  num_parallel_calls=tf.data.experimental.AUTOTUNE)
 train_dataset = train_dataset.map(process_and_augment_image,
-                                  num_parallel_calls=10)
-train_dataset = train_dataset.shuffle(2000).batch(BATCH_SIZE,
-                                                  drop_remainder=True)
+                                  num_parallel_calls=tf.data.experimental.AUTOTUNE)
+train_dataset = train_dataset.shuffle(500).batch(BATCH_SIZE,
+                                                          drop_remainder=True)
 
 validation_dataset = tf.data.Dataset.from_tensor_slices(
     (image_paths['validation'], image_labels['validation']))
-validation_dataset = validation_dataset.map(load_image)
+validation_dataset = validation_dataset.map(load_image,
+                                            num_parallel_calls=tf.data.experimental.AUTOTUNE)
 validation_dataset = validation_dataset.map(process_and_not_augment_image,
-                                            num_parallel_calls=10)
+                                            num_parallel_calls=tf.data.experimental.AUTOTUNE)
 validation_dataset = validation_dataset.batch(BATCH_SIZE, drop_remainder=True)
 
 
