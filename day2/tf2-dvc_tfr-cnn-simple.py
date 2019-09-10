@@ -162,7 +162,7 @@ print(model.summary())
 # We'll use TensorBoard to visualize our progress during training.
 
 logdir = os.path.join(os.getcwd(), "logs",
-                      "dvc-small-cnn-"+datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
+                      "dvc_tfr-cnn-simple-"+datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
 print('TensorBoard log directory:', logdir)
 os.makedirs(logdir)
 callbacks = [TensorBoard(log_dir=logdir)]
@@ -173,6 +173,6 @@ history = model.fit(train_dataset, epochs=epochs,
                     validation_data=validation_dataset,
                     callbacks=callbacks, verbose=2)
 
-fname = "dvc-small-cnn.h5"
+fname = "dvc_tfr-cnn-simple.h5"
 print('Saving model to', fname)
 model.save(fname)
