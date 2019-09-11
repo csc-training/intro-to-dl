@@ -44,7 +44,8 @@ print('Using Tensorflow version:', tf.__version__,
 # In Taito-GPU:
 DATADIR = "/wrk/makoskel/"
 # In Puhti:
-#DATADIR = "/projappl/project_2001756/data/"
+if not os.path.isdir(DATADIR):
+    DATADIR = "/projappl/project_2001756/data/"
 
 datapath = DATADIR + "dogs-vs-cats/train-2000/tfrecord/"
 
