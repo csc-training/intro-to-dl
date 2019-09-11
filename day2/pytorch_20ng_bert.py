@@ -64,7 +64,8 @@ assert(LV(torch.__version__) >= LV("1.0.0"))
 # In Taito-GPU:
 DATADIR = "/wrk/makoskel/"
 # In Puhti:
-#DATADIR = "/projappl/project_2001756/data/"
+if not os.path.isdir(DATADIR):
+    DATADIR = "/projappl/project_2001756/data/"
 
 TEXT_DATA_DIR = DATADIR + "20_newsgroup"
 
