@@ -39,7 +39,8 @@ print('Using Tensorflow version: {}, and Keras version: {}.'.format(
 # In Taito-GPU:
 DATADIR = "/wrk/makoskel/"
 # In Puhti:
-#DATADIR = "/projappl/project_2001756/data/"
+if not os.path.isdir(DATADIR):
+    DATADIR = "/projappl/project_2001756/data/"
 
 datapath = DATADIR + "gtsrb/train-5535/"
 nimages = dict()
