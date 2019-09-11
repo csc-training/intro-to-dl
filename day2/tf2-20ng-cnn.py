@@ -27,8 +27,6 @@ from tensorflow.keras.utils import to_categorical
 from tensorflow.keras.callbacks import TensorBoard
 from tensorflow.keras.utils import plot_model
 
-from sklearn.metrics import confusion_matrix
-
 import os, datetime
 import sys
 
@@ -218,33 +216,3 @@ history = model.fit(train_dataset, epochs=epochs,
 
 test_scores = model.evaluate(test_dataset, verbose=2)
 print("Test set %s: %.2f%%" % (model.metrics_names[1], test_scores[1]*100))
-
-# We can also look at classification accuracies separately for each
-# newsgroup, and compute a confusion matrix to see which newsgroups
-# get mixed the most:
-
-test_predictions = model.predict(test_dataset)
-
-test_gt = None
-for _, l in test_dataset.take(-1):
-    batch_gt = l.numpy()
-    if test_gt is None:
-        test_gt = batch_gt
-    else:
-        test_gt = np.append(test_gt, batch_gt, axis=0)
-
-cm=confusion_matrix(np.argmax(test_gt, axis=1),
-                    np.argmax(test_predictions, axis=1),
-                    labels=list(range(20)))
-print()
-print('Classification accuracy for each newsgroup:')
-print()
-labels = [l[0] for l in sorted(labels_index.items(), key=lambda x: x[1])]
-for i,j in enumerate(cm.diagonal()/cm.sum(axis=1)): print("%s: %.4f" % (labels[i].ljust(26), j))
-print()
-
-print('Confusion matrix (rows: true newsgroup; columns: predicted newsgroup):')
-print()
-np.set_printoptions(linewidth=9999)
-print(cm)
-print()
