@@ -33,15 +33,17 @@ from tensorflow.keras.callbacks import TensorBoard
 
 import numpy as np
 
-print('Using Tensorflow version:', tf.__version__,
-      'Keras version:', tf.keras.__version__,
-      'backend:', tf.keras.backend.backend())
-
 # Horovod: import
 import horovod.tensorflow.keras as hvd
 
 # Horovod: initialize Horovod
 hvd.init()
+
+if hvd.rank() == 0:
+    print('Using Tensorflow version:', tf.__version__,
+          'Keras version:', tf.keras.__version__,
+          'backend:', tf.keras.backend.backend())
+    print('Using Horovod with', hvd.size(), 'workers')
 
 # Horovod: pin GPU to be used to process local rank (one GPU per process)
 gpus = tf.config.experimental.list_physical_devices('GPU')
@@ -196,7 +198,8 @@ model.compile(loss='binary_crossentropy',
 #              optimizer='rmsprop',
 #              metrics=['accuracy'])
 
-print(model.summary())
+if hvd.rank() == 0:
+    print(model.summary())
 
 callbacks = [
     # Horovod: broadcast initial variable states from rank 0 to all other processes.
@@ -221,12 +224,12 @@ callbacks = [
 # We'll use TensorBoard to visualize our progress during training.
 
 # Horovod: 
-if hvd.rank() == 0:
-    logdir = os.path.join(os.getcwd(), "logs",
-                          "dvc-cnn-simple-"+datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
-    print('TensorBoard log directory:', logdir)
-    os.makedirs(logdir)
-    callbacks.append(TensorBoard(log_dir=logdir))
+logfile = "dvc-cnn-simple-{}-".format(hvd.rank())
+logfile = logfile+datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+logdir = os.path.join(os.getcwd(), "logs", logfile)
+print('Rank:', hvd.rank(), 'TensorBoard log directory:', logdir)
+os.makedirs(logdir)
+callbacks.append(TensorBoard(log_dir=logdir))
 
 # Horovod: reduce epochs
 epochs = 20 // hvd.size()
