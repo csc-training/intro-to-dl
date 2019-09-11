@@ -44,7 +44,7 @@ There is another, small dataset `avp`, of aliens and predators. Modify dogs vs. 
 
 ### Exercise 6
 
-Text categorization and labeling: 20 newsgroups.
+Text categorization: 20 newsgroups.
 
 #### Keras
 
