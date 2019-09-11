@@ -71,7 +71,7 @@ Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
 
 1. First copy training data to local SSD on the compute node and read it from there
    in your script.  On Taito-GPU copy data to compute node `$TMPDIR`. See Section 6.5.5 in https://research.csc.fi/taito-gpu-running for more information.
-2. Experiment with Horovod to implement multi-GPU training. See [run-hvd.sh](run-hvd.sh) and [keras-dvc-cnn-simple-hvd.py](keras-dvc-cnn-simple-hvd.py), or 
+2. Experiment with Horovod to implement multi-GPU training. See [run-hvd.sh](run-hvd.sh) and [tf2-dvc-cnn-simple-hvd.py](tf2-dvc-cnn-simple-hvd.py), or 
 [pytorch_dvc_cnn_simple_hvd.py](pytorch_dvc_cnn_simple_hvd.py).
 
 ## Setup
