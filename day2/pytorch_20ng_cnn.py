@@ -46,7 +46,7 @@ assert(LV(torch.__version__) >= LV("1.0.0"))
 
 try:
     import tensorboardX
-    import os, datetime
+    import datetime
     logdir = os.path.join(os.getcwd(), "logs",
                           "20ng-cnn-"+datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
     print('TensorBoard log directory:', logdir)
@@ -61,7 +61,10 @@ except (ImportError, FileExistsError):
 # embeddings.  The datafile contains 100-dimensional embeddings for
 # 400,000 English words.
 
-GLOVE_DIR = "/wrk/makoskel/glove.6B"
+datapath = '/wrk/makoskel/'
+if not os.path.isdir(datapath):
+    datapath = '/projappl/project_2001756/data/'
+GLOVE_DIR = os.path.join(datapath, "glove.6B")
 
 print('Indexing word vectors.')
 
