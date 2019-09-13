@@ -46,10 +46,10 @@ There is another, small dataset `avp`, of aliens and predators. Modify dogs vs. 
 
 Text categorization: 20 newsgroups.
 
-#### Keras
+#### TF2/Keras
 
-* *keras-20ng-cnn.py*: 20 newsgroups classification with a 1D-CNN
-* *keras-20ng-rnn.py*: 20 newsgroups classification with a RNN
+* *tf2-20ng-cnn.py*: 20 newsgroups classification with a 1D-CNN
+* *tf2-20ng-rnn.py*: 20 newsgroups classification with a RNN
 
 #### PyTorch
 
