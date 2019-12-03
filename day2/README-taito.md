@@ -2,6 +2,8 @@
 
 ## Exercise sessions
 
+For Puhti-specific instructions see instead [README-puhti](README-puhti.md).
+
 ### Exercise 5
 
 Image classification: dogs vs. cats; traffic signs.
@@ -44,17 +46,15 @@ There is another, small dataset `avp`, of aliens and predators. Modify dogs vs. 
 
 Text categorization: 20 newsgroups.
 
-#### Keras
+#### TF2/Keras
 
-* *keras-20ng-cnn.py*: 20 newsgroups classification with a 1D-CNN
-* *keras-20ng-rnn.py*: 20 newsgroups classification with a RNN
+* *tf2-20ng-cnn.py*: 20 newsgroups classification with a 1D-CNN
+* *tf2-20ng-rnn.py*: 20 newsgroups classification with a RNN
 
 #### PyTorch
 
-20 newsgroups PyTorch scripts do not work on Puhti yet!
-
-* <s>*pytorch_20ng_cnn.py*: 20 newsgroups classification with a 1D-CNN</s>
-* <s>*pytorch_20ng_rnn.py*: 20 newsgroups classification with a RNN</s>
+* *pytorch_20ng_cnn.py*: 20 newsgroups classification with a 1D-CNN
+* *pytorch_20ng_rnn.py*: 20 newsgroups classification with a RNN
 
 #### PyTorch / BERT
 
@@ -70,26 +70,21 @@ Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
 #### Extracurricular:
 
 1. First copy training data to local SSD on the compute node and read it from there
-   in your script.  On Puhti request for local storage in your Slurm script and copy data to compute node `$LOCAL_SCRATCH`. See https://docs.csc.fi/#computing/running/creating-job-scripts/#local-storage for more information
-2. Horovod is not working in Puhti yet (with TF2 or PyTorch)! <s>Experiment with Horovod to implement multi-GPU training. See [run-hvd.sh](run-hvd.sh) and [tf2-dvc-cnn-simple-hvd.py](tf2-dvc-cnn-simple-hvd.py), or 
-[pytorch_dvc_cnn_simple_hvd.py](pytorch_dvc_cnn_simple_hvd.py).</s>
+   in your script.  On Taito-GPU copy data to compute node `$TMPDIR`. See Section 6.5.5 in https://research.csc.fi/taito-gpu-running for more information.
+2. Experiment with Horovod to implement multi-GPU training. See [run-hvd.sh](run-hvd.sh) and [tf2-dvc-cnn-simple-hvd.py](tf2-dvc-cnn-simple-hvd.py), or 
+[pytorch_dvc_cnn_simple_hvd.py](pytorch_dvc_cnn_simple_hvd.py).
 
 ## Setup
 
-1. Login to Puhti using a training account (or your own CSC account):
+1. Login to Taito-GPU using a training account (or your own CSC account):
 
-        ssh -l trainingxxx puhti.csc.fi
+        ssh -l trainingxxx taito-gpu.csc.fi
         
 2. Set up the module environment:
 
         module purge
-        module load tensorflow/2.0.0
-
-   or for PyTorch:
-   
-        module purge
-        module load pytorch/1.2.0
-
+        module load python-env/3.7.4-ml
+    
 3. Clone and cd to the exercise repository:
 
         git clone https://github.com/csc-training/intro-to-dl.git
@@ -100,15 +95,12 @@ Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
 1. Edit and submit jobs:
 
         nano tf2-test.py  # or substitute with your favorite text editor
-        sbatch run-puhti-tf2.sh tf2-test.py  # when using a training account
-
-   There is a separate slurm script for PyTorch, e.g.:
-   
-        sbatch run-puhti-pytorch.sh pytorch_dvc_cnn_simple.py
+        sbatch run.sh tf2-test.py  # when using a training account
+        sbatch run-nores.sh tf2-test.py  # when using own CSC account
 
    You can also specify additional command line arguments, e.g.
 
-        sbatch run-puhti-tf2.sh tf2-dvc-cnn-evaluate.py dvc-cnn-simple.h5
+        sbatch run.sh tf-dvc-cnn-evaluate.py dvc-cnn-simple.h5      
 
 2. See the status of your jobs or the queue you are using:
 
@@ -123,16 +115,16 @@ Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
 
 ## Optional: TensorBoard
 
-1. Login again in a second terminal window to Puhti with SSH port forwarding:
+1. Login again in a second terminal window to Taito-GPU with SSH port forwarding:
 
-        ssh -l trainingxxx -L PORT:localhost:PORT puhti.csc.fi
+        ssh -l trainingxxx -L PORT:localhost:PORT taito-gpu.csc.fi
         
    Replace `PORT` with a freely selectable port number (>1023). By default, TensorBoard uses the port 6006, but **select a different port** to avoid overlaps. 
 
 2. Set up the module environment and start the TensorBoard server:
 
         module purge
-        module load tensorflow/2.0.0
+        module load python-env/3.7.4-ml
         tensorboard --logdir=intro-to-dl/day2/logs --port=PORT
 
     To access TensorBoard, point your web browser to *localhost:PORT* .
