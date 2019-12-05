@@ -40,7 +40,7 @@ print('Using Tensorflow version: {}, and Keras version: {}.'.format(
 DATADIR = "/wrk/makoskel/"
 # In Puhti:
 if not os.path.isdir(DATADIR):
-    DATADIR = "/projappl/project_2001756/data/"
+    DATADIR = "/scratch/project_2002238/data/"
 
 datapath = DATADIR + "gtsrb/train-5535/"
 nimages = dict()
