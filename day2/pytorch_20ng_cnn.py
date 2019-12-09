@@ -63,7 +63,7 @@ except (ImportError, FileExistsError):
 
 datapath = '/wrk/makoskel/'
 if not os.path.isdir(datapath):
-    datapath = '/projappl/project_2001756/data/'
+    datapath = '/scratch/project_2002238/data/'
 GLOVE_DIR = os.path.join(datapath, "glove.6B")
 
 print('Indexing word vectors.')

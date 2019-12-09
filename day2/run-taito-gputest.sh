@@ -1,6 +1,8 @@
 #!/bin/bash
 #SBATCH -N 1 -p gputest --gres=gpu:k80:1 -t 15 --mem=8G
 
+source link-models.sh
+
 module load python-env/3.7.4-ml
 module list
 
