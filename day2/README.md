@@ -138,4 +138,16 @@ Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
 
 ### Option 2: Use tensorboard.dev
 
-TODO
+Another option is to use https://tensorboard.dev/ , which is Google's free TensorBoard server.
+
+1. Login again in a second terminal window to Puhti:
+
+        ssh -l trainingxxx puhti.csc.fi
+        
+2. Set up the module environment and start the TensorBoard server:
+
+        module purge
+        module load tensorflow/2.0.0
+        tensorboard dev upload --logdir=intro-to-dl/day2/logs
+
+    To access TensorBoard, point your web browser to the displayed URL.
