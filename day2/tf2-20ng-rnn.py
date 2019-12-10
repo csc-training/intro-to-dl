@@ -46,7 +46,7 @@ print('Using Tensorflow version:', tf.__version__,
 DATADIR = "/wrk/makoskel/"
 # In Puhti:
 if not os.path.isdir(DATADIR):
-    DATADIR = "/projappl/project_2001756/data/"
+    DATADIR = "/scratch/project_2002238/data/"
 
 GLOVE_DIR = DATADIR + "glove.6B"
 

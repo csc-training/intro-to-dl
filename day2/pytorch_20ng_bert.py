@@ -65,7 +65,7 @@ assert(LV(torch.__version__) >= LV("1.0.0"))
 DATADIR = "/wrk/makoskel/"
 # In Puhti:
 if not os.path.isdir(DATADIR):
-    DATADIR = "/scratch/dac/data2/"
+    DATADIR = "/scratch/project_2002238/data/"
 
 TEXT_DATA_DIR = DATADIR + "20_newsgroup"
 

@@ -36,7 +36,7 @@ if slurm_job_id is not None:
 if datapath is None or not os.path.isdir(datapath):
     datapath = '/wrk/makoskel/' + subpath
 if not os.path.isdir(datapath):
-    datapath = '/projappl/project_2001756/data/' + subpath
+    datapath = '/scratch/project_2002238/data/' + subpath
 
 print('Reading data from path:', datapath)
 
