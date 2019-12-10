@@ -69,8 +69,7 @@ Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
 
 1. First copy training data to local SSD on the compute node and read it from there
    in your script.  On Puhti request for local storage in your Slurm script and copy data to compute node `$LOCAL_SCRATCH`. See https://docs.csc.fi/#computing/running/creating-job-scripts/#local-storage for more information
-2. Horovod is not working in Puhti yet (with TF2 or PyTorch)! <s>Experiment with Horovod to implement multi-GPU training. See [run-hvd.sh](run-hvd.sh) and [tf2-dvc-cnn-simple-hvd.py](tf2-dvc-cnn-simple-hvd.py), or 
-[pytorch_dvc_cnn_simple_hvd.py](pytorch_dvc_cnn_simple_hvd.py).</s>
+2. Experiment with Horovod to implement multi-GPU training. See [run-hvd.sh](run-hvd.sh) and [tf2-dvc-cnn-simple-hvd.py](tf2-dvc-cnn-simple-hvd.py). (Horovod is not working in Puhti with PyTorch yet.) 
 
 ## Setup
 
@@ -86,7 +85,7 @@ Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
    or for PyTorch:
    
         module purge
-        module load pytorch/1.2.0
+        module load pytorch/1.3.0
 
 3. Clone and cd to the exercise repository:
 
@@ -98,15 +97,15 @@ Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
 1. Edit and submit jobs:
 
         nano tf2-test.py  # or substitute with your favorite text editor
-        sbatch run-puhti-tf2.sh tf2-test.py  # when using a training account
+        sbatch run-tf2.sh tf2-test.py  # when using a training account
 
    There is a separate slurm script for PyTorch, e.g.:
    
-        sbatch run-puhti-pytorch.sh pytorch_dvc_cnn_simple.py
+        sbatch run-pytorch.sh pytorch_dvc_cnn_simple.py
 
    You can also specify additional command line arguments, e.g.
 
-        sbatch run-puhti-tf2.sh tf2-dvc-cnn-evaluate.py dvc-cnn-simple.h5
+        sbatch run-tf2.sh tf2-dvc-cnn-evaluate.py dvc-cnn-simple.h5
 
 2. See the status of your jobs or the queue you are using:
 
