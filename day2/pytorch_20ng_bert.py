@@ -5,8 +5,8 @@
 #
 # In this script, we'll use a pre-trained BERT
 # (https://arxiv.org/abs/1810.04805) model for text classification
-# using PyTorch and PyTorch-Transformers
-# (https://github.com/huggingface/pytorch-transformers).
+# using PyTorch and HuggingFace's Transformers
+# (https://github.com/huggingface/transformers).
 
 # This notebook is based on "Predicting Movie Review Sentiment with
 # BERT on TF Hub"
@@ -23,9 +23,9 @@ import torch
 from torch.utils.data import (TensorDataset, DataLoader,
                               RandomSampler, SequentialSampler)
 
-from pytorch_transformers import BertTokenizer, BertConfig
-from pytorch_transformers import BertForSequenceClassification
-from pytorch_transformers import AdamW, WarmupLinearSchedule
+from transformers import BertTokenizer, BertConfig
+from transformers import BertForSequenceClassification
+from transformers import AdamW, WarmupLinearSchedule
 
 from distutils.version import LooseVersion as LV
 
@@ -65,7 +65,7 @@ assert(LV(torch.__version__) >= LV("1.0.0"))
 DATADIR = "/wrk/makoskel/"
 # In Puhti:
 if not os.path.isdir(DATADIR):
-    DATADIR = "/projappl/project_2001756/data/"
+    DATADIR = "/scratch/dac/data2/"
 
 TEXT_DATA_DIR = DATADIR + "20_newsgroup"
 
@@ -128,8 +128,9 @@ print(sentences_train[0], 'LABEL:', labels_train[0])
 print('Initializing BertTokenizer')
 
 BERTMODEL='bert-base-uncased'
+CACHE_DIR='/scratch/project_2002238/transformers-cache'
 
-tokenizer = BertTokenizer.from_pretrained(BERTMODEL,
+tokenizer = BertTokenizer.from_pretrained(BERTMODEL, cache_dir=CACHE_DIR,
                                           do_lower_case=True)
 
 tokenized_train = [tokenizer.tokenize(s) for s in sentences_train]
@@ -242,6 +243,7 @@ print(len(test_data), 'messages')
 print('Initializing BertForSequenceClassification')
 
 model = BertForSequenceClassification.from_pretrained(BERTMODEL,
+                                                      cache_dir=CACHE_DIR,
                                                       num_labels=20)
 model.cuda()
 
