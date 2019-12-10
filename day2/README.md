@@ -134,11 +134,11 @@ Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
         module load tensorflow/2.0.0
         tensorboard --logdir=intro-to-dl/day2/logs --port=PORT
 
-    To access TensorBoard, point your web browser to *localhost:PORT* .
+3. To access TensorBoard, point your web browser to *localhost:PORT* .
 
 ### Option 2: Use tensorboard.dev
 
-Another option is to use https://tensorboard.dev/ , which is Google's free TensorBoard server.
+Another option is to use https://tensorboard.dev/ , which is Google's free TensorBoard server. You need a Google account to use the server.
 
 1. Login again in a second terminal window to Puhti:
 
@@ -150,4 +150,11 @@ Another option is to use https://tensorboard.dev/ , which is Google's free Tenso
         module load tensorflow/2.0.0
         tensorboard dev upload --logdir=intro-to-dl/day2/logs
 
-    To access TensorBoard, point your web browser to the displayed URL.
+3. Visit the shown Google accounts URL to authorize the application.
+
+4. To access TensorBoard, point your web browser to the displayed tensorboard.dev URL.
+
+5. You can delete your data with:
+
+        tensorboard dev delete --experiment_id EXPERIMENT_ID. 
+
