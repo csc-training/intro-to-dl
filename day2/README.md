@@ -156,5 +156,5 @@ Another option is to use https://tensorboard.dev/ , which is Google's free Tenso
 
 5. You can delete your data with:
 
-        tensorboard dev delete --experiment_id EXPERIMENT_ID. 
+        tensorboard dev delete --experiment_id EXPERIMENT_ID
 
