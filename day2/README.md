@@ -120,6 +120,8 @@ Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
 
 ## Optional: TensorBoard
 
+### Option 1: Use SSH port forwarding
+
 1. Login again in a second terminal window to Puhti with SSH port forwarding:
 
         ssh -l trainingxxx -L PORT:localhost:PORT puhti.csc.fi
@@ -133,3 +135,7 @@ Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
         tensorboard --logdir=intro-to-dl/day2/logs --port=PORT
 
     To access TensorBoard, point your web browser to *localhost:PORT* .
+
+### Option 2: Use tensorboard.dev
+
+TODO
