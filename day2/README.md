@@ -51,10 +51,8 @@ Text categorization: 20 newsgroups.
 
 #### PyTorch
 
-20 newsgroups PyTorch scripts do not work on Puhti yet!
-
-* <s>*pytorch_20ng_cnn.py*: 20 newsgroups classification with a 1D-CNN</s>
-* <s>*pytorch_20ng_rnn.py*: 20 newsgroups classification with a RNN</s>
+* *pytorch_20ng_cnn.py*: 20 newsgroups classification with a 1D-CNN
+* *pytorch_20ng_rnn.py*: 20 newsgroups classification with a RNN
 
 #### PyTorch / BERT
 
