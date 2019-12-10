@@ -94,7 +94,7 @@ print('Found %s word vectors.' % len(embeddings_index))
 # | talk.politics.misc    | comp.os.ms-windows.misc  | rec.sport.baseball | sci.med
 # | talk.religion.misc    | comp.sys.mac.hardware    | rec.sport.hockey   | misc.forsale
 
-TEXT_DATA_DIR = "/wrk/makoskel/20_newsgroup"
+TEXT_DATA_DIR = os.path.join(datapath, "20_newsgroup")
 
 print('Processing text dataset')
 

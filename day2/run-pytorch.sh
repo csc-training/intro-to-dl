@@ -5,7 +5,7 @@
 module load pytorch/1.3.0
 module list
 
-set -xv
-echo $TMPDIR $LOCAL_SCRATCH
 export TMPDIR=$LOCAL_SCRATCH
+set -xv
+
 python3.7 $*
