@@ -46,7 +46,7 @@ if 'DATADIR' in os.environ:
 else:
     DATADIR = "/scratch/project_2000745/data/"
 
-datapath = os.path.join(DATADIR, "dogs-vs-cats/train-2000/")
+datapath = os.path.join(DATADIR, "dogs-vs-cats/train-2000/tfrecord/")
 
 nimages = dict()
 nimages['test'] = 22000
