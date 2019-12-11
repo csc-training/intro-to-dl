@@ -67,8 +67,7 @@ Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
 
 #### Extracurricular:
 
-1. First copy training data to local SSD on the compute node and read it from there
-   in your script.  On Puhti request for local storage in your Slurm script and copy data to compute node `$LOCAL_SCRATCH`. See https://docs.csc.fi/#computing/running/creating-job-scripts/#local-storage for more information
+1. Use local storage in Puhti to speed up disk access.  See [run-lscratch.sh](run-lscratch.sh), which copies the dogs-vs-cats dataset to `$LOCAL_SCRATCH`, and try for example with [tf2-dvc-cnn-simple.py](tf2-dvc-cnn-simple.py).  Also, see https://docs.csc.fi/#computing/running/creating-job-scripts/#local-storage for more information.
 2. Experiment with Horovod to implement multi-GPU training. See [run-hvd.sh](run-hvd.sh) and [tf2-dvc-cnn-simple-hvd.py](tf2-dvc-cnn-simple-hvd.py). (Horovod is not working in Puhti with PyTorch yet.) 
 
 ## Setup
