@@ -61,13 +61,12 @@ assert(LV(torch.__version__) >= LV("1.0.0"))
 # | talk.politics.misc    | comp.os.ms-windows.misc  | rec.sport.baseball | sci.med
 # | talk.religion.misc    | comp.sys.mac.hardware    | rec.sport.hockey   | misc.forsale
 
-# In Taito-GPU:
-DATADIR = "/wrk/makoskel/"
-# In Puhti:
-if not os.path.isdir(DATADIR):
-    DATADIR = "/scratch/project_2002238/data/"
+if 'DATADIR' in os.environ:
+    DATADIR = os.environ['DATADIR']
+else:
+    DATADIR = "/scratch/project_2000745/data/"
 
-TEXT_DATA_DIR = DATADIR + "20_newsgroup"
+TEXT_DATA_DIR = os.path.join(DATADIR, "20_newsgroup")
 
 print('Processing text dataset')
 
@@ -128,7 +127,7 @@ print(sentences_train[0], 'LABEL:', labels_train[0])
 print('Initializing BertTokenizer')
 
 BERTMODEL='bert-base-uncased'
-CACHE_DIR='/scratch/project_2002238/transformers-cache'
+CACHE_DIR=os.path.join(DATADIR, 'transformers-cache')
 
 tokenizer = BertTokenizer.from_pretrained(BERTMODEL, cache_dir=CACHE_DIR,
                                           do_lower_case=True)

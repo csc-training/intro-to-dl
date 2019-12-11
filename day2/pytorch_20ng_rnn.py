@@ -62,10 +62,12 @@ except (ImportError, FileExistsError):
 # embeddings.  The datafile contains 100-dimensional embeddings for
 # 400,000 English words.
 
-datapath = '/wrk/makoskel/'
-if not os.path.isdir(datapath):
-    datapath = '/scratch/project_2002238/data/' 
-GLOVE_DIR = os.path.join(datapath, "glove.6B")
+if 'DATADIR' in os.environ:
+    DATADIR = os.environ['DATADIR']
+else:
+    DATADIR = "/scratch/project_2000745/data/"
+
+GLOVE_DIR = os.path.join(DATADIR, "glove.6B")
 
 print('Indexing word vectors.')
 
@@ -94,7 +96,7 @@ print('Found %s word vectors.' % len(embeddings_index))
 # | talk.politics.misc    | comp.os.ms-windows.misc  | rec.sport.baseball | sci.med
 # | talk.religion.misc    | comp.sys.mac.hardware    | rec.sport.hockey   | misc.forsale
 
-TEXT_DATA_DIR = os.path.join(datapath, "20_newsgroup")
+TEXT_DATA_DIR = os.path.join(DATADIR, "20_newsgroup")
 
 print('Processing text dataset')
 
