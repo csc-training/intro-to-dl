@@ -96,7 +96,7 @@ Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
 1. Edit and submit jobs:
 
         nano tf2-test.py  # or substitute with your favorite text editor
-        sbatch run-tf2.sh tf2-test.py  # when using a training account
+        sbatch run.sh tf2-test.py  # when using a training account
 
    There is a separate slurm script for PyTorch, e.g.:
    
@@ -104,7 +104,7 @@ Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
 
    You can also specify additional command line arguments, e.g.
 
-        sbatch run-tf2.sh tf2-dvc-cnn-evaluate.py dvc-cnn-simple.h5
+        sbatch run.sh tf2-dvc-cnn-evaluate.py dvc-cnn-simple.h5
 
 2. See the status of your jobs or the queue you are using:
 
