@@ -66,3 +66,6 @@ Google has a free Jupyter Notebooks service you may want to try out. No guarante
 * select a notebook file
 * at the end of the file, there is a link: “Run this notebook in Google Colaboratory using this link”
 * to use a GPU, select: Runtime => Change runtime type => Hardware accelerator: GPU
+* you need to modify the notebooks a bit:
+    * add the line `%tensorflow_version 2.x` before importing tensorflow
+    * remove the line `from pml_utils import show_failures` and all calls to `show_failures()`
