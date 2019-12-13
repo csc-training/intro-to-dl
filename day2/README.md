@@ -130,7 +130,7 @@ Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
 2. Set up the module environment and start the TensorBoard server:
 
         module purge
-        module load tensorflow/2.0.0
+        module load tensorflow/1.13.1
         tensorboard --logdir=intro-to-dl/day2/logs --port=PORT
 
 3. To access TensorBoard, point your web browser to *localhost:PORT* .
