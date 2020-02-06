@@ -2,6 +2,12 @@
 
 ## Exercise sessions
 
+### Exercise 0
+
+Overfitting and underfitting...
+
+* *00-sklearn-.ipynb*
+
 ### Exercise 1
 
 Introduction to Notebooks, regression example with under- and overfitting.
@@ -33,11 +39,6 @@ Text sentiment classification with CNNs and RNNs.
 * *05a-tf2-imdb-cnn.ipynb*
 * *05b-tf2-imdb-rnn.ipynb*
 
-Optional: 
-
-* *tf2-mnist-rnn.ipynb*
-* *pytorch-mnist-mlp.ipynb*
-
 ## Setup
 
 We will use Jupyter Notebooks for all exercises on Day 1. There are several ways to set up a Jupyter environment for running the exercises:
@@ -61,14 +62,14 @@ We will use Jupyter Notebooks for all exercises on Day 1. There are several ways
 
 If you have a laptop that has both jupyter and the other necessary python packages installed, it is possible to use it. In particular, if the laptop has an Nvidia GPU and it that has been properly set up (CUDA, cuDNN).
 
-* `git clone https://github.com/csc-training/intro-to-dl.git -b kamk2020`
+* `git clone -b kamk2020 https://github.com/csc-training/intro-to-dl.git`   
 * try to run the "day1/02-tf2-test-setup.ipynb" notebook without errors
 
 ### 3. Google Colaboratory
 
 Google has a free Jupyter Notebooks service you may want to try out. No guarantees, but it does have GPUs available!
 
-* point your browser to https://github.com/csc-training/intro-to-dl/tree/master/day1 
+* point your browser to https://github.com/csc-training/intro-to-dl/tree/kamk2020/day1 
 * select a notebook file
 * at the end of the file, there is a link: “Run this notebook in Google Colaboratory using this link”
 * to use a GPU, select: Runtime => Change runtime type => Hardware accelerator: GPU
