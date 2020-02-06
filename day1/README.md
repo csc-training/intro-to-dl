@@ -4,28 +4,34 @@
 
 ### Exercise 1
 
-Introduction to Notebooks, Keras fundamentals.
+Introduction to Notebooks, regression example with under- and overfitting.
 
-* *01-tf2-test-setup.ipynb*
+* *01-sklearn-example.ipynb*
 
 ### Exercise 2
 
-Classification with MLPs.
+Keras fundamentals.
 
-* *02-tf2-mnist-mlp.ipynb*
+* *02-tf2-test-setup.ipynb*
 
 ### Exercise 3
 
-Image classification with CNNs.
+Classification with MLPs.
 
-* *03-tf2-mnist-cnn.ipynb*
+* *03-tf2-mnist-mlp.ipynb*
 
 ### Exercise 4
 
+Image classification with CNNs.
+
+* *04-tf2-mnist-cnn.ipynb*
+
+### Exercise 5
+
 Text sentiment classification with CNNs and RNNs.
 
-* *04a-tf2-imdb-cnn.ipynb*
-* *04b-tf2-imdb-rnn.ipynb*
+* *05a-tf2-imdb-cnn.ipynb*
+* *05b-tf2-imdb-rnn.ipynb*
 
 Optional: 
 
@@ -55,8 +61,8 @@ We will use Jupyter Notebooks for all exercises on Day 1. There are several ways
 
 If you have a laptop that has both jupyter and the other necessary python packages installed, it is possible to use it. In particular, if the laptop has an Nvidia GPU and it that has been properly set up (CUDA, cuDNN).
 
-* `git clone https://github.com/csc-training/intro-to-dl.git`   
-* try to run the "day1/01-tf2-test-setup.ipynb" notebook without errors
+* `git clone https://github.com/csc-training/intro-to-dl.git -b kamk2020`
+* try to run the "day1/02-tf2-test-setup.ipynb" notebook without errors
 
 ### 3. Google Colaboratory
 
