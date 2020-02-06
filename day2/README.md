@@ -6,27 +6,12 @@
 
 Image classification: dogs vs. cats; traffic signs.
 
-#### TF2/Keras
-
 * *tf2-dvc-cnn-simple.py*: Dogs vs. cats with a CNN trained from scratch
 * *tf2-dvc-cnn-pretrained.py*: Dogs vs. cats with a pre-trained CNN
 * *tf2-dvc-cnn-evaluate.py*: Evaluate a trained CNN with test data
 * *tf2-gtsrb-cnn-simple.py*: Traffic signs with a CNN trained from scratch
 * *tf2-gtsrb-cnn-pretrained.py*: Traffic signs with a pre-trained CNN
 * *tf2-gtsrb-cnn-evaluate.py*: Evaluate a trained CNN with test data
-
-#### PyTorch
-
-The PyTorch scripts have a slightly different setup:
-
-* *pytorch_dvc_cnn_simple.py*: Dogs vs cats with a CNN trained from scratch
-* *pytorch_dvc_cnn_pretrained.py*: Dogs vs cats with a pre-trained CNN
-* *pytorch_dvc_cnn.py*: Common functions for Dogs vs cats (don't run this one directly)
-* *pytorch_gtsrb_cnn_simple.py*: Traffic signs with a CNN trained from scratch
-* *pytorch_gtsrb_cnn_pretrained.py*: Traffic signs with a pre-trained CNN
-* *pytorch_gtsrb_cnn.py*:  Common functions for Traffic signs (don't run this one directly)
-
-To evaluate on the test set run with the `--test` option, e.g. `sbatch run.sh pytorch_dvc_cnn_simple.py --test` 
 
 #### Extracurricular 1:
 
@@ -44,15 +29,8 @@ There is another, small dataset `avp`, of aliens and predators. Modify dogs vs. 
 
 Text categorization: 20 newsgroups.
 
-#### TF2/Keras
-
 * *tf2-20ng-cnn.py*: 20 newsgroups classification with a 1D-CNN
 * *tf2-20ng-rnn.py*: 20 newsgroups classification with a RNN
-
-#### PyTorch
-
-* *pytorch_20ng_cnn.py*: 20 newsgroups classification with a 1D-CNN
-* *pytorch_20ng_rnn.py*: 20 newsgroups classification with a RNN
 
 #### PyTorch / BERT
 
@@ -68,7 +46,7 @@ Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
 #### Extracurricular:
 
 1. Use local storage in Puhti to speed up disk access.  See [run-lscratch.sh](run-lscratch.sh), which copies the dogs-vs-cats dataset to `$LOCAL_SCRATCH`, and try for example with [tf2-dvc-cnn-simple.py](tf2-dvc-cnn-simple.py).  Also, see https://docs.csc.fi/#computing/running/creating-job-scripts/#local-storage for more information.
-2. Experiment with Horovod to implement multi-GPU training. See [run-hvd.sh](run-hvd.sh) and [tf2-dvc-cnn-simple-hvd.py](tf2-dvc-cnn-simple-hvd.py). (Horovod is not working in Puhti with PyTorch yet.) 
+2. Experiment with Horovod to implement multi-GPU training. See [run-hvd.sh](run-hvd.sh) and [tf2-dvc-cnn-simple-hvd.py](tf2-dvc-cnn-simple-hvd.py).
 
 ## Setup
 
@@ -81,14 +59,9 @@ Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
         module purge
         module load tensorflow/2.0.0
 
-   or for PyTorch:
-   
-        module purge
-        module load pytorch/1.3.0
-
 3. Clone and cd to the exercise repository:
 
-        git clone https://github.com/csc-training/intro-to-dl.git
+        git clone https://github.com/csc-training/intro-to-dl.git -b kamk2020
         cd intro-to-dl/day2
 
 ## Edit and submit jobs
@@ -97,10 +70,6 @@ Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
 
         nano tf2-test.py  # or substitute with your favorite text editor
         sbatch run.sh tf2-test.py  # when using a training account
-
-   There is a separate slurm script for PyTorch, e.g.:
-   
-        sbatch run-pytorch.sh pytorch_dvc_cnn_simple.py
 
    You can also specify additional command line arguments, e.g.
 
