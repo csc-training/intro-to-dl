@@ -2,12 +2,6 @@
 
 ## Exercise sessions
 
-### Exercise 0
-
-Overfitting and underfitting...
-
-* *00-sklearn-.ipynb*
-
 ### Exercise 1
 
 Introduction to Notebooks, regression example with under- and overfitting.
