@@ -2,7 +2,7 @@
 
 ## Exercise sessions
 
-### Exercise 5
+### Exercise 6
 
 Image classification: dogs vs. cats; traffic signs.
 
@@ -25,7 +25,7 @@ Dogs vs. cats with data in TFRecord format:
 
 There is another, small dataset `avp`, of aliens and predators. Modify dogs vs. cats to classify between them.  
 
-### Exercise 6
+### Exercise 7
 
 Text categorization: 20 newsgroups.
 
@@ -36,17 +36,13 @@ Text categorization: 20 newsgroups.
 
 * *pytorch_20ng_bert.py*: 20 newsgroups classification with BERT pretraining
 
-### Exercise 7
+### Bonus exercises
 
-Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
-
+1. Convert a script or scripts from Exercise 6 or 7 to use multiple GPUs.
 * Do you get improvements in speed?
 * Do you get the same accuracy than with a single GPU?
-
-#### Extracurricular:
-
-1. Use local storage in Puhti to speed up disk access.  See [run-lscratch.sh](run-lscratch.sh), which copies the dogs-vs-cats dataset to `$LOCAL_SCRATCH`, and try for example with [tf2-dvc-cnn-simple.py](tf2-dvc-cnn-simple.py).  Also, see https://docs.csc.fi/#computing/running/creating-job-scripts/#local-storage for more information.
-2. Experiment with Horovod to implement multi-GPU training. See [run-hvd.sh](run-hvd.sh) and [tf2-dvc-cnn-simple-hvd.py](tf2-dvc-cnn-simple-hvd.py).
+2. Use local storage in Puhti to speed up disk access.  See [run-lscratch.sh](run-lscratch.sh), which copies the dogs-vs-cats dataset to `$LOCAL_SCRATCH`, and try for example with [tf2-dvc-cnn-simple.py](tf2-dvc-cnn-simple.py).  Also, see https://docs.csc.fi/#computing/running/creating-job-scripts/#local-storage for more information.
+3. Experiment with Horovod to implement multi-GPU training. See [run-hvd.sh](run-hvd.sh) and [tf2-dvc-cnn-simple-hvd.py](tf2-dvc-cnn-simple-hvd.py).
 
 ## Setup
 
