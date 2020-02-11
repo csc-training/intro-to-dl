@@ -74,8 +74,7 @@ def preprocess_image(image, augment):
     if augment:
         image = tf.image.resize(image, [256, 256])
         image = tf.image.random_crop(image, INPUT_IMAGE_SIZE)
-        if random.random() < 0.5:
-            image = tf.image.flip_left_right(image)
+        image = tf.image.random_flip_left_right(image)
     else:
         image = tf.image.resize(image, INPUT_IMAGE_SIZE[:2])
     image /= 255.0  # normalize to [0,1] range
@@ -151,19 +150,11 @@ model = Sequential()
 
 model.add(InputLayer(input_shape=INPUT_IMAGE_SIZE)) # possibly needed due to a bug in Keras
 
-if pretrained == 'VGG16':
-    pt_model = applications.VGG16(weights='imagenet', include_top=False,      
-                                  input_shape=INPUT_IMAGE_SIZE)
-    pretrained_first_trainable_layer = 15 
-elif pretrained == 'MobileNet':
-    pt_model = applications.MobileNet(weights='imagenet', include_top=False,
-                                      input_shape=INPUT_IMAGE_SIZE)
-    pretrained_first_trainable_layer = 75
-else:
-    assert 0, "Unknown model: "+pretrained
-    
-pt_name = pt_model.name
-print('Using {} pre-trained model'.format(pt_name))
+pt_model = applications.VGG16(weights='imagenet', include_top=False,
+                              input_shape=INPUT_IMAGE_SIZE)
+pretrained_first_trainable_layer = 15
+
+print('Using {} pre-trained model'.format(pt_model.name))
 
 for layer in pt_model.layers:
     model.add(layer)
@@ -187,8 +178,8 @@ print(model.summary())
 
 # ### Learning 1: New layers
 
-logdir = os.path.join(os.getcwd(), "logs",
-                      "dvc_tfr-"+pt_name+"-reuse-"+datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
+logdir = os.path.join(os.getcwd(), "logs", "dvc_tfr-{}-reuse-{}".format(
+    pt_model.name, datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')))
 print('TensorBoard log directory:', logdir)
 os.makedirs(logdir)
 callbacks = [TensorBoard(log_dir=logdir)]
@@ -199,12 +190,12 @@ history = model.fit(train_dataset, epochs=epochs,
                     validation_data=validation_dataset,
                     callbacks=callbacks, verbose=2)
 
-fname = "dvc_tfr-" + pt_name + "-reuse.h5"
+fname = "dvc_tfr-" + pt_model.name + "-reuse.h5"
 print('Saving model to', fname)
 model.save(fname)
 
 # ### Learning 2: Fine-tuning
-# 
+#
 # Once the top layers have learned some reasonable weights, we can
 # continue training by unfreezing the last blocks of the pre-trained
 # network so that it may adapt to our data. The learning rate should
@@ -216,13 +207,13 @@ for i, layer in enumerate(model.layers):
 for layer in model.layers[pretrained_first_trainable_layer:]:
     layer.trainable = True
     print(layer.name, "now trainable")
-    
-model.compile(loss='binary_crossentropy',
-    optimizer=optimizers.RMSprop(lr=1e-5),
-    metrics=['accuracy'])
 
-logdir = os.path.join(os.getcwd(), "logs",
-                      "dvc_tfr-"+pt_name+"-finetune-"+datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
+model.compile(loss='binary_crossentropy',
+              optimizer=optimizers.RMSprop(lr=1e-5),
+              metrics=['accuracy'])
+
+logdir = os.path.join(os.getcwd(), "logs", "dvc_tfr-{}-finetune-{}".format(
+    pt_model.name, datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')))
 print('TensorBoard log directory:', logdir)
 os.makedirs(logdir)
 callbacks = [TensorBoard(log_dir=logdir)]

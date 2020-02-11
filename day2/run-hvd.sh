@@ -1,7 +1,13 @@
 #!/bin/bash
-#SBATCH -A project_2002238 -N 1 -n 2
-#SBATCH -c 10 -p gpu --gres=gpu:v100:2 -t 1:00:00 --mem=64G
-#SBATCH --reservation dlintro
+#SBATCH --partition=gpu
+#SBATCH --gres=gpu:v100:2
+#SBATCH --time=1:00:00
+#SBATCH --mem=64G
+#SBATCH --ntasks=2
+#SBATCH --nodes=1
+#SBATCH --cpus-per-task=10
+#SBATCH --account=project_2002238
+#xSBATCH --reservation=dlintro
 
 module load tensorflow/2.0.0-hvd
 module list
