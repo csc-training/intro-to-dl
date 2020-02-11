@@ -31,10 +31,7 @@ Text categorization: 20 newsgroups.
 
 * *tf2-20ng-cnn.py*: 20 newsgroups classification with a 1D-CNN
 * *tf2-20ng-rnn.py*: 20 newsgroups classification with a RNN
-
-#### PyTorch / BERT
-
-* *pytorch_20ng_bert.py*: 20 newsgroups classification with BERT pretraining
+* *tf2-20ng-bert.py*: 20 newsgroups classification with BERT pretraining
 
 ### Bonus exercises
 
