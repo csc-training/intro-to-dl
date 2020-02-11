@@ -6,13 +6,13 @@
 #SBATCH --ntasks=2
 #SBATCH --nodes=1
 #SBATCH --cpus-per-task=10
-#SBATCH --account=project_2002238
+#SBATCH --account=project_2002586
 #xSBATCH --reservation=dlintro
 
 module load tensorflow/2.0.0-hvd
 module list
 
-export DATADIR=/scratch/project_2002238/data
+export DATADIR=/scratch/project_2002586/data
 
 set -xv
 srun python3.7 $*
