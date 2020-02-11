@@ -38,7 +38,7 @@ Text categorization: 20 newsgroups.
 1. Convert a script or scripts from Exercise 6 or 7 to use multiple GPUs.
 * Do you get improvements in speed?
 * Do you get the same accuracy as with a single GPU?
-2. Use local storage in Puhti to speed up disk access.  See [run-lscratch.sh](run-lscratch.sh), which copies the dogs-vs-cats dataset to `$LOCAL_SCRATCH`, and try for example with [tf2-dvc-cnn-simple.py](tf2-dvc-cnn-simple.py).  Also, see https://docs.csc.fi/#computing/running/creating-job-scripts/#local-storage for more information.
+2. Use local storage in Puhti to speed up disk access.  See [run-lscratch.sh](run-lscratch.sh), which copies the dogs-vs-cats dataset to `$LOCAL_SCRATCH`, and try for example with [tf2-dvc-cnn-simple.py](tf2-dvc-cnn-simple.py).  Also, see https://docs.csc.fi/computing/running/creating-job-scripts/#local-storage for more information.
 3. Experiment with Horovod to implement multi-GPU training. See [run-hvd.sh](run-hvd.sh) and [tf2-dvc-cnn-simple-hvd.py](tf2-dvc-cnn-simple-hvd.py).
 
 ## Setup
