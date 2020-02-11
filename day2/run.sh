@@ -13,4 +13,4 @@ module list
 export DATADIR=/scratch/project_2002238/data
 
 set -xv
-srun python3 $*
+srun python3.7 $*
