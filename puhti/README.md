@@ -1,4 +1,4 @@
-# Day 2
+# Puhti exercises
 
 ## Exercise sessions
 
