@@ -57,13 +57,13 @@ We will use Jupyter Notebooks for all exercises on Day 1. There are several ways
 If you have a laptop that has both jupyter and the other necessary python packages installed, it is possible to use it. In particular, if the laptop has an Nvidia GPU and it that has been properly set up (CUDA, cuDNN).
 
 * `git clone -b kamk2020 https://github.com/csc-training/intro-to-dl.git`   
-* try to run the "day1/02-tf2-test-setup.ipynb" notebook without errors
+* try to run the "notebooks/02-tf2-test-setup.ipynb" notebook without errors
 
 ### 3. Google Colaboratory
 
 Google has a free Jupyter Notebooks service you may want to try out. No guarantees, but it does have GPUs available!
 
-* point your browser to https://github.com/csc-training/intro-to-dl/tree/kamk2020/day1 
+* point your browser to https://github.com/csc-training/intro-to-dl/tree/kamk2020/notebooks
 * select a notebook file
 * at the end of the file, there is a link: “Run this notebook in Google Colaboratory using this link”
 * to use a GPU, select: Runtime => Change runtime type => Hardware accelerator: GPU
