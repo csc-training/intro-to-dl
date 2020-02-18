@@ -35,7 +35,7 @@ Text sentiment classification with CNNs and RNNs.
 
 ## Setup
 
-We will use Jupyter Notebooks for all exercises on Day 1. There are several ways to set up a Jupyter environment for running the exercises:
+We will use Jupyter Notebooks for all exercises on Day 1 and on morning session of Day 2. There are several ways to set up a Jupyter environment for running the exercises:
 
 ### 1. CSC’s Notebooks
 
