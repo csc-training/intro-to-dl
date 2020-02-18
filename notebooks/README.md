@@ -1,4 +1,4 @@
-# Day 1
+# Notebooks exercises
 
 ## Exercise sessions
 
