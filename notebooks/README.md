@@ -46,7 +46,7 @@ We will use Jupyter Notebooks for all exercises on Day 1. There are several ways
 * Find *Course Practical Deep Learning* and click “Launch new”
 * Wait until the “Open in browser” link appears, then click on it
 * The jupyter notebook dashboard should appear
-* Navigate to `intro-to-dl/day1` 
+* Navigate to `intro-to-dl/notebooks` 
 * if you are not familiar with Jupyter, take a moment to get to know the interface
     * open a new notebook (*New* -> *Python 3*, located top-right on the dashboard) 
     * write some Python code to a Jupyter *cell*
