@@ -55,7 +55,7 @@ Text categorization: 20 newsgroups.
 3. Clone and cd to the exercise repository:
 
         git clone https://github.com/csc-training/intro-to-dl.git -b kamk2020
-        cd intro-to-dl/day2
+        cd intro-to-dl/puhti
 
 ## Edit and submit jobs
 
@@ -93,7 +93,7 @@ Text categorization: 20 newsgroups.
 
         module purge
         module load tensorflow/1.13.1
-        tensorboard --logdir=intro-to-dl/day2/logs --port=PORT
+        tensorboard --logdir=intro-to-dl/puhti/logs --port=PORT
 
 3. To access TensorBoard, point your web browser to *localhost:PORT* .
 
@@ -109,7 +109,7 @@ Another option is to use https://tensorboard.dev/ , which is Google's free Tenso
 
         module purge
         module load tensorflow/2.0.0
-        tensorboard dev upload --logdir=intro-to-dl/day2/logs
+        tensorboard dev upload --logdir=intro-to-dl/puhti/logs
 
 3. Visit the shown Google accounts URL to authorize the application.
 
