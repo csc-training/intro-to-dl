@@ -7,7 +7,7 @@
 #SBATCH --nodes=1
 #SBATCH --cpus-per-task=10
 #SBATCH --account=project_2002586
-#xSBATCH --reservation=dlintro
+#SBATCH --reservation=dlintro
 
 module load tensorflow/2.0.0-hvd
 module list
