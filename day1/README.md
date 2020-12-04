@@ -14,6 +14,10 @@ Classification with MLPs.
 
 * *02-tf2-mnist-mlp.ipynb*
 
+Optional: 
+
+* *pytorch-mnist-mlp.ipynb*
+
 ### Exercise 3
 
 Image classification with CNNs.
@@ -22,15 +26,15 @@ Image classification with CNNs.
 
 ### Exercise 4
 
-Text sentiment classification with CNNs and RNNs.
+Text sentiment classification with RNNs.
 
-* *04a-tf2-imdb-cnn.ipynb*
-* *04b-tf2-imdb-rnn.ipynb*
+* *04-tf2-imdb-rnn.ipynb*
 
 Optional: 
 
+* *tf2-imdb-cnn.ipynb*
 * *tf2-mnist-rnn.ipynb*
-* *pytorch-mnist-mlp.ipynb*
+
 
 ## Setup
 
