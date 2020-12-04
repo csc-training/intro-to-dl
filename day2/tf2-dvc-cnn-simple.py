@@ -1,3 +1,5 @@
+# coding: utf-8
+
 # # Dogs-vs-cats classification with CNNs
 #
 # In this notebook, we'll train a convolutional neural network (CNN,
@@ -12,8 +14,7 @@
 #
 # First, the needed imports.
 
-import os
-import datetime
+import os, datetime
 import random
 import pathlib
 
@@ -30,8 +31,10 @@ from tensorflow.keras.callbacks import TensorBoard
 
 import numpy as np
 
-print('Using Tensorflow version: {}, and Keras version: {}.'.format(
-    tf.__version__, tf.keras.__version__))
+print('Using Tensorflow version:', tf.__version__,
+      'Keras version:', tf.keras.__version__,
+      'backend:', tf.keras.backend.backend())
+
 
 # ## Data
 #
@@ -50,7 +53,6 @@ nimages = dict()
 nimages['train'] = 2000
 nimages['validation'] = 1000
 
-
 # ### Image paths and labels
 
 def get_paths(dataset):
@@ -61,7 +63,6 @@ def get_paths(dataset):
     assert image_count == nimages[dataset], \
         "Found {} images, expected {}".format(image_count, nimages[dataset])
     return image_paths
-
 
 image_paths = dict()
 image_paths['train'] = get_paths('train')
@@ -76,12 +77,10 @@ label_to_index = dict((name, index) for index, name in enumerate(label_names))
 def get_labels(dataset):
     return [label_to_index[pathlib.Path(path).parent.name]
             for path in image_paths[dataset]]
-
-
+    
 image_labels = dict()
 image_labels['train'] = get_labels('train')
 image_labels['validation'] = get_labels('validation')
-
 
 # ### Data augmentation
 #
@@ -98,7 +97,6 @@ image_labels['validation'] = get_labels('validation')
 
 INPUT_IMAGE_SIZE = [160, 160, 3]
 
-
 def preprocess_image(image, augment):
     image = tf.image.decode_jpeg(image, channels=3)
     if augment:
@@ -110,11 +108,9 @@ def preprocess_image(image, augment):
     image /= 255.0  # normalize to [0,1] range
     return image
 
-
 def load_and_augment_image(path, label):
     image = tf.io.read_file(path)
     return preprocess_image(image, True), label
-
 
 def load_and_not_augment_image(path, label):
     image = tf.io.read_file(path)
@@ -147,7 +143,6 @@ validation_dataset = validation_dataset.map(load_and_not_augment_image,
                                             num_parallel_calls=tf.data.experimental.AUTOTUNE)
 validation_dataset = validation_dataset.batch(BATCH_SIZE, drop_remainder=True)
 validation_dataset = validation_dataset.prefetch(buffer_size=tf.data.experimental.AUTOTUNE)
-
 
 # ## Train a small CNN from scratch
 #
