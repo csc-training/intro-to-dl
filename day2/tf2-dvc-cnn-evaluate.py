@@ -1,5 +1,8 @@
+
+# coding: utf-8
+
 # # Dogs-vs-cats classification with CNNs
-#
+# 
 # In this notebook, we'll train a convolutional neural network (CNN,
 # ConvNet) to classify images of dogs from images of cats using
 # TensorFlow 2.0 / Keras. This notebook is largely based on the blog
@@ -7,14 +10,12 @@
 # little data]
 # (https://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html)
 # by François Chollet.
-#
+# 
 # **Note that using a GPU with this notebook is highly recommended.**
-#
+# 
 # First, the needed imports.
 
-import os
-import datetime
-import sys
+import os, datetime, sys
 import random
 import pathlib
 
@@ -37,7 +38,7 @@ print('Using Tensorflow version:', tf.__version__,
       'backend:', tf.keras.backend.backend())
 
 # ## Data
-#
+# 
 # The test set consists of 22000 images.
 
 if 'DATADIR' in os.environ:
@@ -84,23 +85,21 @@ image_labels['test'] = get_labels('test')
 
 INPUT_IMAGE_SIZE = [160, 160, 3]
 
-
 def preprocess_image(image, augment):
     image = tf.image.decode_jpeg(image, channels=3)
     if augment:
         image = tf.image.resize(image, [256, 256])
         image = tf.image.random_crop(image, INPUT_IMAGE_SIZE)
-        image = tf.image.random_flip_left_right(image)
+        if random.random() < 0.5:
+            image = tf.image.flip_left_right(image)
     else:
         image = tf.image.resize(image, INPUT_IMAGE_SIZE[:2])
     image /= 255.0  # normalize to [0,1] range
     return image
 
-
 def load_and_augment_image(path, label):
     image = tf.io.read_file(path)
     return preprocess_image(image, True), label
-
 
 def load_and_not_augment_image(path, label):
     image = tf.io.read_file(path)
@@ -120,8 +119,7 @@ test_dataset = tf.data.Dataset.from_tensor_slices((image_paths['test'],
 
 BATCH_SIZE = 32
 
-test_dataset = test_dataset.map(load_and_not_augment_image,
-                                num_parallel_calls=tf.data.experimental.AUTOTUNE)
+test_dataset = test_dataset.map(load_and_not_augment_image, num_parallel_calls=10)
 test_dataset = test_dataset.batch(BATCH_SIZE, drop_remainder=False)
 test_dataset = test_dataset.prefetch(buffer_size=tf.data.experimental.AUTOTUNE)
 
