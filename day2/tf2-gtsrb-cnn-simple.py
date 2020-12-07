@@ -94,8 +94,8 @@ image_labels['validation'] = get_labels('validation')
 # we'll apply random transformations (crop and horizontal flip) to
 # them each time we are looping over them. This way, we "augment" our
 # training dataset to contain more data. There are various
-# transformations readily available in TensorFlow, see tf.image
-# (https://www.tensorflow.org/versions/r2.0/api_docs/python/tf/image)
+# transformations readily available in TensorFlow, see
+# [tf.image](https://www.tensorflow.org/versions/r2.0/api_docs/python/tf/image)
 # for more information.
 
 def _load_image(path, label):
@@ -112,6 +112,9 @@ def preprocess_image(image, augment):
     if augment:
         image = tf.image.resize(image, [80, 80])
         image = tf.image.random_crop(image, INPUT_IMAGE_SIZE)
+        #image = tf.image.random_flip_left_right(image)
+        image = tf.image.random_brightness(image, 0.1)
+        image = tf.clip_by_value(image, 0.0, 255.0)
     else:
         image = tf.image.resize(image, INPUT_IMAGE_SIZE[:2])
     image /= 255.0  # normalize to [0,1] range
@@ -138,7 +141,7 @@ train_dataset = train_dataset.map(load_image,
 train_dataset = train_dataset.map(process_and_augment_image,
                                   num_parallel_calls=tf.data.experimental.AUTOTUNE)
 train_dataset = train_dataset.shuffle(500).batch(BATCH_SIZE,
-                                                 drop_remainder=True)
+                                                          drop_remainder=True)
 
 validation_dataset = tf.data.Dataset.from_tensor_slices(
     (image_paths['validation'], image_labels['validation']))
