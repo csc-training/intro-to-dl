@@ -4,7 +4,7 @@
 #SBATCH --time=1:00:00
 #SBATCH --mem=64G
 #SBATCH --cpus-per-task=10
-#SBATCH --account=project_2002238
+#SBATCH --account=project_2003747
 #xSBATCH --reservation dlintro
 
 module load tensorflow/2.0.0
@@ -14,6 +14,6 @@ export DATADIR=$LOCAL_SCRATCH
 
 set -xv
 
-tar xf /scratch/project_2002238/data/dogs-vs-cats.tar -C $LOCAL_SCRATCH
+tar xf /scratch/project_2003747/data/dogs-vs-cats.tar -C $LOCAL_SCRATCH
 
 srun python3.7 $*
