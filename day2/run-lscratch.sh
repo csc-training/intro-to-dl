@@ -1,13 +1,14 @@
 #!/bin/bash
 #SBATCH --partition=gpu
-#SBATCH --gres=gpu:v100:1,nvme:10
+#SBATCH --nodes=1
+#SBATCH --gres=gpu:v100:1,nvme:100
 #SBATCH --time=1:00:00
 #SBATCH --mem=64G
 #SBATCH --cpus-per-task=10
 #SBATCH --account=project_2003747
-#xSBATCH --reservation dlintro
+# xSBATCHx --reservation dlintro
 
-module load tensorflow/2.0.0
+module load tensorflow/nvidia-20.07-tf2-py3
 module list
 
 export DATADIR=$LOCAL_SCRATCH
@@ -16,4 +17,4 @@ set -xv
 
 tar xf /scratch/project_2003747/data/dogs-vs-cats.tar -C $LOCAL_SCRATCH
 
-srun python3.7 $*
+singularity_wrapper exec python3 $*
