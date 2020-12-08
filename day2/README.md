@@ -42,7 +42,7 @@ There is another, small dataset `avp`, of [aliens and predators](imgs/avp.png). 
 
 ### Exercise 6
 
-Text categorization: 20 newsgroups.
+Text categorization: [20 newsgroups](http://www.cs.cmu.edu/afs/cs.cmu.edu/project/theo-20/www/data/news20.html).
 
 #### TF2/Keras
 
