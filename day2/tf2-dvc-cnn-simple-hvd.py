@@ -224,7 +224,7 @@ callbacks = [
 # We'll use TensorBoard to visualize our progress during training.
 
 # Horovod: 
-logfile = "dvc-cnn-simple-{}-".format(hvd.rank())
+logfile = "dvc-cnn-simple-hvd-{}-".format(hvd.rank())
 logfile = logfile+datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
 logdir = os.path.join(os.getcwd(), "logs", logfile)
 print('Rank:', hvd.rank(), 'TensorBoard log directory:', logdir)
