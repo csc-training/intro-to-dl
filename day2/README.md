@@ -77,12 +77,12 @@ Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
 2. Set up the module environment:
 
         module purge
-        module load tensorflow/2.0.0
+        module load tensorflow/nvidia-20.07-tf2-py3
 
    or for PyTorch:
    
         module purge
-        module load pytorch/1.3.0
+        module load pytorch/nvidia-20.11-py3
 
 3. Clone and cd to the exercise repository:
 
@@ -128,12 +128,12 @@ Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
 2. Set up the module environment and start the TensorBoard server:
 
         module purge
-        module load tensorflow/1.13.1
+        module load tensorflow/2.2-hvd
         tensorboard --logdir=intro-to-dl/day2/logs --port=PORT
 
 3. To access TensorBoard, point your web browser to *localhost:PORT* .
 
-### Option 2: Use tensorboard.dev
+### Option 2: Use tensorboard.dev *DOES NOT WORK ATM*
 
 Another option is to use https://tensorboard.dev/ , which is Google's free TensorBoard server. You need a Google account to use the server.
 
@@ -144,7 +144,7 @@ Another option is to use https://tensorboard.dev/ , which is Google's free Tenso
 2. Set up the module environment and start the TensorBoard server:
 
         module purge
-        module load tensorflow/2.0.0
+        module load tensorflow/2.2-hvd
         tensorboard dev upload --logdir=intro-to-dl/day2/logs
 
 3. Visit the shown Google accounts URL to authorize the application.
