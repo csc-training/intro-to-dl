@@ -1,12 +1,19 @@
 #!/bin/bash
-#SBATCH -A project_2003747 -c 10 -p gpu --gres=gpu:v100:1,nvme:100 -t 1:00:00 --mem=64G
-#SBATCH --reservation dlintro
+#SBATCH --partition=gpu
+#SBATCH --nodes=1
+#SBATCH --gres=gpu:v100:1,nvme:100
+#SBATCH --time=1:00:00
+#SBATCH --mem=64G
+#SBATCH --cpus-per-task=10
+#SBATCH --account=project_2003747
+# xSBATCHx --reservation=dlintro
 
-module load pytorch/1.3.0
+module load pytorch/nvidia-20.11-py3
 module list
 
 export DATADIR=/scratch/project_2003747/data
+export TORCH_HOME=/scratch/project_2003747/torch-cache
 export TMPDIR=$LOCAL_SCRATCH
 
 set -xv
-python3.7 $*
+singularity_wrapper exec python3 $*

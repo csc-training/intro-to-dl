@@ -13,7 +13,7 @@ module load tensorflow/nvidia-20.07-tf2-py3
 module list
 
 export DATADIR=/scratch/project_2003747/data
-export TRANSFORMERS_CACHE=/scratch/project_2003747/transformers-cache
+export KERAS_HOME=/scratch/project_2003747/keras-cache
 
 set -xv
 srun singularity_wrapper exec python3 $*
