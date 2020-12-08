@@ -4,7 +4,7 @@
 
 ### Exercise 5
 
-Image classification: dogs vs. cats; traffic signs.
+Image classification: [dogs vs. cats](imgs/dvc.png); [traffic signs](imgs/gtsrb-montage.png).
 
 #### TF2/Keras
 
