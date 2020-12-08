@@ -38,7 +38,7 @@ Dogs vs. cats with data in TFRecord format:
 
 #### Extracurricular 2:
 
-There is another, small dataset `avp`, of aliens and predators. Modify dogs vs. cats to classify between them.  
+There is another, small dataset `avp`, of [aliens and predators](imgs/avp.png). Modify dogs vs. cats to classify between them.  
 
 ### Exercise 6
 
