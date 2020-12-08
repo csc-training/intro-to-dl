@@ -7,13 +7,13 @@
 #SBATCH --nodes=1
 #SBATCH --cpus-per-task=10
 #SBATCH --account=project_2003747
-#xSBATCH --reservation=dlintro
+# xSBATCHx --reservation=dlintro
 
-module load tensorflow/2.0.0-hvd
+module load tensorflow/nvidia-20.07-tf2-py3
 module list
 
 export DATADIR=/scratch/project_2003747/data
+export TRANSFORMERS_CACHE=/scratch/project_2003747/transformers-cache
 
 set -xv
-srun python3.7 $*
-
+srun singularity_wrapper exec python3 $*
