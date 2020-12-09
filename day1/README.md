@@ -46,12 +46,13 @@ We will use Jupyter Notebooks for all exercises on Day 1. There are several ways
 
 * Point your browser to https://notebooks.csc.fi
 * Login using Haka or CSC account (or using a separate username and password)
-* Find *Course Practical Deep Learning* and click “Launch new”
+* Find *Course Practical Deep Learning - 2020* and click “Launch new”
 * Wait until the “Open in browser” link appears, then click on it
 * The jupyter notebook dashboard should appear
 * Navigate to `intro-to-dl/day1` 
 * if you are not familiar with Jupyter, take a moment to get to know the interface
-    * open a new notebook (*New* -> *Python 3*, located top-right on the dashboard) 
+    * open a new notebook (*File* -> *New* -> *Notebook*, on menubar) 
+    * select *"Python 3"* as the kernel for the notebook
     * write some Python code to a Jupyter *cell*
     * execute the cell with *shift-enter*
     
