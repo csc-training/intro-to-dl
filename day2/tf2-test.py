@@ -44,8 +44,8 @@ assert(LV(tf.__version__) >= LV("2.2.0"))
 print('Transformers version:', transformers_version, flush=True)
 print('Scikit-learn version:', sklearn_version, flush=True)
 
-print('DATADIR='+os.environ['DATADIR'])
-print('TRANSFORMERS_CACHE='+os.environ['TRANSFORMERS_CACHE'])
+print('DATADIR='+os.environ.get('DATADIR', '<unset>'))
+print('TRANSFORMERS_CACHE='+os.environ.get('TRANSFORMERS_CACHE', '<unset>'))
 
 # Let's check if we have GPU available.
 
