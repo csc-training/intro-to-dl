@@ -1,15 +1,10 @@
-# coding: utf-8
-
-# # 20 Newsgroups text classification with pre-trained word embeddings
+# 20 Newsgroups text classification with pre-trained word embeddings
 #
-# In this notebook, we'll use pre-trained [GloVe word
+# In this script, we'll use pre-trained [GloVe word
 # embeddings](http://nlp.stanford.edu/projects/glove/) for text
-# classification using PyTorch. This notebook is largely based on the
-# blog post [Using pre-trained word embeddings in a Keras model]
-# (https://blog.keras.io/using-pre-trained-word-embeddings-in-a-keras-model.html)
-# by François Chollet.
+# classification using PyTorch.
 #
-# **Note that using a GPU with this notebook is highly recommended.**
+# **Note that using a GPU with this script is highly recommended.**
 #
 # First, the needed imports.
 
@@ -145,7 +140,7 @@ data = [dictionary.doc2idx(t) for t in tokens]
 # Truncate and pad sequences.
 
 data = [i[:MAX_SEQUENCE_LENGTH] for i in data]
-data = np.array([np.pad(i, (0, MAX_SEQUENCE_LENGTH-len(i)),
+data = np.array([np.pad(i, (MAX_SEQUENCE_LENGTH-len(i), 0),
                         mode='constant', constant_values=-2)
                  for i in data], dtype=int)
 data = data + 2
@@ -228,16 +223,13 @@ class Net(nn.Module):
         self.embed = nn.Embedding.from_pretrained(embedding_matrix,
                                                   freeze=True)
         self.lstm = nn.LSTM(100, 128, num_layers=2, batch_first=True)
-
-        self.fc1 = nn.Linear(128, 128)
-        self.fc2 = nn.Linear(128, 20)
+        self.fc = nn.Linear(128, 20)
 
     def forward(self, x):
         x = self.embed(x)
         _, (h_n, _) = self.lstm(x)
         x = h_n[1,:,:]
-        x = F.relu(self.fc1(x))
-        return F.log_softmax(self.fc2(x), dim=1)
+        return F.log_softmax(self.fc(x), dim=1)
 
 model = Net().to(device)
 optimizer = optim.RMSprop(model.parameters(), lr=0.005)
