@@ -6,7 +6,7 @@
 #SBATCH --mem=64G
 #SBATCH --cpus-per-task=10
 #SBATCH --account=project_2003747
-# xSBATCHx --reservation dlintro
+#SBATCH --reservation dlintro
 
 module load tensorflow/nvidia-20.07-tf2-py3
 module list
