@@ -117,8 +117,6 @@ Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
 
 ## Optional: TensorBoard
 
-### Option 1: Use SSH port forwarding
-
 1. Login again in a second terminal window to Puhti with SSH port forwarding:
 
         ssh -l trainingxxx -L PORT:localhost:PORT puhti.csc.fi
@@ -132,26 +130,3 @@ Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
         tensorboard --logdir=intro-to-dl/day2/logs --port=PORT
 
 3. To access TensorBoard, point your web browser to *localhost:PORT* .
-
-### Option 2: Use tensorboard.dev *DOES NOT WORK ATM*
-
-Another option is to use https://tensorboard.dev/ , which is Google's free TensorBoard server. You need a Google account to use the server.
-
-1. Login again in a second terminal window to Puhti:
-
-        ssh -l trainingxxx puhti.csc.fi
-        
-2. Set up the module environment and start the TensorBoard server:
-
-        module purge
-        module load tensorflow/2.2-hvd
-        tensorboard dev upload --logdir=intro-to-dl/day2/logs
-
-3. Visit the shown Google accounts URL to authorize the application.
-
-4. To access TensorBoard, point your web browser to the displayed tensorboard.dev URL.
-
-5. You can delete your data with:
-
-        tensorboard dev delete --experiment_id EXPERIMENT_ID
-
