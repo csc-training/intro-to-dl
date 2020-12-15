@@ -145,7 +145,7 @@ data = [dictionary.doc2idx(t) for t in tokens]
 # Truncate and pad sequences.
 
 data = [i[:MAX_SEQUENCE_LENGTH] for i in data]
-data = np.array([np.pad(i, (0, MAX_SEQUENCE_LENGTH-len(i)),
+data = np.array([np.pad(i, (MAX_SEQUENCE_LENGTH-len(i), 0),
                         mode='constant', constant_values=-2)
                  for i in data], dtype=int)
 data = data + 2
@@ -251,7 +251,7 @@ class Net(nn.Module):
         return F.log_softmax(self.fc2(x), dim=1)
 
 model = Net().to(device)
-optimizer = optim.RMSprop(model.parameters(), lr=0.005)
+optimizer = optim.RMSprop(model.parameters(), lr=0.001)
 criterion = nn.CrossEntropyLoss()
 
 print(model)
