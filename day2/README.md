@@ -26,7 +26,7 @@ The PyTorch scripts have a slightly different setup:
 * *pytorch_gtsrb_cnn_pretrained.py*: Traffic signs with a pre-trained CNN
 * *pytorch_gtsrb_cnn.py*:  Common functions for Traffic signs (don't run this one directly)
 
-To evaluate on the test set run with the `--test` option, e.g. `sbatch run.sh pytorch_dvc_cnn_simple.py --test` 
+To evaluate on the test set run with the `--test` option, e.g. `sbatch run-pytorch.sh pytorch_dvc_cnn_simple.py --test` 
 
 #### Extracurricular 1:
 
