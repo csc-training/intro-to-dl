@@ -18,4 +18,4 @@ export TORCH_HOME=/scratch/project_2003747/torch-cache
 export TMPDIR=$LOCAL_SCRATCH
 
 set -xv
-python3 $*
+srun python3 $*
