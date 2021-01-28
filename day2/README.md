@@ -70,21 +70,48 @@ Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
 
 ## Setup
 
-1. Login to Puhti using a training account (or your own CSC account):
+0. You need a SUPR account to access Alvis. If you don't already have one, visit
+   https://supr.snic.se/ and follow the instructions. 
+   Your SUPR account will be added to project SNIC2020-5-235. After being 
+   added, you can request a user account on Alvis via https://supr.snic.se/account/.
 
-        ssh -l trainingxxx puhti.csc.fi
+1. Login to Alvis requires that you are using a Swedish university network. 
+   If you are working from a university building and are using Eduroam or an ethernet connection, 
+   you should be able to log in right away.
+   If you are working from home you will need to set up a Virtual Private Network (VPN) service, either the 
+   [Chalmers VPN service](https://it.portal.chalmers.se/itportal/NonCDAWindows/NonCDAWindows#remote) 
+   or another VPN service from your university. Contact your university's IT support to get help 
+   to set it up. Further information about accessing Alvis 
+   is available on the [C3SE support pages](https://www.c3se.chalmers.se/documentation/connecting/).
+
+2. Login to Alvis using your personal account:
+
+        ssh -l <username> alvis1.c3se.chalmers.se
         
-2. Set up the module environment:
+3. Set up the module environment:
 
         module purge
-        module load tensorflow/nvidia-20.07-tf2-py3
+	module load GCC/8.3.0  CUDA/10.1.243  OpenMPI/3.1.4 TensorFlow/2.3.1-Python-3.7.4
+	module load scikit-learn/0.21.3-Python-3.7.4
 
    or for PyTorch:
    
         module purge
-        module load pytorch/nvidia-20.11-py3
+	module load GCC/8.3.0  CUDA/10.1.243  OpenMPI/3.1.4 PyTorch/1.7.1-Python-3.7.4
 
-3. Clone and cd to the exercise repository:
+   For Horovod with TensorFlow (note the different version of TensorFlow):
+
+        module purge
+        module load GCC/8.3.0  CUDA/10.1.243  OpenMPI/3.1.4 TensorFlow/2.1.0-Python-3.7.4
+        module load Horovod/0.19.1-TensorFlow-2.1.0-Python-3.7.4
+
+   and for Horovod with PyTorch::
+
+        module purge
+	module load GCC/8.3.0  CUDA/10.1.243  OpenMPI/3.1.4 PyTorch/1.6.0-Python-3.7.4
+        module load Horovod/0.20.3-PyTorch-1.6.0-Python-3.7.4
+
+4. Clone and cd to the exercise repository:
 
         git clone https://github.com/csc-training/intro-to-dl.git
         cd intro-to-dl/day2
@@ -94,7 +121,7 @@ Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
 1. Edit and submit jobs:
 
         nano tf2-test.py  # or substitute with your favorite text editor
-        sbatch run.sh tf2-test.py  # when using a training account
+        sbatch run.sh tf2-test.py  
 
    There is a separate slurm script for PyTorch, e.g.:
    
@@ -106,8 +133,7 @@ Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
 
 2. See the status of your jobs or the queue you are using:
 
-        squeue -l -u trainingxxx
-        squeue -l -p gpu
+        squeue -u $USER
 
 3. After the job has finished, examine the results:
 
@@ -117,16 +143,20 @@ Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
 
 ## Optional: TensorBoard
 
-1. Login again in a second terminal window to Puhti with SSH port forwarding:
+You can run TensorBoard on Alvis and connect to it from your local browser. Be aware that 
+Tensorboard offers no security! Anyone with the correct URL can access your session.
 
-        ssh -l trainingxxx -L PORT:localhost:PORT puhti.csc.fi
-        
-   Replace `PORT` with a freely selectable port number (>1023). By default, TensorBoard uses the port 6006, but **select a different port** to avoid overlaps. 
+1. Set up the module environment:
 
-2. Set up the module environment and start the TensorBoard server:
+       module purge
+       module load GCC/8.3.0  CUDA/10.1.243  OpenMPI/3.1.4 TensorFlow/2.3.1-Python-3.7.4
 
-        module purge
-        module load tensorflow/2.2-hvd
-        tensorboard --logdir=intro-to-dl/day2/logs --port=PORT
+2. Start Tensorboard on a free port:
 
-3. To access TensorBoard, point your web browser to *localhost:PORT* .
+       FREE_PORT=`comm -23 <(seq "8888" "8988" | sort) <(ss -Htan | awk '{print $4}' | cut -d':' -f2 | sort -u) | shuf -n 1`
+       echo "Tensorboard URL: https://proxy.c3se.chalmers.se:${FREE_PORT}/`hostname`/"
+       tensorboard --path_prefix /`hostname`/ --bind_all --port $FREE_PORT --logdir=./tensorboard-log-1234
+
+3. To access TensorBoard, point your web browser to the URL from the `echo` command in step 2
+   (e.g. https://proxy.c3se.chalmers.se:8925/alvis1/)
+
