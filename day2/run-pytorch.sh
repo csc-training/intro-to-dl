@@ -1,19 +1,23 @@
 #!/bin/bash
-#SBATCH --partition=gpu
 #SBATCH --nodes=1
-#SBATCH --gres=gpu:v100:1,nvme:100
+#SBATCH --gpus-per-node=T4:1
 #SBATCH --time=1:00:00
-#SBATCH --mem=64G
-#SBATCH --cpus-per-task=10
-#SBATCH --account=project_2003747
-#SBATCH --reservation=dlintro
+#SBATCH --cpus-per-task=4
+#SBATCH -A SNIC2020-5-235
 
-module load pytorch/nvidia-20.11-py3
+module purge
+module load GCC/8.3.0  CUDA/10.1.243  OpenMPI/3.1.4 PyTorch/1.6.0-Python-3.7.4 
+module load Horovod/0.20.3-PyTorch-1.6.0-Python-3.7.4
+
 module list
 
-export DATADIR=/scratch/project_2003747/data
-export TORCH_HOME=/scratch/project_2003747/torch-cache
-export TMPDIR=$LOCAL_SCRATCH
+tar zxf /cephyr/NOBACKUP/Datasets/Practical_DL/dogs-vs-cats.tar.gz -C $TMPDIR
+#tar zxf /cephyr/NOBACKUP/Datasets/Practical_DL/gtsrb.tar.gz -C $TMPDIR
+#tar zxf /cephyr/NOBACKUP/Datasets/Practical_DL/20_newsgroup.tar.gz -C $TMPDIR
+#tar zxf /cephyr/NOBACKUP/Datasets/Practical_DL/alien-vs-predator-images.zip -C $TMPDIR
+
+export DATADIR=$TMPDIR
+export TORCH_HOME=$TMPDIR/torch-cache
 
 set -xv
-singularity_wrapper exec python3 $*
+mpirun python3 $*
