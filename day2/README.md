@@ -90,13 +90,13 @@ Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
 3. Set up the module environment:
 
         module purge
-	module load GCC/8.3.0  CUDA/10.1.243  OpenMPI/3.1.4 TensorFlow/2.3.1-Python-3.7.4
-	module load scikit-learn/0.21.3-Python-3.7.4
+        module load GCC/8.3.0  CUDA/10.1.243  OpenMPI/3.1.4 TensorFlow/2.3.1-Python-3.7.4
+        module load scikit-learn/0.21.3-Python-3.7.4
 
    or for PyTorch:
    
         module purge
-	module load GCC/8.3.0  CUDA/10.1.243  OpenMPI/3.1.4 PyTorch/1.7.1-Python-3.7.4
+        module load GCC/8.3.0  CUDA/10.1.243  OpenMPI/3.1.4 PyTorch/1.7.1-Python-3.7.4
 
    For Horovod with TensorFlow (note the different version of TensorFlow):
 
@@ -104,10 +104,10 @@ Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
         module load GCC/8.3.0  CUDA/10.1.243  OpenMPI/3.1.4 TensorFlow/2.1.0-Python-3.7.4
         module load Horovod/0.19.1-TensorFlow-2.1.0-Python-3.7.4
 
-   and for Horovod with PyTorch::
+   and for Horovod with PyTorch:
 
         module purge
-	module load GCC/8.3.0  CUDA/10.1.243  OpenMPI/3.1.4 PyTorch/1.6.0-Python-3.7.4
+        module load GCC/8.3.0  CUDA/10.1.243  OpenMPI/3.1.4 PyTorch/1.6.0-Python-3.7.4
         module load Horovod/0.20.3-PyTorch-1.6.0-Python-3.7.4
 
 4. Clone and cd to the exercise repository:
@@ -138,7 +138,7 @@ Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
 
         less slurm-xxxxxxxx.out
 
-7. Go to 4 until you are happy with the results.
+4. Go to 1 until you are happy with the results.
 
 ## Optional: TensorBoard
 
