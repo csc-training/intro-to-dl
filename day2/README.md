@@ -110,7 +110,13 @@ Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
         module load GCC/8.3.0  CUDA/10.1.243  OpenMPI/3.1.4 PyTorch/1.6.0-Python-3.7.4
         module load Horovod/0.20.3-PyTorch-1.6.0-Python-3.7.4
 
-4. Clone and cd to the exercise repository:
+4. Install dependencies which are missing from the modules:
+
+        pip install --user transformers
+        pip install --user Pillow
+        pip install --user torchvision 
+
+5. Clone and cd to the exercise repository:
 
         git clone https://github.com/csc-training/intro-to-dl.git
         cd intro-to-dl/day2
