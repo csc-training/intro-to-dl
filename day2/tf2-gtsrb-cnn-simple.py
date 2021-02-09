@@ -200,3 +200,4 @@ history = model.fit(train_dataset, epochs=epochs,
 fname = "gtsrb-cnn-simple.h5"
 print('Saving model to', fname)
 model.save(fname)
+print('All done')

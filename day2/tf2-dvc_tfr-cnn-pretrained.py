@@ -236,3 +236,4 @@ history = model.fit(train_dataset, epochs=epochs,
 fname = "dvc_tfr-" + pt_name + "-finetune.h5"
 print('Saving model to', fname)
 model.save(fname)
+print('All done')
