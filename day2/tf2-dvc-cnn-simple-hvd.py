@@ -246,3 +246,5 @@ if hvd.rank() == 0:
     fname = "dvc-cnn-simple-hvd.h5"
     print('Saving model to', fname)
     model.save(fname)
+
+print('All done for rank', hvd.rank())
