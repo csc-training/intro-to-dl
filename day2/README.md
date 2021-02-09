@@ -24,12 +24,11 @@ The PyTorch scripts have a slightly different setup:
 
 * *pytorch_dvc_cnn_simple.py*: Dogs vs cats with a CNN trained from scratch
 * *pytorch_dvc_cnn_pretrained.py*: Dogs vs cats with a pre-trained CNN
-* *pytorch_dvc_cnn.py*: Common functions for Dogs vs cats (don't run this one directly)
 * *pytorch_gtsrb_cnn_simple.py*: Traffic signs with a CNN trained from scratch
 * *pytorch_gtsrb_cnn_pretrained.py*: Traffic signs with a pre-trained CNN
-* *pytorch_gtsrb_cnn.py*:  Common functions for Traffic signs (don't run this one directly)
 
-To evaluate on the test set run with the `--test` option, e.g. `sbatch run-pytorch.sh pytorch_dvc_cnn_simple.py --test` 
+There is no separate evaluation script, instead the test set
+evaluation is done automatically after training.
 
 #### Extracurricular 1:
 
@@ -85,7 +84,7 @@ Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
    or for PyTorch:
    
         module purge
-        module load pytorch/nvidia-20.11-py3
+        module load pytorch/1.7
 
 3. Clone and cd to the exercise repository:
 

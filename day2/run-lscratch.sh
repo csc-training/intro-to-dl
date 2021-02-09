@@ -17,4 +17,4 @@ set -xv
 
 tar xf /scratch/project_2003959/data/dogs-vs-cats.tar -C $LOCAL_SCRATCH
 
-singularity_wrapper exec python3 $*
+python3 $*

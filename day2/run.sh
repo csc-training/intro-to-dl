@@ -14,4 +14,4 @@ module list
 export DATADIR=/scratch/project_2003959/data
 
 set -xv
-singularity_wrapper exec python3 $*
+python3 $*

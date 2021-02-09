@@ -8,12 +8,11 @@
 #SBATCH --account=project_2003959
 #SBATCH --reservation=dlintro
 
-module load pytorch/nvidia-20.11-py3
+module load pytorch/1.7
 module list
 
 export DATADIR=/scratch/project_2003959/data
 export TORCH_HOME=/scratch/project_2003959/torch-cache
-export TMPDIR=$LOCAL_SCRATCH
 
 set -xv
-singularity_wrapper exec python3 $*
+python3 $*

@@ -10,12 +10,11 @@
 #SBATCH --reservation=dlintro
 
 module purge
-module load pytorch/1.3.1-hvd
+module load pytorch/1.7
 module list
 
 export DATADIR=/scratch/project_2003959/data
 export TORCH_HOME=/scratch/project_2003959/torch-cache
-export TMPDIR=$LOCAL_SCRATCH
 
 set -xv
 srun python3 $*
