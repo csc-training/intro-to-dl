@@ -1,7 +1,6 @@
 # Day 2 - alvis
 
-These instructions are for using Alvis. Instructions for using Alvis can be found in a
-[separate branch](https://github.com/csc-training/intro-to-dl/tree/master/day2).
+These instructions are for using Alvis. Instructions for using Puhti can be found in the [main branch](https://github.com/csc-training/intro-to-dl/tree/master/day2).
 
 ## Exercise sessions
 
