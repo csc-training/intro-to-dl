@@ -20,6 +20,5 @@ tar zxf /cephyr/NOBACKUP/Datasets/Practical_DL/dogs-vs-cats.tar.gz -C $TMPDIR
 export DATADIR=$TMPDIR
 export TORCH_HOME=$TMPDIR/torch-cache
 
-
 set -xv
 mpirun python3 $*

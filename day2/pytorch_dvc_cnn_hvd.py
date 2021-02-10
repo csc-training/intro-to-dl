@@ -206,7 +206,7 @@ def get_test_loader(batch_size=25):
     if hvd.rank() == 0:
         print('Found', len(test_dataset), 'images belonging to',
               len(test_dataset.classes), 'classes')
-    return test_loader
+    return test_loader, test_sampler
 
 if __name__ == '__main__':
     print('\nThis Python script is only for common functions. *DON\'T RUN IT DIRECTLY!* :-)')

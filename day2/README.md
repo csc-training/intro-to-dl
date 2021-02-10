@@ -1,5 +1,8 @@
 # Day 2 - alvis
 
+These instructions are for using Alvis. Instructions for using Alvis can be found in a
+[separate branch](https://github.com/csc-training/intro-to-dl/tree/master/day2).
+
 ## Exercise sessions
 
 ### Exercise 5
@@ -21,12 +24,11 @@ The PyTorch scripts have a slightly different setup:
 
 * *pytorch_dvc_cnn_simple.py*: Dogs vs cats with a CNN trained from scratch
 * *pytorch_dvc_cnn_pretrained.py*: Dogs vs cats with a pre-trained CNN
-* *pytorch_dvc_cnn.py*: Common functions for Dogs vs cats (don't run this one directly)
 * *pytorch_gtsrb_cnn_simple.py*: Traffic signs with a CNN trained from scratch
 * *pytorch_gtsrb_cnn_pretrained.py*: Traffic signs with a pre-trained CNN
-* *pytorch_gtsrb_cnn.py*:  Common functions for Traffic signs (don't run this one directly)
 
-To evaluate on the test set run with the `--test` option, e.g. `sbatch run-pytorch.sh pytorch_dvc_cnn_simple.py --test` 
+There is no separate evaluation script, instead the test set
+evaluation is done automatically after training.
 
 #### Extracurricular 1:
 

@@ -45,7 +45,9 @@ We will use Jupyter Notebooks for all exercises on Day 1. There are several ways
 *The default option.* CSC’s Notebooks (https://notebooks.csc.fi) provides easy-to-use environments for working with data and programming. You can access everything via your web browser and CSC cloud environment computes on the background. There should be enough resources for launching a notebooks instance for everyone, but unfortunately no GPUs. 
 
 * Point your browser to https://notebooks.csc.fi
-* Login using Haka or CSC account (or using a separate username and password)
+* Login using
+    * Haka or CSC account if you have one, or
+    * a separate username and password that you will receive during the course
 * Find *Course Practical Deep Learning - 2020* and click “Launch new”
 * Wait until the “Open in browser” link appears, then click on it
 * The jupyter notebook dashboard should appear
@@ -61,7 +63,7 @@ We will use Jupyter Notebooks for all exercises on Day 1. There are several ways
 If you have a laptop that has both jupyter and the other necessary python packages installed, it is possible to use it. In particular, if the laptop has an Nvidia GPU and it that has been properly set up (CUDA, cuDNN).
 
 * `git clone https://github.com/csc-training/intro-to-dl.git`   
-* try to run the "day1/01-tf2-test-setup.ipynb" notebook without errors
+* try to run the `day1/01-tf2-test-setup.ipynb` notebook without errors
 
 ### 3. Google Colaboratory
 

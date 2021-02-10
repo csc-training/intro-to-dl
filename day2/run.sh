@@ -19,4 +19,3 @@ export DATADIR=$TMPDIR
 set -xv
 
 mpirun python3 $*
-

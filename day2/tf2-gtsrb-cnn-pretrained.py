@@ -241,3 +241,4 @@ fname = "gtsrb-vgg16-finetune.h5"
 
 print('Saving model to', fname)
 model.save(fname)
+print('All done')

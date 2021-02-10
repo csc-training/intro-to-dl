@@ -73,11 +73,12 @@ def train_main():
 
     start_time = datetime.now()
     for epoch in range(1, epochs + 1):
+        train_sampler.set_epoch(epoch)
         train(model, train_loader, train_sampler, criterion, optimizer, epoch, log)
 
         with torch.no_grad():
             if hvd.rank() == 0:
-                print('\nValidation:')
+                print('\nValidation for epoch {}:'.format(epoch))
             evaluate(model, validation_loader, validation_sampler, criterion, epoch, log)
 
     end_time = datetime.now()
@@ -90,25 +91,20 @@ def train_main():
 
 def test_main():
     model = Net()
-    model.load_state_dict(torch.load(model_file))
+    if hvd.rank() == 0:
+        model.load_state_dict(torch.load(model_file))
     model.to(device)
+    hvd.broadcast_parameters(model.state_dict(), root_rank=0)
 
-    test_loader = get_test_loader(25)
+    test_loader, test_sampler = get_test_loader(25)
 
-    print('=========')
-    print('Test set:')
+    if hvd.rank() == 0:
+        print('=========')
+        print('Test set:')
     with torch.no_grad():
-        evaluate(model, test_loader)
+        evaluate(model, test_loader, test_sampler)
 
 
 if __name__ == '__main__':
-    import argparse
-
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--test', action='store_true')
-    args = parser.parse_args()
-
-    if args.test:
-        test_main()
-    else:
-        train_main()
+    train_main()
+    test_main()
