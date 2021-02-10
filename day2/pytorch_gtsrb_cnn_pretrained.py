@@ -132,13 +132,5 @@ def test_main():
 
 
 if __name__ == '__main__':
-    import argparse
-
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--test', action='store_true')
-    args = parser.parse_args()
-
-    if args.test:
-        test_main()
-    else:
-        train_main()
+    train_main()
+    test_main()
