@@ -67,6 +67,7 @@ Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
 #### Extracurricular:
 
 1. Experiment with Horovod to implement multi-GPU training. See [run-hvd.sh](run-hvd.sh) and [tf2-dvc-cnn-simple-hvd.py](tf2-dvc-cnn-simple-hvd.py) or [run-pytorch-hvd.sh](run-pytorch-hvd.sh) and [pytorch_dvc_cnn_simple_hvd.py](pytorch_dvc_cnn_simple_hvd.py) plus [pytorch_dvc_cnn_hvd.py](pytorch_dvc_cnn_hvd.py) for PyTorch.
+    - **NOTE: Tensorflow with Horovod currently has a technical problem on Alvis. Please use Pytorch-Horovod instead.**
 
 ## Setup
 
