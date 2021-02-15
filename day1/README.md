@@ -6,7 +6,7 @@
 
 Introduction to Notebooks, Keras fundamentals.
 
-* *01-tf2-test-setup.ipynb*
+* *01-tf2-test-setup.ipynb* [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/01-tf2-test-setup.ipynb)
 
 ### Exercise 2
 
