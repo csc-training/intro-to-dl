@@ -16,4 +16,4 @@ export DATADIR=/scratch/project_2003959/data
 export KERAS_HOME=/scratch/project_2003959/keras-cache
 
 set -xv
-python3 $*
+srun python3 $*
