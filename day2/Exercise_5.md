@@ -30,15 +30,8 @@ evaluation is done automatically after training.
 ### Task 1
 
 Starting with the dogs vs. cats (dvc) database, train, evaluate and report the
-accuracy with all three setups:
-
-- simple: simple CNN trained from scratch
-- pretrained: using a pre-trained VGG16 CNN
-- finetuned: same pre-trained CNN with additional finetuning
-
-The first option in this course is to use the TF2/Keras scripts, but if you have
-extra time (or have a particular interest) feel free to try the PyTorch scripts
-as well.
+accuracy with both scripts. Note that the pretrained script actually produces
+two models (with and without fine-tuning).
 
 Which model gave the best result? Does finetuning improve the result?
 
