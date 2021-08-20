@@ -2,70 +2,9 @@
 
 ## Exercise sessions
 
-### Exercise 5
-
-Image classification: [dogs vs. cats](imgs/dvc.png); [traffic signs](imgs/gtsrb-montage.png).
-
-#### TF2/Keras
-
-* *tf2-dvc-cnn-simple.py*: Dogs vs. cats with a CNN trained from scratch
-* *tf2-dvc-cnn-pretrained.py*: Dogs vs. cats with a pre-trained CNN
-* *tf2-dvc-cnn-evaluate.py*: Evaluate a trained CNN with test data
-* *tf2-gtsrb-cnn-simple.py*: Traffic signs with a CNN trained from scratch
-* *tf2-gtsrb-cnn-pretrained.py*: Traffic signs with a pre-trained CNN
-* *tf2-gtsrb-cnn-evaluate.py*: Evaluate a trained CNN with test data
-
-#### PyTorch
-
-The PyTorch scripts have a slightly different setup:
-
-* *pytorch_dvc_cnn_simple.py*: Dogs vs cats with a CNN trained from scratch
-* *pytorch_dvc_cnn_pretrained.py*: Dogs vs cats with a pre-trained CNN
-* *pytorch_gtsrb_cnn_simple.py*: Traffic signs with a CNN trained from scratch
-* *pytorch_gtsrb_cnn_pretrained.py*: Traffic signs with a pre-trained CNN
-
-There is no separate evaluation script, instead the test set
-evaluation is done automatically after training.
-
-#### Extracurricular 1:
-
-Dogs vs. cats with data in TFRecord format: 
-
-* *tf2-dvc_tfr-cnn-simple.py*: Dogs vs. cats with a CNN trained from scratch
-* *tf2-dvc_tfr-cnn-pretrained.py*: Dogs vs. cats with a pre-trained CNN
-* *tf2-dvc_tfr-cnn-evaluate.py*: Evaluate a trained CNN with test data
-
-#### Extracurricular 2:
-
-There is another, small dataset `avp`, of [aliens and predators](imgs/avp.png). Modify dogs vs. cats to classify between them.  
-
-### Exercise 6
-
-Text categorization: [20 newsgroups](http://www.cs.cmu.edu/afs/cs.cmu.edu/project/theo-20/www/data/news20.html).
-
-#### TF2/Keras
-
-* *tf2-20ng-rnn.py*: 20 newsgroups classification with a RNN
-* *tf2-20ng-cnn.py*: 20 newsgroups classification with a CNN
-* *tf2-20ng-bert.py*: 20 newsgroups classification with BERT finetuning
-
-#### PyTorch
-
-* *pytorch_20ng_rnn.py*: 20 newsgroups classification with a RNN
-* *pytorch_20ng_cnn.py*: 20 newsgroups classification with a CNN
-* *pytorch_20ng_bert.py*: 20 newsgroups classification with BERT finetuning
-
-### Exercise 7
-
-Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
-
-* Do you get improvements in speed?
-* Do you get the same accuracy than with a single GPU?
-
-#### Extracurricular:
-
-1. Use local storage in Puhti to speed up disk access.  See [run-lscratch.sh](run-lscratch.sh), which copies the dogs-vs-cats dataset to `$LOCAL_SCRATCH`, and try for example with [tf2-dvc-cnn-simple.py](tf2-dvc-cnn-simple.py).  Also, see https://docs.csc.fi/#computing/running/creating-job-scripts/#local-storage for more information.
-2. Experiment with Horovod to implement multi-GPU training. See [run-hvd.sh](run-hvd.sh) and [tf2-dvc-cnn-simple-hvd.py](tf2-dvc-cnn-simple-hvd.py) or [run-pytorch-hvd.sh](run-pytorch-hvd.sh) and [pytorch_dvc_cnn_simple_hvd.py](pytorch_dvc_cnn_simple_hvd.py) plus [pytorch_dvc_cnn_hvd.py](pytorch_dvc_cnn_hvd.py) for PyTorch.
+* [Exercise 5](Exercise_5.md)
+* [Exercise 6](Exercise_6.md)
+* [Exercise 7](Exercise_7.md)
 
 ## Setup
 
