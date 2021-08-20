@@ -17,8 +17,8 @@ Image classification: [dogs vs. cats](imgs/dvc.png); [traffic signs](imgs/gtsrb-
 
 The PyTorch scripts have a slightly different setup:
 
-* *pytorch_dvc_cnn_simple.py*: Dogs vs cats with a CNN trained from scratch
-* *pytorch_dvc_cnn_pretrained.py*: Dogs vs cats with a pre-trained CNN
+* *pytorch_dvc_cnn_simple.py*: Dogs vs. cats with a CNN trained from scratch
+* *pytorch_dvc_cnn_pretrained.py*: Dogs vs. cats with a pre-trained CNN
 * *pytorch_gtsrb_cnn_simple.py*: Traffic signs with a CNN trained from scratch
 * *pytorch_gtsrb_cnn_pretrained.py*: Traffic signs with a pre-trained CNN
 
@@ -28,6 +28,22 @@ evaluation is done automatically after training.
 ## Tasks
 
 ### Task 1
+
+Starting with the dogs vs. cats (dvc) database, train, evaluate and report the
+accuracy with all three setups:
+
+- simple: simple CNN trained from scratch
+- pretrained: using a pre-trained VGG16 CNN
+- finetuned: same pre-trained CNN with additional finetuning
+
+The first option in this course is to use the TF2/Keras scripts, but if you have
+extra time (or have a particular interest) feel free to try the PyTorch scripts
+as well.
+
+Which model gave the best result? Does finetuning improve the result?
+
+Finally, repeat the experiment with the Traffic signs database (gtsrb). Are your
+conclusions the same with the Traffic signs database?
 
 ### Task 2
 
