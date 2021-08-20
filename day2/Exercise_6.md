@@ -1,6 +1,8 @@
 # Exercise 6
 
-Text categorization: [20 newsgroups](http://www.cs.cmu.edu/afs/cs.cmu.edu/project/theo-20/www/data/news20.html).
+In this exercise, we study text categorization using the [20
+newsgroups](http://www.cs.cmu.edu/afs/cs.cmu.edu/project/theo-20/www/data/news20.html)
+dataset.
 
 ## Files
 
@@ -17,3 +19,7 @@ Text categorization: [20 newsgroups](http://www.cs.cmu.edu/afs/cs.cmu.edu/projec
 * *pytorch_20ng_bert.py*: 20 newsgroups classification with BERT finetuning
 
 ## Tasks
+
+### Task 1
+
+Run all three models and compare their accuracies and runtimes.
