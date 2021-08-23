@@ -1,3 +1,3 @@
-# Introduction to deep learning [![Gitter chat](https://badges.gitter.im/csc_training/intro-to-dl.svg)](https://gitter.im/csc_training/intro-to-dl)
+# Introduction to deep learning 
 
-This repository contains the exercise materials for the [CSC](https://www.csc.fi/) course [Practical deep learning](https://www.csc.fi/web/training/-/practical_dl_sep2019).
+This repository contains the exercise materials for the [CSC](https://www.csc.fi/) course [Practical deep learning](https://ssl.eventilla.com/event/nK3pa).
