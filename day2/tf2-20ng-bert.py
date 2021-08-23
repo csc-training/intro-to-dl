@@ -185,8 +185,8 @@ for seq in ids_test:
   seq_mask = [float(i>0) for i in seq]
   test_masks.append(seq_mask)
     
-trainval_masks = np.array(trainval_masks)
-test_masks = np.array(test_masks)
+trainval_masks = np.array(trainval_masks, dtype=int)
+test_masks = np.array(test_masks, dtype=int)
 
 
 # We use again scikit-learn's train_test_split() to use 10% of our
@@ -203,9 +203,9 @@ test_masks = np.array(test_masks)
 # BERT also requires *type ids*, which are zero-valued vectors in our
 # case:
 
-train_type_ids = np.zeros(train_masks.shape)
-validation_type_ids = np.zeros(validation_masks.shape)
-test_type_ids = np.zeros(test_masks.shape)
+train_type_ids = np.zeros(train_masks.shape, dtype=int)
+validation_type_ids = np.zeros(validation_masks.shape, dtype=int)
+test_type_ids = np.zeros(test_masks.shape, dtype=int)
 
 # ## BERT model initialization
 # 
