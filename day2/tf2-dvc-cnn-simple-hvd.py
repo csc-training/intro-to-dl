@@ -183,7 +183,8 @@ model.add(Dropout(0.5))
 model.add(Dense(1, activation='sigmoid'))
 
 # Horovod: adjust learning rate based on number of GPUs.
-opt = tf.keras.optimizers.RMSprop(0.001 * hvd.size())
+initial_lr = 0.001 * hvd.size()
+opt = tf.keras.optimizers.RMSprop(initial_lr)
 
 # Horovod: add Horovod DistributedOptimizer.
 opt = hvd.DistributedOptimizer(opt)
@@ -216,7 +217,8 @@ callbacks = [
     # Horovod: using `lr = 1.0 * hvd.size()` from the very beginning leads to worse final
     # accuracy. Scale the learning rate `lr = 1.0` ---> `lr = 1.0 * hvd.size()` during
     # the first three epochs. See https://arxiv.org/abs/1706.02677 for details.
-    hvd.callbacks.LearningRateWarmupCallback(warmup_epochs=3, verbose=1),
+    hvd.callbacks.LearningRateWarmupCallback(initial_lr, warmup_epochs=3,
+                                             verbose=1),
 ]
 
 # ### Learning
