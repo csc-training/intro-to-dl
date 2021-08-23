@@ -30,7 +30,7 @@ subpath = 'dogs-vs-cats/train-2000'
 if 'DATADIR' in os.environ:
     DATADIR = os.environ['DATADIR']
 else:
-    DATADIR = "/scratch/project_2003747/data/"
+    DATADIR = "/scratch/project_2004846/data/"
 
 datapath = os.path.join(DATADIR, subpath)
 

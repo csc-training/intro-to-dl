@@ -60,7 +60,7 @@ except (ImportError, FileExistsError):
 if 'DATADIR' in os.environ:
     DATADIR = os.environ['DATADIR']
 else:
-    DATADIR = "/scratch/project_2003747/data/"
+    DATADIR = "/scratch/project_2004846/data/"
 
 GLOVE_DIR = os.path.join(DATADIR, "glove.6B")
 
