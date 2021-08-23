@@ -5,7 +5,7 @@
 #SBATCH --time=1:00:00
 #SBATCH --mem=64G
 #SBATCH --cpus-per-task=10
-#SBATCH --account=project_2003959
+#SBATCH --account=project_2004846
 #SBATCH --reservation dlintro
 
 module load tensorflow/nvidia-20.07-tf2-py3
@@ -15,6 +15,6 @@ export DATADIR=$LOCAL_SCRATCH
 
 set -xv
 
-tar xf /scratch/project_2003959/data/dogs-vs-cats.tar -C $LOCAL_SCRATCH
+tar xf /scratch/project_2004846/data/dogs-vs-cats.tar -C $LOCAL_SCRATCH
 
 python3 $*

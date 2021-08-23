@@ -6,14 +6,14 @@
 #SBATCH --ntasks=2
 #SBATCH --nodes=1
 #SBATCH --cpus-per-task=10
-#SBATCH --account=project_2003959
+#SBATCH --account=project_2004846
 #SBATCH --reservation=dlintro
 
 module load tensorflow/nvidia-20.07-tf2-py3
 module list
 
-export DATADIR=/scratch/project_2003959/data
-export KERAS_HOME=/scratch/project_2003959/keras-cache
+export DATADIR=/scratch/project_2004846/data
+export KERAS_HOME=/scratch/project_2004846/keras-cache
 
 set -xv
 srun python3 $*
