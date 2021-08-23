@@ -6,48 +6,35 @@
 
 Introduction to Notebooks, Keras fundamentals.
 
-* *01-tf2-test-setup.ipynb* 
-
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/01-tf2-test-setup.ipynb)
+* *01-tf2-test-setup.ipynb*<br/>[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/01-tf2-test-setup.ipynb)
 
 ### Exercise 2
 
 Classification with MLPs.
 
-* *02-tf2-mnist-mlp.ipynb*
-
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/02-tf2-mnist-mlp.ipynb)
+* *02-tf2-mnist-mlp.ipynb*<br/>[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/02-tf2-mnist-mlp.ipynb)
 
 Optional: 
 
-* *pytorch-mnist-mlp.ipynb*
-
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/optional/pytorch-mnist-mlp.ipynb)
+* *pytorch-mnist-mlp.ipynb*<br/>[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/optional/pytorch-mnist-mlp.ipynb)
 
 ### Exercise 3
 
 Image classification with CNNs.
 
-* *03-tf2-mnist-cnn.ipynb*
-
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/03-tf2-mnist-cnn.ipynb)
+* *03-tf2-mnist-cnn.ipynb*<br/>[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/03-tf2-mnist-cnn.ipynb)
 
 ### Exercise 4
 
 Text sentiment classification with RNNs.
 
-* *04-tf2-imdb-rnn.ipynb*
-
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/04-tf2-imdb-rnn.ipynb)
+* *04-tf2-imdb-rnn.ipynb*<br/>[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/04-tf2-imdb-rnn.ipynb)
 
 Optional: 
 
-* *tf2-imdb-cnn.ipynb*
-* *tf2-mnist-rnn.ipynb*
+* *tf2-imdb-cnn.ipynb*<br/>[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/optional/tf2-imdb-cnn.ipynb)
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/optional/tf2-imdb-cnn.ipynb)
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/optional/tf2-mnist-rnn.ipynb)
-
+* *tf2-mnist-rnn.ipynb*<br/>[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/optional/tf2-mnist-rnn.ipynb)
 
 ## Setup
 
