@@ -35,10 +35,14 @@ two models (with and without fine-tuning).
 
 Which model gave the best result? Does finetuning improve the result?
 
-Finally, repeat the experiment with the Traffic signs database (gtsrb). Are your
-conclusions the same with the Traffic signs database?
+Finally, repeat the experiment with the Traffic signs database (gtsrb). Which
+model gives the best result? Compare the results with the dvc database.
 
 ### Task 2
+
+Pick one database (dvc or gtsrb) and try to improve the result, e.g., by
+tweaking the model or the training parameters (optimizer, batch size, number of
+epochs, etc.).
 
 ### Extracurricular 1
 
