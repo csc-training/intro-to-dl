@@ -7,7 +7,7 @@
 #SBATCH --cpus-per-task=10
 #SBATCH --account=project_2004846
 
-module load tensorflow/nvidia-20.07-tf2-py3
+module load tensorflow
 module list
 
 export DATADIR=/scratch/project_2004846/data

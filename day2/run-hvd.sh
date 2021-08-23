@@ -9,7 +9,7 @@
 #SBATCH --account=project_2004846
 #SBATCH --reservation=dlintro
 
-module load tensorflow/nvidia-20.07-tf2-py3
+module load tensorflow
 module list
 
 export DATADIR=/scratch/project_2004846/data
