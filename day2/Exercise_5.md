@@ -1,6 +1,7 @@
 # Exercise 5
 
-Image classification: [dogs vs. cats](imgs/dvc.png); [traffic signs](imgs/gtsrb-montage.png).
+In this exercise, we study image classification with two datasets, 
+[dogs vs. cats](imgs/dvc.png) and [traffic signs](imgs/gtsrb-montage.png).
 
 ## Files
 
@@ -29,13 +30,13 @@ evaluation is done automatically after training.
 
 ### Task 1
 
-Starting with the dogs vs. cats (dvc) database, train, evaluate and report the
+Starting with the _dogs vs. cats_ (dvc) database, train, evaluate and report the
 accuracy with both scripts. Note that the pretrained script actually produces
 two models (with and without fine-tuning).
 
 Which model gave the best result? Does finetuning improve the result?
 
-Finally, repeat the experiment with the Traffic signs database (gtsrb). Which
+Finally, repeat the experiment with the _Traffic signs_ (gtsrb) database . Which
 model gives the best result? Compare the results with the dvc database.
 
 ### Task 2
@@ -46,7 +47,7 @@ epochs, etc.).
 
 ### Extracurricular 1
 
-Dogs vs. cats with data in TFRecord format: 
+There are scripts of _dogs vs. cats_ with data in TFRecord format. Take a look at the differences in data preprocessing.
 
 * *tf2-dvc_tfr-cnn-simple.py*: Dogs vs. cats with a CNN trained from scratch
 * *tf2-dvc_tfr-cnn-pretrained.py*: Dogs vs. cats with a pre-trained CNN
