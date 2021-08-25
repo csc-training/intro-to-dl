@@ -1,5 +1,7 @@
 # Exercise 7
 
+In this exercise, we try using multiple GPUs.
+
 ## Tasks
 
 ### Task 1
