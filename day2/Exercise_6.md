@@ -27,3 +27,4 @@ Run all three models and compare their accuracies and runtimes.
 ### Task 2
 
 Pick one model and try to improve the results, e.g., by tweaking the model or the training parameters (optimizer, batch size, number of epochs, etc.).
+You can also work on replacing BERT with another Transformers model; see [documentation](https://huggingface.co/transformers/).
