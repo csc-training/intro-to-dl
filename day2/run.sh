@@ -12,6 +12,8 @@ module load tensorflow
 module list
 
 export DATADIR=/scratch/project_2004846/data
+export KERAS_HOME=/scratch/project_2004846/keras-cache
+export TRANSFORMERS_CACHE=/scratch/project_2004846/transformers-cache
 
 set -xv
 python3 $*
