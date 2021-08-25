@@ -8,7 +8,7 @@
 #SBATCH --account=project_2004846
 #SBATCH --reservation=dlintro
 
-module load pytorch/1.7
+module load pytorch/1.8
 module list
 
 export DATADIR=/scratch/project_2004846/data
