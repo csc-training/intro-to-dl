@@ -64,7 +64,7 @@
 2. Set up the module environment and start the TensorBoard server:
 
         module purge
-        module load tensorflow/2.2-hvd
+        module load tensorflow/2.4-hvd
         tensorboard --logdir=intro-to-dl/day2/logs --port=PORT
 
 3. To access TensorBoard, point your web browser to *localhost:PORT* .
