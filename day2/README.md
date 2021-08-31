@@ -15,12 +15,12 @@
 2. Set up the module environment:
 
         module purge
-        module load tensorflow/nvidia-20.07-tf2-py3
+        module load tensorflow
 
    or for PyTorch:
    
         module purge
-        module load pytorch/1.7
+        module load pytorch/1.8
 
 3. Clone and cd to the exercise repository:
 
@@ -64,7 +64,7 @@
 2. Set up the module environment and start the TensorBoard server:
 
         module purge
-        module load tensorflow/2.2-hvd
+        module load tensorflow/2.4-hvd
         tensorboard --logdir=intro-to-dl/day2/logs --port=PORT
 
 3. To access TensorBoard, point your web browser to *localhost:PORT* .
