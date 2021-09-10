@@ -18,6 +18,8 @@ Optional:
 
 * *pytorch-mnist-mlp.ipynb*<br/>[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/optional/pytorch-mnist-mlp.ipynb)
 
+* *tf2-chd-mlp.ipynb*<br/>[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/optional/tf2-chd-mlp.ipynb)
+
 ### Exercise 3
 
 Image classification with CNNs.
