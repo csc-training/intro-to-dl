@@ -188,9 +188,12 @@ callbacks = [TensorBoard(log_dir=logdir)]
 
 epochs = 20
 
+from datetime import datetime
+then = datetime.now()
 history = model.fit(train_dataset, epochs=epochs,
                     validation_data=validation_dataset,
                     callbacks=callbacks, verbose=2)
+print('Training took', datetime.now()-then)
 
 fname = "dvc-cnn-simple.h5"
 print('Saving model to', fname)
