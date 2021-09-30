@@ -42,7 +42,7 @@ else:
 # Parse command line arguments
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--learning_rate', '-lr', type=float, default=0.001)
+parser.add_argument('--lr', type=float, default=0.001)
 parser.add_argument('--units', default='50,50',
                     help='Number of units in the hidden layers, separated by comma. '
                     'For example --units=50,20 means two hidden layers, the first '
@@ -119,15 +119,15 @@ outputs = layers.Dense(units=10, activation='softmax')(x)
 model = keras.Model(inputs=inputs, outputs=outputs,
                     name="mlp_model")
 
-print("Setting learning_rate={}".format(args.learning_rate))
-opt = keras.optimizers.Adam(learning_rate=args.learning_rate)
+print("Setting learning_rate={}".format(args.lr))
+opt = keras.optimizers.Adam(learning_rate=args.lr)
 
 model.compile(loss='categorical_crossentropy',
               optimizer=opt,
               metrics=['accuracy'])
 print(model.summary())
 
-hparams = {'lr': args.learning_rate, 'units': args.units, 'dropout': args.dropout}
+hparams = {'lr': args.lr, 'units': args.units, 'dropout': args.dropout}
 
 # We'll use TensorBoard to visualize our progress during training.
 logdir = os.path.join(os.getcwd(), "logs",
