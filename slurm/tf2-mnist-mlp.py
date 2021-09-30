@@ -1,24 +1,32 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-## MNIST handwritten digits classification with MLPs
+# MNIST handwritten digits classification with MLPs
 
+import argparse
 import os
+import sys
+from datetime import datetime
 
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers
-from tensorflow.keras.utils import plot_model, to_categorical
+from tensorflow.keras.utils import to_categorical
 from tensorflow.keras.callbacks import TensorBoard
+
+from tensorflow.keras.datasets import mnist, fashion_mnist
+
+from tensorboard.plugins.hparams import api as hp
 
 from distutils.version import LooseVersion as LV
 
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-sns.set()
+# import numpy as np
+# import matplotlib.pyplot as plt
+# import seaborn as sns
+# sns.set()
 
-print('Using Tensorflow version: {}, and Keras version: {}.'.format(tf.__version__, tf.keras.__version__))
+print('Using Tensorflow version: {}, and Keras version: {}.'.
+      format(tf.__version__, tf.keras.__version__))
 assert(LV(tf.__version__) >= LV("2.0.0"))
 
 
@@ -36,8 +44,35 @@ else:
     print('No GPU, using CPU instead.')
 
 
-## Load MNIST or Fashion-MNIST
-#
+# Parse command line arguments
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--learning_rate', '-lr', type=float, default=0.001)
+parser.add_argument('--units', default='50,50',
+                    help='Number of units in the hidden layers, separated by comma. '
+                    'For example --units=50,20 means two hidden layers, the first '
+                    'with 50 and the second with 20 units.')
+parser.add_argument('--dropout', required=False,
+                    help='Dropout rate after each hidden layer, separated by comma.'
+                    'If only one value is specified, it is assumed to be the same '
+                    'for all layers. If nothing is given, no dropout is used.' )
+args = parser.parse_args()
+
+units = [int(x) for x in args.units.split(',')]
+dropout = [float(x) for x in args.dropout.split(',')] if args.dropout else None
+
+if dropout is None:
+    dropout = [0 for x in units]
+elif len(dropout) == 1:
+    do = dropout[0]
+    dropout = [do for x in units]
+
+if len(dropout) != len(units):
+    print('ERROR: number of layers ({}) is different from number of dropout values given ({}).'.
+          format(len(units), len(dropout)))
+    sys.exit(1)
+
+
 # Fashion-MNIST categories
 #
 # Label|Description|Label|Description
@@ -47,13 +82,8 @@ else:
 # 2    |Pullover   |7    | Sneaker
 # 3    |Dress      |8    | Bag
 # 4    |Coat       |9    | Ankle boot
-# 
 
-from tensorflow.keras.datasets import mnist, fashion_mnist
 
-## MNIST:
-#(X_train, y_train), (X_test, y_test) = mnist.load_data()
-## Fashion-MNIST:
 (X_train, y_train), (X_test, y_test) = fashion_mnist.load_data()
 
 nb_classes = 10
@@ -68,48 +98,52 @@ Y_train = to_categorical(y_train, nb_classes)
 Y_test = to_categorical(y_test, nb_classes)
 
 print()
-print('MNIST data loaded: train:',len(X_train),'test:',len(X_test))
+print('MNIST data loaded: train:', len(X_train), 'test:', len(X_test))
 print('X_train:', X_train.shape)
 print('y_train:', y_train.shape)
 print('Y_train:', Y_train.shape)
 
 
-## Multi-layer perceptron (MLP) network
+# Multi-layer perceptron (MLP) network
 
-# Model initialization:
 inputs = keras.Input(shape=(28, 28))
 x = layers.Flatten()(inputs)
 
-# A simple model:
-x = layers.Dense(units=50, activation="relu")(x)
-x = layers.Dropout(rate=0.2)(x)
-x = layers.Dense(units=50, activation="relu")(x)
-x = layers.Dropout(rate=0.2)(x)
+for i, n_units in enumerate(units):
+    print("Adding layer {} with {} units".format(i+1, n_units), end='')
+    x = layers.Dense(units=n_units, activation="relu")(x)
+    dr = dropout[i]
+    if dr != 0:
+        x = layers.Dropout(rate=dr)(x)
+        print(" and dropout with rate {}.".format(dr), end='')
+    print()
 
 # The last layer needs to be like this:
 outputs = layers.Dense(units=10, activation='softmax')(x)
 
 model = keras.Model(inputs=inputs, outputs=outputs,
                     name="mlp_model")
-model.compile(loss='categorical_crossentropy', 
-              optimizer='adam', 
+
+print("Setting learning_rate={}".format(args.learning_rate))
+opt = keras.optimizers.Adam(learning_rate=args.learning_rate)
+
+model.compile(loss='categorical_crossentropy',
+              optimizer=opt,
               metrics=['accuracy'])
 print(model.summary())
 
-
-## Learning
+hparams = {'lr': args.learning_rate, 'units': args.units, 'dropout': args.dropout}
 
 # We'll use TensorBoard to visualize our progress during training.
-
 logdir = os.path.join(os.getcwd(), "logs",
-                      "mnist-mlp-"+datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
+                      "mnist-mlp-" + datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
 print('TensorBoard log directory:', logdir)
 os.makedirs(logdir)
-callbacks = [TensorBoard(log_dir=logdir)]
+callbacks = [TensorBoard(log_dir=logdir),
+             hp.KerasCallback(logdir, hparams)]
 
 epochs = 10
 
-from datetime import datetime
 then = datetime.now()
 
 history = model.fit(X_train, Y_train,
@@ -120,18 +154,6 @@ history = model.fit(X_train, Y_train,
 
 print('Training duration:', datetime.now()-then)
 
-
-## Inference
-
+# Inference
 scores = model.evaluate(X_test, Y_test, verbose=2)
 print("%s: %.2f%%" % (model.metrics_names[1], scores[1]*100))
-
-# from sklearn.metrics import confusion_matrix
-# predictions = model.predict(X_test)
-
-# print('Confusion matrix (rows: true classes; columns: predicted classes):'); print()
-# cm=confusion_matrix(y_test, np.argmax(predictions, axis=1), labels=list(range(10)))
-# print(cm); print()
-
-# print('Classification accuracy for each class:'); print()
-# for i,j in enumerate(cm.diagonal()/cm.sum(axis=1)): print("%d: %.4f" % (i,j))
