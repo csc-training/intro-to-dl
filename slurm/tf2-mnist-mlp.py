@@ -20,11 +20,6 @@ from tensorboard.plugins.hparams import api as hp
 
 from distutils.version import LooseVersion as LV
 
-# import numpy as np
-# import matplotlib.pyplot as plt
-# import seaborn as sns
-# sns.set()
-
 print('Using Tensorflow version: {}, and Keras version: {}.'.
       format(tf.__version__, tf.keras.__version__))
 assert(LV(tf.__version__) >= LV("2.0.0"))
@@ -136,7 +131,9 @@ hparams = {'lr': args.learning_rate, 'units': args.units, 'dropout': args.dropou
 
 # We'll use TensorBoard to visualize our progress during training.
 logdir = os.path.join(os.getcwd(), "logs",
-                      "mnist-mlp-" + datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
+                      "mnist-mlp-{}-{}".format(
+                          datetime.now().strftime('%Y-%m-%d_%H-%M-%S'),
+                          '-'.join(['{}:{}'.format(k, v) for k, v in hparams.items()])))
 print('TensorBoard log directory:', logdir)
 os.makedirs(logdir)
 callbacks = [TensorBoard(log_dir=logdir),
