@@ -1,7 +1,10 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# MNIST handwritten digits classification with MLPs
+# # Image classification with MLPs
+#
+# Dataset and hyperparameters can be selected with command line arguments.
+# Run `python3 tf2-images-mlp.py --help` to see options.
 
 import argparse
 import os
@@ -14,8 +17,6 @@ from tensorflow.keras import layers
 from tensorflow.keras.utils import to_categorical
 from tensorflow.keras.callbacks import TensorBoard
 
-from tensorflow.keras.datasets import mnist, fashion_mnist
-
 from tensorboard.plugins.hparams import api as hp
 
 from distutils.version import LooseVersion as LV
@@ -25,29 +26,17 @@ print('Using Tensorflow version: {}, and Keras version: {}.'.
 assert(LV(tf.__version__) >= LV("2.0.0"))
 
 
-# Let's check if we have GPU available.
-
-gpus = tf.config.list_physical_devices('GPU')
-if len(gpus) > 0:
-    for gpu in gpus:
-        tf.config.experimental.set_memory_growth(gpu, True)
-    from tensorflow.python.client import device_lib
-    for d in device_lib.list_local_devices():
-        if d.device_type == 'GPU':
-            print('GPU', d.physical_device_desc)
-else:
-    print('No GPU, using CPU instead.')
-
-
 # Parse command line arguments
 
 parser = argparse.ArgumentParser()
+parser.add_argument('--dataset', choices=['mnist', 'fashion-mnist', 'cifar10', 'cifar100'])
+parser.add_argument('--epochs', type=int, default=10)
 parser.add_argument('--lr', type=float, default=0.001)
 parser.add_argument('--units', default='50,50',
                     help='Number of units in the hidden layers, separated by comma. '
                     'For example --units=50,20 means two hidden layers, the first '
                     'with 50 and the second with 20 units.')
-parser.add_argument('--dropout', required=False,
+parser.add_argument('--dropout', default='0',
                     help='Dropout rate after each hidden layer, separated by comma.'
                     'If only one value is specified, it is assumed to be the same '
                     'for all layers. If nothing is given, no dropout is used.' )
@@ -67,22 +56,33 @@ if len(dropout) != len(units):
           format(len(units), len(dropout)))
     sys.exit(1)
 
+                   
+# Load dataset
 
-# Fashion-MNIST categories
-#
-# Label|Description|Label|Description
-# -----|-----------|-----|-----------
-# 0    |T-shirt/top|5    | Sandal
-# 1    |Trouser    |6    | Shirt
-# 2    |Pullover   |7    | Sneaker
-# 3    |Dress      |8    | Bag
-# 4    |Coat       |9    | Ankle boot
-
-
-(X_train, y_train), (X_test, y_test) = fashion_mnist.load_data()
-
+ds = args.dataset.lower()
 nb_classes = 10
 
+if ds == 'mnist':
+    from tensorflow.keras.datasets import mnist
+    (X_train, y_train), (X_test, y_test) = mnist.load_data()
+    image_shape = (28, 28)
+elif ds == 'fashion-mnist':
+    from tensorflow.keras.datasets import fashion_mnist
+    (X_train, y_train), (X_test, y_test) = fashion_mnist.load_data()
+    image_shape = (28, 28)
+elif ds == 'cifar10':
+    from tensorflow.keras.datasets import cifar10
+    (X_train, y_train), (X_test, y_test) = cifar10.load_data()
+    image_shape = (32, 32, 3)
+elif ds == 'cifar100':
+    from tensorflow.keras.datasets import cifar100
+    (X_train, y_train), (X_test, y_test) = cifar100.load_data()
+    image_shape = (32, 32, 3)
+    nb_classes = 100
+else:
+    print('ERROR: Unknown dataset specified:', args.dataset)
+    sys.exit(1)
+    
 X_train = X_train.astype('float32')
 X_test = X_test.astype('float32')
 X_train /= 255.0
@@ -93,7 +93,7 @@ Y_train = to_categorical(y_train, nb_classes)
 Y_test = to_categorical(y_test, nb_classes)
 
 print()
-print('MNIST data loaded: train:', len(X_train), 'test:', len(X_test))
+print(ds.upper(), 'dataset loaded: train:', len(X_train), 'test:', len(X_test))
 print('X_train:', X_train.shape)
 print('y_train:', y_train.shape)
 print('Y_train:', Y_train.shape)
@@ -101,7 +101,7 @@ print('Y_train:', Y_train.shape)
 
 # Multi-layer perceptron (MLP) network
 
-inputs = keras.Input(shape=(28, 28))
+inputs = keras.Input(shape=image_shape)
 x = layers.Flatten()(inputs)
 
 for i, n_units in enumerate(units):
@@ -114,7 +114,7 @@ for i, n_units in enumerate(units):
     print()
 
 # The last layer needs to be like this:
-outputs = layers.Dense(units=10, activation='softmax')(x)
+outputs = layers.Dense(units=nb_classes, activation='softmax')(x)
 
 model = keras.Model(inputs=inputs, outputs=outputs,
                     name="mlp_model")
@@ -139,7 +139,7 @@ os.makedirs(logdir)
 callbacks = [TensorBoard(log_dir=logdir),
              hp.KerasCallback(logdir, hparams)]
 
-epochs = 10
+epochs = args.epochs
 
 then = datetime.now()
 
