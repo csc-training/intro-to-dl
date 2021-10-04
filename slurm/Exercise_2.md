@@ -1,4 +1,4 @@
-# Exercise 5
+# Exercise 2
 
 In this exercise, we study image classification with two datasets, 
 [dogs vs. cats](imgs/dvc.png) and [traffic signs](imgs/gtsrb-montage.png).
@@ -55,5 +55,5 @@ There are scripts of _dogs vs. cats_ with data in TFRecord format. Take a look a
 
 ### Extracurricular 2
 
-There is another, small dataset `avp`, of [aliens and predators](imgs/avp.png). Modify dogs vs. cats to classify between them.  
+There is another, small dataset `avp`, of [aliens and predators](imgs/avp.png). Modify dogs vs. cats to classify between them.
 
