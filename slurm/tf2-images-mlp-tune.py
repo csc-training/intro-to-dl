@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # Image classification with MLPs
+# # Image classification with MLPs, hyperparameter tuning
 #
-# Dataset and hyperparameters can be selected with command line arguments.
-# Run `python3 tf2-images-mlp.py --help` to see options.
+# Dataset and hyperparameters selected with ray tune.
+# Run `python3 tf2-images-mlp-tune.py --help` to see options.
 
 import argparse
 import os
@@ -71,12 +71,12 @@ def train(config):
     Y_train = to_categorical(y_train, nb_classes)
     Y_test = to_categorical(y_test, nb_classes)
 
-    print()
-    print(config['dataset'].upper(), 'dataset loaded: train:', len(X_train),
-          'test:', len(X_test))
-    print('X_train:', X_train.shape)
-    print('y_train:', y_train.shape)
-    print('Y_train:', Y_train.shape)
+    # print()
+    # print(config['dataset'].upper(), 'dataset loaded: train:', len(X_train),
+    #       'test:', len(X_test))
+    # print('X_train:', X_train.shape)
+    # print('y_train:', y_train.shape)
+    # print('Y_train:', Y_train.shape)
 
 
     # Multi-layer perceptron (MLP) network
@@ -108,34 +108,19 @@ def train(config):
     model.compile(loss='categorical_crossentropy',
                   optimizer=opt,
                   metrics=['accuracy'])
-    print(model.summary())
+    #print(model.summary())
 
-    # We'll use TensorBoard to visualize our progress during training.
-    logdir = os.path.join(os.getcwd(), "logs",
-                          "images-mlp-tune-{}-{}".format(
-                              datetime.now().strftime('%Y-%m-%d_%H-%M-%S'),
-                              '-'.join(['{}:{}'.format(k, v) for k, v in config.items()])))
-    print('TensorBoard log directory:', logdir)
-    os.makedirs(logdir)
-    # callbacks = [TensorBoard(log_dir=logdir),
-    #              hp.KerasCallback(logdir, config)]
     callbacks = [TuneReportCallback({
         "mean_accuracy": "accuracy",
         "mean_loss": "val_loss"
     })]
 
-    # then = datetime.now()
     history = model.fit(X_train, Y_train,
                         epochs=config['epochs'],
                         batch_size=32,
                         callbacks=callbacks,
                         validation_data=(X_test, Y_test),
                         verbose=0)
-    # print('Training duration:', datetime.now()-then)
-
-    # # Inference
-    # scores = model.evaluate(X_test, Y_test, verbose=2)
-    # print("%s: %.2f%%" % (model.metrics_names[1], scores[1]*100))
 
 def run_tune(args):
     sched = ASHAScheduler(
@@ -153,7 +138,7 @@ def run_tune(args):
         #    "mean_accuracy": 0.99,
         #    "training_iteration": num_training_iterations
         #},
-        num_samples=10,
+        num_samples=50,
         resources_per_trial={
             "cpu": 1,
             "gpu": 0
@@ -176,11 +161,6 @@ if __name__ == "__main__":
                                               'cifar10', 'cifar100'],
                         default='mnist')
     parser.add_argument('--epochs', type=int, default=10)
-    # parser.add_argument('--lr', type=float, default=0.001)
-    # parser.add_argument('--hidden1', default=50, type=int)
-    # parser.add_argument('--hidden2', default=0, type=int)
-    # parser.add_argument('--dropout', default=0, type=float)
     args = parser.parse_args()
 
-    # train(vars(args))
     run_tune(args)
