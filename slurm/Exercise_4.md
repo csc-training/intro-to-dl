@@ -1,4 +1,4 @@
-# Exercise 7
+# Exercise 4
 
 In this exercise, we try using multiple GPUs.
 
@@ -6,7 +6,7 @@ In this exercise, we try using multiple GPUs.
 
 ### Task 1
 
-Convert a script or scripts from Exercise 5 or 6 to use multiple GPUs.
+Convert a script or scripts from Exercise 2 or 3 to use multiple GPUs.
 
 * Do you get improvements in speed?
 * Do you get the same accuracy than with a single GPU?
