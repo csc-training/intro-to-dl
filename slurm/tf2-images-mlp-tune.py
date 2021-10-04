@@ -11,6 +11,7 @@ import os
 import sys
 from datetime import datetime
 
+from filelock import FileLock
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers
@@ -24,6 +25,16 @@ from distutils.version import LooseVersion as LV
 print('Using Tensorflow version: {}, and Keras version: {}.'.
       format(tf.__version__, tf.keras.__version__))
 assert(LV(tf.__version__) >= LV("2.0.0"))
+
+import ray
+from ray import tune
+#from ray.tune.schedulers import AsyncHyperBandScheduler
+from ray.tune.schedulers import ASHAScheduler
+from ray.tune.integration.keras import TuneReportCallback
+
+import os
+if 'SLURM_CPUS_PER_TASK' in os.environ:
+    ray.init(num_cpus=int(os.environ['SLURM_CPUS_PER_TASK']))
 
 
 def load_dataset(ds):
@@ -46,7 +57,8 @@ def load_dataset(ds):
 
 
 def train(config):
-    data, nb_classes = load_dataset(config['dataset'])
+    with FileLock(os.path.expanduser("~/.data.lock")):
+        data, nb_classes = load_dataset(config['dataset'])
     (X_train, y_train), (X_test, y_test) = data
     image_shape = X_train.shape[1:]
 
@@ -100,25 +112,62 @@ def train(config):
 
     # We'll use TensorBoard to visualize our progress during training.
     logdir = os.path.join(os.getcwd(), "logs",
-                          "images-mlp-{}-{}".format(
+                          "images-mlp-tune-{}-{}".format(
                               datetime.now().strftime('%Y-%m-%d_%H-%M-%S'),
                               '-'.join(['{}:{}'.format(k, v) for k, v in config.items()])))
     print('TensorBoard log directory:', logdir)
     os.makedirs(logdir)
-    callbacks = [TensorBoard(log_dir=logdir),
-                 hp.KerasCallback(logdir, config)]
+    # callbacks = [TensorBoard(log_dir=logdir),
+    #              hp.KerasCallback(logdir, config)]
+    callbacks = [TuneReportCallback({
+        "mean_accuracy": "accuracy",
+        "mean_loss": "val_loss"
+    })]
 
-    then = datetime.now()
+    # then = datetime.now()
     history = model.fit(X_train, Y_train,
                         epochs=config['epochs'],
                         batch_size=32,
                         callbacks=callbacks,
-                        verbose=2)
-    print('Training duration:', datetime.now()-then)
+                        validation_data=(X_test, Y_test),
+                        verbose=0)
+    # print('Training duration:', datetime.now()-then)
 
-    # Inference
-    scores = model.evaluate(X_test, Y_test, verbose=2)
-    print("%s: %.2f%%" % (model.metrics_names[1], scores[1]*100))
+    # # Inference
+    # scores = model.evaluate(X_test, Y_test, verbose=2)
+    # print("%s: %.2f%%" % (model.metrics_names[1], scores[1]*100))
+
+def run_tune(args):
+    sched = ASHAScheduler(
+        time_attr="training_iteration")
+
+    metric="mean_accuracy"
+
+    analysis = tune.run(
+        train,
+        name="foo",
+        scheduler=sched,
+        metric=metric,
+        mode="max",
+        #stop={
+        #    "mean_accuracy": 0.99,
+        #    "training_iteration": num_training_iterations
+        #},
+        num_samples=10,
+        resources_per_trial={
+            "cpu": 1,
+            "gpu": 0
+        },
+        config={
+            "dataset": args.dataset,
+            "epochs": args.epochs,
+            "dropout": tune.uniform(0.05, 0.5),
+            "lr": tune.uniform(0.001, 0.1),
+            "hidden1": tune.randint(32, 512),
+            "hidden2": tune.randint(0, 128),
+        })
+    print("Best hyperparameters found were: ", analysis.best_config)
+    print("Best value for", metric, ':', analysis.best_result[metric])
 
 
 if __name__ == "__main__":
@@ -127,10 +176,11 @@ if __name__ == "__main__":
                                               'cifar10', 'cifar100'],
                         default='mnist')
     parser.add_argument('--epochs', type=int, default=10)
-    parser.add_argument('--lr', type=float, default=0.001)
-    parser.add_argument('--hidden1', default=50, type=int)
-    parser.add_argument('--hidden2', default=0, type=int)
-    parser.add_argument('--dropout', default=0, type=float)
+    # parser.add_argument('--lr', type=float, default=0.001)
+    # parser.add_argument('--hidden1', default=50, type=int)
+    # parser.add_argument('--hidden2', default=0, type=int)
+    # parser.add_argument('--dropout', default=0, type=float)
     args = parser.parse_args()
 
-    train(vars(args))
+    # train(vars(args))
+    run_tune(args)
