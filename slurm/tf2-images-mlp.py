@@ -113,12 +113,14 @@ def train(config):
                         epochs=config['epochs'],
                         batch_size=32,
                         callbacks=callbacks,
-                        verbose=2)
+                        verbose=2,
+                        validation_split=0.2)
     print('Training duration:', datetime.now()-then)
 
     # Inference
-    scores = model.evaluate(X_test, Y_test, verbose=2)
-    print("%s: %.2f%%" % (model.metrics_names[1], scores[1]*100))
+    if args.eval:
+        scores = model.evaluate(X_test, Y_test, verbose=2)
+        print("%s: %.2f%%" % (model.metrics_names[1], scores[1]*100))
 
 
 if __name__ == "__main__":
@@ -131,6 +133,7 @@ if __name__ == "__main__":
     parser.add_argument('--hidden1', default=50, type=int)
     parser.add_argument('--hidden2', default=0, type=int)
     parser.add_argument('--dropout', default=0, type=float)
+    parser.add_argument('--eval', action='store_true')
     args = parser.parse_args()
 
     train(vars(args))

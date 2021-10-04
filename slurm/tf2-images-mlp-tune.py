@@ -31,6 +31,7 @@ from ray import tune
 #from ray.tune.schedulers import AsyncHyperBandScheduler
 from ray.tune.schedulers import ASHAScheduler
 from ray.tune.integration.keras import TuneReportCallback
+from ray.tune.suggest.bayesopt import BayesOptSearch
 
 import os
 if 'SLURM_CPUS_PER_TASK' in os.environ:
@@ -84,8 +85,8 @@ def train(config):
     inputs = keras.Input(shape=image_shape)
     x = layers.Flatten()(inputs)
 
-    hidden1 = config['hidden1']
-    hidden2 = config['hidden2']
+    hidden1 = int(config['hidden1'])
+    hidden2 = int(config['hidden2'])
     dropout = config['dropout']
 
     x = layers.Dense(units=hidden1, activation='relu')(x)
@@ -111,22 +112,23 @@ def train(config):
     #print(model.summary())
 
     callbacks = [TuneReportCallback({
-        "mean_accuracy": "accuracy",
-        "mean_loss": "val_loss"
+        "train_accuracy": "accuracy",
+        "train_loss": "loss",
+        "val_accuracy": "val_accuracy",
+        "val_loss": "val_loss"
     })]
 
     history = model.fit(X_train, Y_train,
                         epochs=config['epochs'],
                         batch_size=32,
                         callbacks=callbacks,
-                        validation_data=(X_test, Y_test),
+                        validation_split=0.2,
                         verbose=0)
 
 def run_tune(args):
-    sched = ASHAScheduler(
-        time_attr="training_iteration")
-
-    metric="mean_accuracy"
+    sched = ASHAScheduler(time_attr="training_iteration") if args.sched == 'asha' else None
+    search_alg = BayesOptSearch() if args.samples == 'bayes' else None
+    metric = "val_accuracy"
 
     analysis = tune.run(
         train,
@@ -134,11 +136,12 @@ def run_tune(args):
         scheduler=sched,
         metric=metric,
         mode="max",
+        search_alg=search_alg,
         #stop={
         #    "mean_accuracy": 0.99,
         #    "training_iteration": num_training_iterations
         #},
-        num_samples=50,
+        num_samples=args.samples,
         resources_per_trial={
             "cpu": 1,
             "gpu": 0
@@ -148,8 +151,8 @@ def run_tune(args):
             "epochs": args.epochs,
             "dropout": tune.uniform(0.05, 0.5),
             "lr": tune.uniform(0.001, 0.1),
-            "hidden1": tune.randint(32, 512),
-            "hidden2": tune.randint(0, 128),
+            "hidden1": tune.uniform(32, 512),
+            "hidden2": tune.uniform(0, 128),
         })
     print("Best hyperparameters found were: ", analysis.best_config)
     print("Best value for", metric, ':', analysis.best_result[metric])
@@ -157,10 +160,13 @@ def run_tune(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
+    parser.add_argument('--samples', '-n', default=50, type=int)
     parser.add_argument('--dataset', choices=['mnist', 'fashion-mnist',
                                               'cifar10', 'cifar100'],
                         default='mnist')
     parser.add_argument('--epochs', type=int, default=10)
+    parser.add_argument('--sampler', choices=['random', 'bayes'], default='random')
+    parser.add_argument('--sched', choices=['none', 'asha'], default='none')
     args = parser.parse_args()
 
     run_tune(args)
