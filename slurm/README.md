@@ -1,10 +1,13 @@
-# Day 2 - puhti
+# Cluster exercises
 
 ## Exercise sessions
 
+* [Exercise 1](Exercise_1.md)
+* [Exercise 2](Exercise_2.md)
+* [Exercise 3](Exercise_3.md)
+* [Exercise 4](Exercise_4.md)
 * [Exercise 5](Exercise_5.md)
 * [Exercise 6](Exercise_6.md)
-* [Exercise 7](Exercise_7.md)
 
 ## Setup
 
