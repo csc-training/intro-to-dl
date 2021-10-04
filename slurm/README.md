@@ -1,4 +1,4 @@
-# Day 2 - puhti
+# Cluster exercises
 
 ## Exercise sessions
 
