@@ -160,13 +160,17 @@ def run_tune(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('--samples', '-n', default=50, type=int)
+    parser.add_argument('--samples', '-n', default=50, type=int,
+                        help='Number of different configurations of hyperparameters to try')
     parser.add_argument('--dataset', choices=['mnist', 'fashion-mnist',
                                               'cifar10', 'cifar100'],
                         default='mnist')
-    parser.add_argument('--epochs', type=int, default=10)
-    parser.add_argument('--sampler', choices=['random', 'bayes'], default='random')
-    parser.add_argument('--sched', choices=['none', 'asha'], default='none')
+    parser.add_argument('--epochs', type=int, default=10,
+                        help='Number of epochs to train')
+    parser.add_argument('--sampler', choices=['random', 'bayes'], default='random',
+                        help='Method for selecting hyperparameter configurations to try')
+    parser.add_argument('--sched', choices=['none', 'asha'], default='none',
+                        help='Scheduler that can stop trials that perform poorly')
     args = parser.parse_args()
 
     run_tune(args)
