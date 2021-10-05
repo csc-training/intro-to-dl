@@ -128,12 +128,20 @@ if __name__ == "__main__":
     parser.add_argument('--dataset', choices=['mnist', 'fashion-mnist',
                                               'cifar10', 'cifar100'],
                         default='mnist')
-    parser.add_argument('--epochs', type=int, default=10)
-    parser.add_argument('--lr', type=float, default=0.001)
-    parser.add_argument('--hidden1', default=50, type=int)
-    parser.add_argument('--hidden2', default=0, type=int)
-    parser.add_argument('--dropout', default=0, type=float)
-    parser.add_argument('--eval', action='store_true')
+    parser.add_argument('--epochs', type=int, default=10,
+                        help='Number of epochs to train')
+    parser.add_argument('--lr', type=float, default=0.001,
+                        help='Learning rate for Adam optimizer')
+    parser.add_argument('--hidden1', default=50, type=int,
+                        help='Number of nodes in the first hidden layer')
+    parser.add_argument('--hidden2', default=0, type=int,
+                        help='Number of nodes in the second hidden layer, '
+                        'zero means no second layer')
+    parser.add_argument('--dropout', default=0, type=float,
+                        help='Dropout rate to be applied after each hidden '
+                        'layer. Zero means no dropout.')
+    parser.add_argument('--eval', action='store_true',
+                        help='Enable evaluation on test set after training')
     args = parser.parse_args()
 
     train(vars(args))
