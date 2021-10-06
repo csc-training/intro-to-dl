@@ -27,8 +27,8 @@
 
 3. Clone and cd to the exercise repository:
 
-        git clone https://github.com/csc-training/intro-to-dl.git
-        cd intro-to-dl/day2
+        git clone -b vuokatti2021 https://github.com/csc-training/intro-to-dl.git
+        cd intro-to-dl/slurm
 
 ## Edit and submit jobs
 
@@ -68,6 +68,6 @@
 
         module purge
         module load tensorflow/2.4-hvd
-        tensorboard --logdir=intro-to-dl/day2/logs --port=PORT
+        tensorboard --logdir=intro-to-dl/slurm/logs --port=PORT
 
 3. To access TensorBoard, point your web browser to *localhost:PORT* .
