@@ -120,7 +120,7 @@ def train(config):
     # Inference
     if args.eval:
         scores = model.evaluate(X_test, Y_test, verbose=2)
-        print("%s: %.2f%%" % (model.metrics_names[1], scores[1]*100))
+        print("Evaluate on testset: %s: %.2f%%" % (model.metrics_names[1], scores[1]*100))
 
 
 if __name__ == "__main__":

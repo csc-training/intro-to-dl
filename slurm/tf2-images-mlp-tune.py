@@ -124,8 +124,8 @@ def run_tune(args):
         search_alg=search_alg,
         num_samples=args.samples,
         resources_per_trial={
-            "cpu": 1,
-            "gpu": 0
+            "cpu": 10,
+            "gpu": 1
         },
         config={
             "dataset": args.dataset,
