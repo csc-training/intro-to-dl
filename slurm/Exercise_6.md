@@ -22,4 +22,4 @@ python3 tf2-images-mlp-tune.py  --help
 ### Task 1
 
 Find the best hyperparameters for the cifar10 dataset using first random search
-and then Bayesian Optimization. Do at least 50 samples each and try ASHA scheduler.
+and then Bayesian Optimization. Do at least 10 samples each and try ASHA scheduler.

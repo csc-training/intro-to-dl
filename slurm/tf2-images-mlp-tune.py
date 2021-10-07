@@ -12,23 +12,9 @@ import sys
 from datetime import datetime
 
 from filelock import FileLock
-import tensorflow as tf
-from tensorflow import keras
-from tensorflow.keras import layers
-from tensorflow.keras.utils import to_categorical
-from tensorflow.keras.callbacks import TensorBoard
-
-from tensorboard.plugins.hparams import api as hp
-
-from distutils.version import LooseVersion as LV
-
-print('Using Tensorflow version: {}, and Keras version: {}.'.
-      format(tf.__version__, tf.keras.__version__))
-assert(LV(tf.__version__) >= LV("2.0.0"))
 
 import ray
 from ray import tune
-#from ray.tune.schedulers import AsyncHyperBandScheduler
 from ray.tune.schedulers import ASHAScheduler
 from ray.tune.integration.keras import TuneReportCallback
 from ray.tune.suggest.bayesopt import BayesOptSearch
@@ -58,6 +44,14 @@ def load_dataset(ds):
 
 
 def train(config):
+    import tensorflow as tf
+    from tensorflow import keras
+    from tensorflow.keras import layers
+    from tensorflow.keras.utils import to_categorical
+    from tensorflow.keras.callbacks import TensorBoard
+
+    from tensorboard.plugins.hparams import api as hp
+
     with FileLock(os.path.expanduser("~/.data.lock")):
         data, nb_classes = load_dataset(config['dataset'])
     (X_train, y_train), (X_test, y_test) = data
@@ -71,14 +65,6 @@ def train(config):
     # one-hot encoding:
     Y_train = to_categorical(y_train, nb_classes)
     Y_test = to_categorical(y_test, nb_classes)
-
-    # print()
-    # print(config['dataset'].upper(), 'dataset loaded: train:', len(X_train),
-    #       'test:', len(X_test))
-    # print('X_train:', X_train.shape)
-    # print('y_train:', y_train.shape)
-    # print('Y_train:', Y_train.shape)
-
 
     # Multi-layer perceptron (MLP) network
 
@@ -109,7 +95,6 @@ def train(config):
     model.compile(loss='categorical_crossentropy',
                   optimizer=opt,
                   metrics=['accuracy'])
-    #print(model.summary())
 
     callbacks = [TuneReportCallback({
         "train_accuracy": "accuracy",
@@ -137,10 +122,6 @@ def run_tune(args):
         metric=metric,
         mode="max",
         search_alg=search_alg,
-        #stop={
-        #    "mean_accuracy": 0.99,
-        #    "training_iteration": num_training_iterations
-        #},
         num_samples=args.samples,
         resources_per_trial={
             "cpu": 1,
@@ -168,9 +149,11 @@ if __name__ == "__main__":
     parser.add_argument('--epochs', type=int, default=10,
                         help='Number of epochs to train')
     parser.add_argument('--sampler', choices=['random', 'bayes'], default='random',
-                        help='Method for selecting hyperparameter configurations to try')
+                        help='Method for selecting hyperparameter configurations to try '
+                             '(default: random)')
     parser.add_argument('--sched', choices=['none', 'asha'], default='none',
-                        help='Scheduler that can stop trials that perform poorly')
+                        help='Scheduler that can stop trials that perform poorly '
+                             '(default: none)')
     args = parser.parse_args()
 
     run_tune(args)
