@@ -132,7 +132,7 @@ def run_tune(args):
 
     analysis = tune.run(
         train,
-        name="foo",
+        name="MLP",
         scheduler=sched,
         metric=metric,
         mode="max",
@@ -160,11 +160,11 @@ def run_tune(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('--samples', '-n', default=50, type=int,
+    parser.add_argument('--samples', '-n', default=10, type=int,
                         help='Number of different configurations of hyperparameters to try')
     parser.add_argument('--dataset', choices=['mnist', 'fashion-mnist',
                                               'cifar10', 'cifar100'],
-                        default='mnist')
+                        default='mnist', help='Select dataset (default: mnist)')
     parser.add_argument('--epochs', type=int, default=10,
                         help='Number of epochs to train')
     parser.add_argument('--sampler', choices=['random', 'bayes'], default='random',
