@@ -9,7 +9,7 @@
 #SBATCH --account=project_2005006
 #SBATCH --reservation=dlintro
 
-#module load tensorflow
+module load tensorflow/2.6
 module list
 
 export DATADIR=/scratch/project_2005006/data

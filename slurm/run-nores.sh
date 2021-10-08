@@ -7,7 +7,7 @@
 #SBATCH --cpus-per-task=10
 #SBATCH --account=project_2005006
 
-module load tensorflow
+module load tensorflow/2.6
 module list
 
 export DATADIR=/scratch/project_2005006/data
