@@ -67,7 +67,7 @@
 2. Set up the module environment and start the TensorBoard server:
 
         module purge
-        module load tensorflow/2.4-hvd
-        tensorboard --logdir=intro-to-dl/slurm/logs --port=PORT
+        module load tensorflow/2.6
+        singularity_wrapper exec tensorboard --logdir=intro-to-dl/slurm/logs --port=PORT
 
 3. To access TensorBoard, point your web browser to *localhost:PORT* .
