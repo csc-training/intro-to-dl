@@ -40,7 +40,7 @@ Optional:
 
 ## Setup
 
-We will use Jupyter Notebooks for all exercises on Day 1. There are several ways to set up a Jupyter environment for running the exercises:
+We will use Jupyter Notebooks for all afternoon exercises on Tuesday and Wednesday. There are several ways to set up a Jupyter environment for running the exercises:
 
 ### 1. CSC’s Notebooks
 
@@ -64,20 +64,20 @@ We will use Jupyter Notebooks for all exercises on Day 1. There are several ways
 
 If you have a laptop that has both jupyter and the other necessary python packages installed, it is possible to use it. In particular, if the laptop has an Nvidia GPU and it that has been properly set up (CUDA, cuDNN).
 
-* `git clone https://github.com/csc-training/intro-to-dl.git`   
-* try to run the `day1/01-tf2-test-setup.ipynb` notebook without errors
+* `git clone -b vuokatti2021 https://github.com/csc-training/intro-to-dl.git`   
+* try to run the `notebooks/01-tf2-test-setup.ipynb` notebook without errors
 
 ### 3. Google Colaboratory
 
 Google has a free Jupyter Notebooks service you may want to try out. No guarantees, but it does have GPUs available! A Google account is needed to use Colaboratory. 
 
-* Click the corresponding colab link above in this document (https://github.com/csc-training/intro-to-dl/edit/master/day1/README.md)
+* Click the corresponding colab link above in this document (https://github.com/csc-training/intro-to-dl/tree/vuokatti2021/notebooks/README.md)
 * If needed, sign in to your Google account using the "Sign in" button in the top-right corner
 * To use a GPU, select: Runtime => Change runtime type => Hardware accelerator: GPU
 
 OR
 
-* Point your browser to https://github.com/csc-training/intro-to-dl/tree/master/day1 
+* Point your browser to https://github.com/csc-training/intro-to-dl/tree/vuokatti2021/notebooks 
 * Select a notebook file
 * At the end of the file, there is a link: “Run this notebook in Google Colaboratory using this link”
 * If needed, sign in to your Google account using the "Sign in" button in the top-right corner
