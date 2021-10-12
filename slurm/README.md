@@ -18,7 +18,7 @@
 2. Set up the module environment:
 
         module purge
-        module load tensorflow
+        module load tensorflow/2.6
 
    or for PyTorch:
    
