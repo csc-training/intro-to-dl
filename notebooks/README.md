@@ -53,7 +53,7 @@ We will use Jupyter Notebooks for all afternoon exercises on Tuesday and Wednesd
 * Find *Course Practical Deep Learning - 2020* and click “Launch new”
 * Wait until the “Open in browser” link appears, then click on it
 * The jupyter notebook dashboard should appear
-* Navigate to `intro-to-dl/day1` 
+* Navigate to `intro-to-dl/notebooks` 
 * if you are not familiar with Jupyter, take a moment to get to know the interface
     * open a new notebook (*File* -> *New* -> *Notebook*, on menubar) 
     * select *"Python 3"* as the kernel for the notebook
