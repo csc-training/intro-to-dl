@@ -24,7 +24,7 @@ Run 10 epochs of training for the cifar10 dataset with the following settings:
 - Use default learning rate 0.001
 - Hidden layer 1 with 50 neurons
 - Hidden layer 2 with 50 neurons
-- Dropout of 0.2 after each hidden layer
+- Dropout of 0.1 after each hidden layer
 - Evaluate on test set
 
 Run this using Slurm like this (fill in correct hyperparameters, see the output
