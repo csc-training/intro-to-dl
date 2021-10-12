@@ -40,4 +40,4 @@ if [ -z "$ARGS" ]; then
 fi
 
 set -xv
-python3 $PYTHON_SCRIPT $ARGS
+python3 $PYTHON_SCRIPT $ARGS --eval
