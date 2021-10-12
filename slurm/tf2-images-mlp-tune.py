@@ -142,12 +142,13 @@ def run_tune(args):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--samples', '-n', default=10, type=int,
-                        help='Number of different configurations of hyperparameters to try')
+                        help='Number of different configurations of hyperparameters to try '
+                             '(default: 10)')
     parser.add_argument('--dataset', choices=['mnist', 'fashion-mnist',
                                               'cifar10', 'cifar100'],
                         default='mnist', help='Select dataset (default: mnist)')
     parser.add_argument('--epochs', type=int, default=10,
-                        help='Number of epochs to train')
+                        help='Number of epochs to train (default: 10)')
     parser.add_argument('--sampler', choices=['random', 'bayes'], default='random',
                         help='Method for selecting hyperparameter configurations to try '
                              '(default: random)')
