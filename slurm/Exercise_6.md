@@ -12,8 +12,8 @@ you can select different samplers and schedulers with arguments on the command
 line. 
 
 ```
-usage: tf2-images-mlp-tune.py [-h] [--samples SAMPLES] [--dataset {mnist,fashion-mnist,cifar10,cifar100}] [--epochs EPOCHS] [--sampler {random,bayes}]
-                              [--sched {none,asha}]
+usage: tf2-images-mlp-tune.py [-h] [--samples SAMPLES] [--dataset {mnist,fashion-mnist,cifar10,cifar100}]
+                              [--epochs EPOCHS] [--sampler {random,bayes}] [--sched {none,asha}]
 
 optional arguments:
   -h, --help            show this help message and exit
