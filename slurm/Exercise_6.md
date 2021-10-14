@@ -13,7 +13,7 @@ line. You can check them by running:
 
 ```bash
 module purge
-module load tensorflow
+module load tensorflow/2.6
 python3 tf2-images-mlp-tune.py  --help
 ```
 
