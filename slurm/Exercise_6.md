@@ -9,13 +9,24 @@ optimization for an MLP for image classification.
 
 The main script *tf2-images-mlp-tune.py* can be used for several datasets and
 you can select different samplers and schedulers with arguments on the command
-line. You can check them by running:
+line. 
 
-```bash
-module purge
-module load tensorflow
-python3 tf2-images-mlp-tune.py  --help
 ```
+usage: tf2-images-mlp-tune.py [-h] [--samples SAMPLES] [--dataset {mnist,fashion-mnist,cifar10,cifar100}]
+                              [--epochs EPOCHS] [--sampler {random,bayes}] [--sched {none,asha}]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --samples SAMPLES, -n SAMPLES
+                        Number of different configurations of hyperparameters to try (default: 10)
+  --dataset {mnist,fashion-mnist,cifar10,cifar100}
+                        Select dataset (default: mnist)
+  --epochs EPOCHS       Number of epochs to train (default: 10)
+  --sampler {random,bayes}
+                        Method for selecting hyperparameter configurations to try (default: random)
+  --sched {none,asha}   Scheduler that can stop trials that perform poorly (default: none)
+```
+
 
 ## Tasks
 
