@@ -130,8 +130,8 @@ def run_tune(args):
         config={
             "dataset": args.dataset,
             "epochs": args.epochs,
-            "dropout": tune.uniform(0.05, 0.5),
-            "lr": tune.uniform(0.001, 0.1),
+            "dropout": tune.choice([0.0, 0.1, 0.2]),
+            "lr": 0.001,
             "hidden1": tune.uniform(32, 512),
             "hidden2": tune.uniform(0, 128),
         })
