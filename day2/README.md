@@ -2,9 +2,10 @@
 
 ## Exercise sessions
 
-* [Exercise 5](Exercise_5.md)
-* [Exercise 6](Exercise_6.md)
-* [Exercise 7](Exercise_7.md)
+* [Exercise 5: Image classification](Exercise_5.md)
+* [Exercise 6: Text categorization](Exercise_6.md)
+* [Exercise 7: Using multiple GPUs](Exercise_7.md)
+* [Exercise X: AutoML](Exercise_X.md)
 
 ## Setup
 
