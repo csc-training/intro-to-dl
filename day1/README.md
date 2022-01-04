@@ -14,11 +14,13 @@ Classification with MLPs.
 
 * *02-tf2-mnist-mlp.ipynb*<br/>[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/02-tf2-mnist-mlp.ipynb)
 
-Optional: 
+<details><summary>Optional exercises</summary>
 
 * *pytorch-mnist-mlp.ipynb*<br/>[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/optional/pytorch-mnist-mlp.ipynb)
 
 * *tf2-chd-mlp.ipynb*<br/>[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/optional/tf2-chd-mlp.ipynb)
+
+</details>
 
 ### Exercise 3
 
@@ -32,11 +34,13 @@ Text sentiment classification with RNNs.
 
 * *04-tf2-imdb-rnn.ipynb*<br/>[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/04-tf2-imdb-rnn.ipynb)
 
-Optional: 
+<details><summary>Optional exercises</summary>
 
 * *tf2-imdb-cnn.ipynb*<br/>[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/optional/tf2-imdb-cnn.ipynb)
 
 * *tf2-mnist-rnn.ipynb*<br/>[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/optional/tf2-mnist-rnn.ipynb)
+
+</details>
 
 ## Setup
 
