@@ -46,9 +46,9 @@ Text sentiment classification with RNNs.
 
 We will use Jupyter Notebooks for all exercises on Day 1. There are several ways to set up a Jupyter environment for running the exercises:
 
-### 1. CSC’s Notebooks
+### 1. CSC Notebooks
 
-*The default option.* CSC’s Notebooks (https://notebooks.csc.fi) provides easy-to-use environments for working with data and programming. You can access everything via your web browser and CSC cloud environment computes on the background. There should be enough resources for launching a notebooks instance for everyone, but unfortunately no GPUs. 
+*The default option.* CSC Notebooks (https://notebooks.csc.fi) provides easy-to-use environments for working with data and programming. You can access everything via your web browser and CSC cloud environment computes on the background. There should be enough resources for launching a notebooks instance for everyone, but unfortunately no GPUs. 
 
 * Point your browser to https://notebooks.csc.fi
 * Login using
