@@ -5,17 +5,18 @@ In this exercise, we study image classification with two datasets,
 
 ## Files
 
-### TF2/Keras
-
+Dogs vs. cats:
 * *tf2-dvc-cnn-simple.py*: Dogs vs. cats with a CNN trained from scratch
 * *tf2-dvc-cnn-pretrained.py*: Dogs vs. cats with a pre-trained CNN
 * *tf2-dvc-cnn-evaluate.py*: Evaluate a trained CNN with test data
+
+Traffic signs:
 * *tf2-gtsrb-cnn-simple.py*: Traffic signs with a CNN trained from scratch
 * *tf2-gtsrb-cnn-pretrained.py*: Traffic signs with a pre-trained CNN
 * *tf2-gtsrb-cnn-evaluate.py*: Evaluate a trained CNN with test data
 
-### PyTorch
-
+<details><summary><b>PyTorch</b></summary>
+  
 The PyTorch scripts have a slightly different setup:
 
 * *pytorch_dvc_cnn_simple.py*: Dogs vs. cats with a CNN trained from scratch
@@ -25,6 +26,7 @@ The PyTorch scripts have a slightly different setup:
 
 There is no separate evaluation script, instead the test set
 evaluation is done automatically after training.
+</details>
 
 ## Tasks
 
@@ -57,3 +59,9 @@ There are scripts of _dogs vs. cats_ with data in TFRecord format. Take a look a
 
 There is another, small dataset `avp`, of [aliens and predators](imgs/avp.png). Modify dogs vs. cats to classify between them.  
 
+### Extracurricular 3 - after Exercise 6
+
+There are scripts for both _dogs vs. cats_ and _Traffic signs_ using Vision Transformers (ViTs). Compare these with the previous approaches.
+
+* *tf2-dvc-vit.py*: Dogs vs. cats with a pre-trained ViT
+* *tf2-gtsrb-vit.py*: Traffic signs with a pre-trained ViT
