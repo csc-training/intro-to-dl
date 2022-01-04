@@ -1,9 +1,13 @@
-# Exercise 1
+# Exercise X
 
-In this exercise we run a simple MLP for image classification on the
-supercomputer.
+In this exercise we use Slurm array jobs and the [Ray Tune library][1] to perform hyperparameter
+optimization for an MLP for image classification.
 
-## Files
+[1]: https://docs.ray.io/en/master/tune/index.html
+
+## Part I: Manual jobs and array jobs
+
+### Files
 
 The main script *tf2-images-mlp.py* can be used for several datasets and with
 different hyperparameters for the MLP neural network. These can all be set with
@@ -15,9 +19,9 @@ module load tensorflow/2.6
 python3 tf2-images-mlp.py  --help
 ```
 
-## Tasks
+### Tasks
 
-### Task 1
+#### Task 1
 
 Run 10 epochs of training for the cifar10 dataset with the following settings:
 
@@ -34,16 +38,16 @@ of the `--help` run mentioned above).
 sbatch run.sh tf2-images-mlp.py --dataset cifar10 [hyperparameter options here]
 ```
 
-### Task 2
+#### Task 2
 
 Try at least five runs with different hyperparameters. Try for example with and
 without dropout, and/or varying the number of hidden nodes.
 
 You can launch these one-by-one after each other, and the runs will run in
-parallell in the cluster.
+parallel in the cluster.
 
 
-### Task 3
+#### Task 3
 
 Run multiple hyperparameter configurations using Slurm array jobs.
 
@@ -53,14 +57,10 @@ We have already prepared a Slurm script and a text file `args-to-test.txt` with
 ```
 sbatch --array=1-12 run-array.sh tf2-images-mlp.py args-to-test.txt
 ```
-# Exercise 6
 
-In this exercise we use the [Ray Tune library][1] to perform hyperparameter
-optimization for an MLP for image classification.
+## Part II: Ray Tune
 
-[1]: https://docs.ray.io/en/master/tune/index.html
-
-## Files
+### Files
 
 The main script *tf2-images-mlp-tune.py* can be used for several datasets and
 you can select different samplers and schedulers with arguments on the command
@@ -83,9 +83,9 @@ optional arguments:
 ```
 
 
-## Tasks
+### Tasks
 
-### Task 1
+#### Task 1
 
 Find the best hyperparameters for the cifar10 dataset using first random search
 and then Bayesian Optimization. Do at least 10 samples each and try ASHA scheduler.
