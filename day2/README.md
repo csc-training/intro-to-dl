@@ -5,7 +5,7 @@
 * [Exercise 5: Image classification](Exercise_5.md)
 * [Exercise 6: Text categorization](Exercise_6.md)
 * [Exercise 7: Using multiple GPUs](Exercise_7.md)
-* [Exercise X: AutoML](Exercise_X.md)
+* [Exercise X: Hyperparameter optimization](Exercise_X.md)
 
 ## Setup
 
