@@ -59,7 +59,11 @@ There are scripts of _dogs vs. cats_ with data in TFRecord format. Take a look a
 
 There is another, small dataset `avp`, of [aliens and predators](imgs/avp.png). Modify dogs vs. cats to classify between them.  
 
-### Extracurricular 3 - after Exercise 6
+### Extracurricular 3
+
+See https://keras.io/examples/vision/ for more Keras examples on computer vision applications.
+
+### Extracurricular 4 - after Exercise 6
 
 There are scripts for both _dogs vs. cats_ and _Traffic signs_ using Vision Transformers (ViTs). Compare these with the previous approaches.
 
