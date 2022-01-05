@@ -61,7 +61,7 @@ There is another, small dataset `avp`, of [aliens and predators](imgs/avp.png). 
 
 ### Extracurricular 3
 
-See https://keras.io/examples/vision/ for more Keras examples on computer vision applications.
+See https://keras.io/examples/vision/ for more Keras examples on computer vision.
 
 ### Extracurricular 4 - after Exercise 6
 
