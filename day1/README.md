@@ -54,7 +54,7 @@ We will use Jupyter Notebooks for all exercises on Day 1. There are several ways
 * Login using
     * Haka or CSC account if you have one, or
     * a separate username and password that you will receive during the course
-* Find *Course Practical Deep Learning - 2020* and click “Launch new”
+* Find *Course Practical Deep Learning - 2022* and click “Launch new”
 * Wait until the “Open in browser” link appears, then click on it
 * The jupyter notebook dashboard should appear
 * Navigate to `intro-to-dl/day1` 
