@@ -21,11 +21,11 @@
    or for PyTorch:
    
         module purge
-        module load pytorch/1.8
+        module load pytorch
 
 3. Clone and cd to the exercise repository:
 
-        git clone https://github.com/csc-training/intro-to-dl.git
+        git clone https://github.com/csc-training/intro-to-dl
         cd intro-to-dl/day2
 
 ## Edit and submit jobs
