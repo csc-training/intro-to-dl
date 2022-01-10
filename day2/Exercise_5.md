@@ -97,3 +97,10 @@ Vision Transformers (ViTs). Compare these with the previous approaches.
 
 - [tf2-dvc-vit.py](tf2-dvc-vit.py): Dogs vs. cats with a pre-trained ViT
 - [tf2-gtsrb-vit.py](tf2-gtsrb-vit.py): Traffic signs with a pre-trained ViT
+
+*Note:* You might need to upgrade Transformers to a newer version. This can be
+done locally by the user like this:
+
+```bash
+pip install --user --upgrade transformers
+```
