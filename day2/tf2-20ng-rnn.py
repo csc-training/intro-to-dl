@@ -32,16 +32,17 @@ print('Using Tensorflow version:', tf.__version__,
       'Keras version:', keras.__version__,
       'backend:', keras.backend.backend(), flush=True)
 
+if 'DATADIR' in os.environ:
+    DATADIR = os.environ['DATADIR']
+else:
+    DATADIR = "/scratch/project_2005299/data/"
+print('Using DATADIR', DATADIR)
+
 # ## GloVe word embeddings
 # 
 # Let's begin by loading a datafile containing pre-trained word
 # embeddings. The datafile contains 100-dimensional embeddings for
 # 400,000 English words.
-
-if 'DATADIR' in os.environ:
-    DATADIR = os.environ['DATADIR']
-else:
-    DATADIR = "/scratch/project_2004846/data/"
 
 print('Indexing word vectors.')
 
@@ -94,7 +95,7 @@ for fullname in sorted(zf.namelist()):
     if zinfo.is_dir() and len(dirname) > 0:
         label_id = len(labels_index)
         labels_index[dirname] = label_id
-        print(dirname, label_id)
+        print(' ', dirname, label_id)
     elif fname is not None and fname.isdigit():
         with zf.open(fullname) as f:
             t = f.read().decode('latin-1')
@@ -128,9 +129,8 @@ print('Shape of label tensor:', labels.shape)
 
 # ### TF Datasets
 # 
-# Let's now define our TF Datasets
-# (https://www.tensorflow.org/versions/r2.0/api_docs/python/tf/data/Dataset#class_dataset)
-# for training, validation, and test data.
+# Let's now define our TF Datasets for training, validation, and test
+# data.
 
 VALIDATION_SET, TEST_SET = 1000, 4000
 BATCH_SIZE = 128 
@@ -177,9 +177,12 @@ inputs = keras.Input(shape=(None,), dtype="int64")
 
 x = layers.Embedding(num_words, embedding_dim,
                      weights=[embedding_matrix],
+                     input_length=MAX_SEQUENCE_LENGTH,
                      trainable=False)(inputs)
 
 x = layers.LSTM(128)(x)
+x = layers.Dense(128, activation='relu')(x)
+
 outputs = layers.Dense(20, activation='softmax')(x)
 
 model = keras.Model(inputs=inputs, outputs=outputs,
