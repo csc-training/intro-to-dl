@@ -93,7 +93,9 @@ See <https://keras.io/examples/vision/> for more Keras examples on computer visi
 ## Extracurricular 4 - after Exercise 6
 
 There are scripts for both _Dogs vs. cats_ and _German traffic signs_ using
-Vision Transformers (ViTs). Compare these with the previous approaches.
+Vision Transformers (ViTs). Compare these with the previous approaches. There is
+no separate evaluation script this time, test set accuracies are printed at the
+end of the run.
 
 - [tf2-dvc-vit.py](tf2-dvc-vit.py): Dogs vs. cats with a pre-trained ViT
 - [tf2-gtsrb-vit.py](tf2-gtsrb-vit.py): Traffic signs with a pre-trained ViT

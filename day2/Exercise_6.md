@@ -1,34 +1,43 @@
 # Exercise 6
 
-In this exercise, we study text categorization using the [20
-newsgroups](http://www.cs.cmu.edu/afs/cs.cmu.edu/project/theo-20/www/data/news20.html)
-dataset.
+In this exercise, we study text categorization using the [_20
+newsgroups_](http://www.cs.cmu.edu/afs/cs.cmu.edu/project/theo-20/www/data/news20.html)
+(20ng) dataset. The dataset contains 20,000 text documents (Usenet messages)
+in 20 categories (newsgroups or topics). 
 
-## Files
+## Task 1
 
-* *tf2-20ng-rnn.py*: 20 newsgroups classification with a RNN
-* *tf2-20ng-cnn.py*: 20 newsgroups classification with a CNN
-* *tf2-20ng-bert.py*: 20 newsgroups classification with BERT finetuning
+Try three different approaches for text classification with the _20 newsgroups_
+(20ng) dataset:
 
-<details><summary><b>PyTorch</b></summary>
+- Recurrent neural network (RNN): [tf2-20ng-rnn.py](tf2-20ng-rnn.py)
+- Convolutional neural network (CNN): [tf2-20ng-cnn.py](tf2-20ng-cnn.py)
+- BERT finetuning: [tf2-20ng-bert.py](tf2-20ng-bert.py)
 
-* *pytorch_20ng_rnn.py*: 20 newsgroups classification with a RNN
-* *pytorch_20ng_cnn.py*: 20 newsgroups classification with a CNN
-* *pytorch_20ng_bert.py*: 20 newsgroups classification with BERT finetuning
+Run all three models and compare their accuracies and run times. (There is no
+separate evaluation script this time, test set accuracies are printed at the end
+of the run.)
+
+<details><summary><b>How to do the same with PyTorch</b></summary>
+
+Corresponding PyTorch scripts:
+
+- Recurrent neural network (RNN): [pytorch_20ng_rnn.py](pytorch_20ng_rnn.py)
+- Convolutional neural network (CNN): [pytorch_20ng_cnn.py](pytorch_20ng_cnn.py)
+- BERT finetuning: [pytorch_20ng_bert.py](pytorch_20ng_bert.py)
 
 </details>
 
-## Tasks
 
-### Task 1
+## Task 2
 
-Run all three models and compare their accuracies and runtimes.
+Pick one model (RNN, CNN or BERT) and try to improve the results, e.g., by
+tweaking the model or the training parameters (optimizer, batch size, number of
+epochs, etc.). You can also work on replacing BERT with another Transformers
+model; see the [HuggingFace Transformers
+documentation](https://huggingface.co/transformers/).
 
-### Task 2
+## Extracurricular
 
-Pick one model and try to improve the results, e.g., by tweaking the model or the training parameters (optimizer, batch size, number of epochs, etc.).
-You can also work on replacing BERT with another Transformers model; see [documentation](https://huggingface.co/transformers/).
-
-### Extracurricular
-
-See https://keras.io/examples/nlp/ for more Keras examples on natural language processing.
+See <https://keras.io/examples/nlp/> for more Keras examples on natural language
+processing.
