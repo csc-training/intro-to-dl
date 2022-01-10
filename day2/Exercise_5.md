@@ -84,7 +84,7 @@ There are scripts of _Dogs vs. cats_ with data in TFRecord format. Take a look a
 
 ## Extracurricular 2
 
-There is another, small dataset `avp`, of [aliens and predators](imgs/avp.png). Modify dogs vs. cats to classify between them.  
+There is another, small dataset [Aliens and predators](imgs/avp.png) (avp). Modify dogs vs. cats to classify between them.  
 
 ## Extracurricular 3
 
