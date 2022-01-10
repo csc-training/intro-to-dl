@@ -9,7 +9,7 @@ In this exercise, we study image classification with two datasets:
 
 ## Task 1
 
-### Dogs vs cats
+### Dogs vs. cats
 
 Starting with the _Dogs vs. cats_ (dvc) database, train, evaluate and report the
 accuracy with three different approaches:
@@ -47,7 +47,8 @@ The scripts are named in the same way as before, just replace "dvc" with
 "gtsrb":
 
 - CNN trained from scratch: [tf2-gtsrb-cnn-simple.py](tf2-gtsrb-cnn-simple.py)
-- Using a pre-trained CNN (VGG16) and fine tuning: [tf2-gtsrb-cnn-pretrained.py](tf2-gtsrb-cnn-pretrained.py)
+- Using a pre-trained CNN (VGG16) and fine tuning:
+  [tf2-gtsrb-cnn-pretrained.py](tf2-gtsrb-cnn-pretrained.py)
 - Finetuning a BigTransfer (BiT) model: [tf2-gtsrb-bit.py](tf2-gtsrb-bit.py)
 - Evaluation script: [tf2-gtsrb-cnn-evaluate.py](tf2-gtsrb-cnn-evaluate.py)
 
@@ -55,10 +56,14 @@ The scripts are named in the same way as before, just replace "dvc" with
   
 The PyTorch scripts have a slightly different setup:
 
-- _Dogs vs. cats_, trained from scratch: [pytorch_dvc_cnn_simple.py](pytorch_dvc_cnn_simple.py)
-- _Dogs vs. cats_, pre-trained CNN: [pytorch_dvc_cnn_pretrained.py](pytorch_dvc_cnn_pretrained.py)
-- _German traffic signs_, trained from scratch: [pytorch_gtsrb_cnn_simple.py](pytorch_gtsrb_cnn_simple.py)
-- _German traffic signs_, pre-trained CNN: [pytorch_gtsrb_cnn_pretrained.py](pytorch_gtsrb_cnn_pretrained.py)
+- _Dogs vs. cats_, trained from scratch:
+  [pytorch_dvc_cnn_simple.py](pytorch_dvc_cnn_simple.py)
+- _Dogs vs. cats_, pre-trained CNN:
+  [pytorch_dvc_cnn_pretrained.py](pytorch_dvc_cnn_pretrained.py)
+- _German traffic signs_, trained from scratch:
+  [pytorch_gtsrb_cnn_simple.py](pytorch_gtsrb_cnn_simple.py)
+- _German traffic signs_, pre-trained CNN:
+  [pytorch_gtsrb_cnn_pretrained.py](pytorch_gtsrb_cnn_pretrained.py)
 
 Run example:
 
@@ -76,15 +81,20 @@ epochs, etc.).
 
 ## Extracurricular 1
 
-There are scripts of _Dogs vs. cats_ with data in TFRecord format. Take a look at the differences in data preprocessing.
+There are scripts of _Dogs vs. cats_ with data in TFRecord format. Take a look
+at the differences in data preprocessing.
 
-- [tf2-dvc_tfr-cnn-simple.py](tf2-dvc_tfr-cnn-simple.py): Dogs vs. cats with a CNN trained from scratch
-- [tf2-dvc_tfr-cnn-pretrained.py](tf2-dvc_tfr-cnn-pretrained.py): Dogs vs. cats with a pre-trained CNN
-- [tf2-dvc_tfr-cnn-evaluate.py](tf2-dvc_tfr-cnn-evaluate.py): Evaluate a trained CNN with test data
+- [tf2-dvc_tfr-cnn-simple.py](tf2-dvc_tfr-cnn-simple.py): _Dogs vs. cats_ with a
+  CNN trained from scratch
+- [tf2-dvc_tfr-cnn-pretrained.py](tf2-dvc_tfr-cnn-pretrained.py): _Dogs vs.
+  cats_ with a pre-trained CNN
+- [tf2-dvc_tfr-cnn-evaluate.py](tf2-dvc_tfr-cnn-evaluate.py): Evaluate a trained
+  CNN with test data
 
 ## Extracurricular 2
 
-There is another, small dataset [Aliens and predators](imgs/avp.png) (avp). Modify dogs vs. cats to classify between them.  
+There is another, small dataset [Aliens and predators](imgs/avp.png) (avp).
+Modify the scripts for _Dogs vs. cats_ to classify between them.
 
 ## Extracurricular 3
 
@@ -97,11 +107,11 @@ Vision Transformers (ViTs). Compare these with the previous approaches. There is
 no separate evaluation script this time, test set accuracies are printed at the
 end of the run.
 
-- [tf2-dvc-vit.py](tf2-dvc-vit.py): Dogs vs. cats with a pre-trained ViT
-- [tf2-gtsrb-vit.py](tf2-gtsrb-vit.py): Traffic signs with a pre-trained ViT
+- [tf2-dvc-vit.py](tf2-dvc-vit.py): _Dogs vs. cats_ with a pre-trained ViT
+- [tf2-gtsrb-vit.py](tf2-gtsrb-vit.py): _German traffic signs_ with a pre-trained ViT
 
-**Note:** you might need to upgrade HuggingFace Transformers to a newer version. This can be
-done locally by the user like this:
+**Note:** you might need to upgrade HuggingFace Transformers to a newer version.
+This can be done locally by the user like this:
 
 ```bash
 pip install --user --upgrade transformers
