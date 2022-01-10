@@ -28,7 +28,9 @@ Experiment with Horovod to implement multi-GPU training. For TensorFlow 2/Keras,
 [tf2-dvc-cnn-simple-hvd.py](tf2-dvc-cnn-simple-hvd.py).
 
 <details><summary><b>PyTorch and Horovod</b></summary>
+  
 For PyTorch see [run-pytorch-hvd.sh](run-pytorch-hvd.sh) and
 [pytorch_dvc_cnn_simple_hvd.py](pytorch_dvc_cnn_simple_hvd.py) plus
 [pytorch_dvc_cnn_hvd.py](pytorch_dvc_cnn_hvd.py).
+  
 </details>
