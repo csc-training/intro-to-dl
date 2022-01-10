@@ -24,8 +24,8 @@ for example:
     sbatch run.sh tf2-dvc-cnn-simple.py
 
 A successful run should produce a trained model as a `.h5` file. Note that the
-`tf2-dvc-cnn-pretrained.py` script actually produces two models (with and
-without fine-tuning).
+`tf2-dvc-cnn-pretrained.py` script actually produces two models: with and
+without fine-tuning.
 
 Each model file can be evaluated with the
 [tf2-dvc-cnn-evaluate.py](tf2-dvc-cnn-evaluate.py) script by giving the model
@@ -40,10 +40,11 @@ Which model gave the best result? Does finetuning improve the result?
 ### German traffic signs
 
 Repeat the experiment with the _German traffic signs_ (gtsrb) database. Which
-model gives the best result in this case? Compare the results with the dvc
-database.
+model gives the best result in this case? Compare the results with the previous
+dvc results.
 
-The scripts are named the same as before, just replace "dvc" with "gtsrb":
+The scripts are named in the same way as before, just replace "dvc" with
+"gtsrb":
 
 - CNN trained from scratch: [tf2-gtsrb-cnn-simple.py](tf2-gtsrb-cnn-simple.py)
 - Using a pre-trained CNN (VGG16) and fine tuning: [tf2-gtsrb-cnn-pretrained.py](tf2-gtsrb-cnn-pretrained.py)
