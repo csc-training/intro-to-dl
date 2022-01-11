@@ -1,8 +1,8 @@
 #!/bin/bash
 #SBATCH --partition=gpu
-#SBATCH --nodes=2
-#SBATCH --ntasks=8
-#SBATCH --gres=gpu:v100:4,nvme:100
+#SBATCH --nodes=1
+#SBATCH --ntasks=2
+#SBATCH --gres=gpu:v100:2,nvme:100
 #SBATCH --time=1:00:00
 #SBATCH --mem=64G
 #SBATCH --cpus-per-task=10
@@ -10,7 +10,7 @@
 #SBATCH --reservation=dlintro
 
 module purge
-module load pytorch/1.7
+module load pytorch
 module list
 
 export DATADIR=/scratch/project_2005299/data

@@ -143,11 +143,25 @@ def get_train_loader(batch_size=50):
           len(train_dataset.classes), 'classes')
     return train_loader
 
+class ImageFolderRemoveDirs(datasets.ImageFolder):
+    def __init__(self, root, transform, remove_dirs):
+        self.remove_dirs = remove_dirs
+        super(ImageFolderRemoveDirs, self).__init__(root=root, transform=transform)
 
+    def find_classes(self, directory):
+        classes, class_to_idx = super(ImageFolderRemoveDirs, self).find_classes(directory)
+        for d in self.remove_dirs:
+            print('Removing directory', d)
+            classes.remove(d)
+            del class_to_idx[d]
+        return classes, class_to_idx
+
+    
 def get_validation_loader(batch_size=50):
     print('Validation: ', end="")
-    validation_dataset = datasets.ImageFolder(root=datapath+'/validation',
-                                              transform=noop_transform)
+    validation_dataset = ImageFolderRemoveDirs(root=datapath+'/validation',
+                                               transform=noop_transform,
+                                               remove_dirs=['00027', '00039'])
     validation_loader = DataLoader(validation_dataset, batch_size=batch_size,
                                    shuffle=False, num_workers=4)
     print('Found', len(validation_dataset), 'images belonging to',

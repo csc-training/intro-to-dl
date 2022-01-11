@@ -8,6 +8,7 @@
 #SBATCH --account=project_2005299
 #SBATCH --reservation=dlintro
 
+module purge
 module load pytorch
 module list
 
