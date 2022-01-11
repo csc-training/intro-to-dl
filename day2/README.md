@@ -9,9 +9,11 @@
 
 ## Setup
 
-1. Login to Puhti using a training account (or your own CSC account):
-
-        ssh -l trainingxxx puhti.csc.fi
+1. Login to Puhti using either:
+   - the web user interface at <https://www.puhti.csc.fi/> and start Tools → Login node shell, or
+   - with an SSH client:
+ 
+          ssh -l trainingxxx puhti.csc.fi
         
 2. Set up the module environment:
 
