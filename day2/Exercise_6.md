@@ -33,9 +33,11 @@ Corresponding PyTorch scripts:
 
 Pick one model (RNN, CNN or BERT) and try to improve the results, e.g., by
 tweaking the model or the training parameters (optimizer, batch size, number of
-epochs, etc.). You can also work on replacing BERT with another Transformers
-model; see the [HuggingFace Transformers
-documentation](https://huggingface.co/transformers/).
+epochs, etc.). 
+
+You can also work on replacing BERT with another Transformers model (for example
+[DistilBert](https://huggingface.co/docs/transformers/master/en/model_doc/distilbert)). 
+See also the [HuggingFace Transformers documentation](https://huggingface.co/transformers/).
 
 ## Extracurricular
 
