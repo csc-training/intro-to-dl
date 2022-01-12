@@ -1,6 +1,6 @@
 # Exercise X
 
-In this exercise we use Slurm array jobs and the [Ray Tune library][1] to perform hyperparameter
+In this exercise we use [Slurm array jobs](https://docs.csc.fi/computing/running/array-jobs/) and the [Ray Tune library][1] to perform hyperparameter
 optimization for an MLP for image classification.
 
 [1]: https://docs.ray.io/en/master/tune/index.html
