@@ -5,7 +5,7 @@ In this exercise, we study image classification with two datasets:
 - [_Dogs vs. cats_](imgs/dvc.png) (dvc), where we train on 2000 images, each
   depicting either a cat or a dog,
 - [_German traffic signs_](imgs/gtsrb-montage.png) (gtsrb), where we train on
-  5535 images with 43 types of traffic signs.
+  5535 images with [43 types of traffic signs](imgs/traffic-signs.png).
 
 ## Task 1
 
