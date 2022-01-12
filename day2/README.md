@@ -51,7 +51,7 @@
 2. Submit job:
 
    ```bash
-   sbatch run.sh tf2-test.py  # when using a training account
+   sbatch run.sh tf2-test.py
    ```
 
    There is a separate slurm script for PyTorch, e.g.:
