@@ -93,7 +93,7 @@ at the differences in data preprocessing.
 
 ## Extracurricular 2
 
-There is another, small dataset [Aliens and predators](imgs/avp.png) (avp).
+There is another, small dataset [Aliens and predators](imgs/avp.png) (avp) with 694 training and 200 validation images.
 Modify the scripts for _Dogs vs. cats_ to classify between them.
 
 ## Extracurricular 3
