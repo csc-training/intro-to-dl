@@ -18,7 +18,7 @@
      ```
    In both options you need the training username and password given in the lecture.
         
-2. Set up the module environment:
+2. Set up the module environment for using TensorFlow 2 (and Keras):
 
    ```bash
    module purge
