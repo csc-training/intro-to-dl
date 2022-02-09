@@ -93,7 +93,7 @@ You can use TensorBoard either via the new Puhti web user interface, or via the 
 4. In the form:
    - Select course project: project_2005299
    - Specify the "TensorBoard log directory", it's where you have cloned the course repository plus "day2/logs", for example:
-  `/users/trainingNNN/intro-to-dl/day2/logs`. You can run `pwd` in the terminal to find out the full path where you are working.
+  `~/intro-to-dl/day2/logs`. You can run `pwd` in the terminal to find out the full path where you are working.
    - Leave rest at default settings
 6. Click "Launch"
 7. Wait until you see the "Connect to Tensorboard" button, then click that.
