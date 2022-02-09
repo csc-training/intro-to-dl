@@ -23,13 +23,16 @@ for example:
 
     sbatch run.sh tf2-dvc-cnn-simple.py
 
-A successful run should produce a trained model as a `.h5` file. Note that the
-`tf2-dvc-cnn-pretrained.py` script actually produces two models: with and
-without fine-tuning.
-
 As a reminder, you can check the status of your runs with the command:
 
     squeue -l -u $USER
+
+The output of the run will appear in a file named `slurm-RUN_ID.out` where 
+`RUN_ID` is the Slurm batch job id.
+
+A successful run should produce a trained model as a `.h5` file. Note that the
+`tf2-dvc-cnn-pretrained.py` script actually produces two models: with and
+without fine-tuning.
 
 Each model file can be evaluated with the
 [tf2-dvc-cnn-evaluate.py](tf2-dvc-cnn-evaluate.py) script by giving the model
