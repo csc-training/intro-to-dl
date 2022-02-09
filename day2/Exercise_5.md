@@ -123,3 +123,10 @@ This can be done locally by the user like this:
 ```bash
 pip install --user --upgrade transformers
 ```
+<details><summary><b>How to do the same with PyTorch</b></summary>
+  
+There are corresponding PyTorch scripts if you want to try that:
+
+- [pytorch_dvc_vit.py](pytorch_dvc_vit.py): _Dogs vs. cats_ with a pre-trained ViT
+- [pytorch_gtsrb_vit.py](pytorch_gtsrb_vit.py): _German traffic signs_ with a pre-trained ViT
+</details>
