@@ -17,6 +17,7 @@ from torch.utils.data import DataLoader
 from torchvision import datasets, transforms, models
 from distutils.version import LooseVersion as LV
 from datetime import datetime
+import os
 
 if torch.cuda.is_available():
     device = torch.device('cuda')
@@ -31,7 +32,6 @@ assert(LV(torch.__version__) >= LV("1.0.0"))
 
 try:
     import tensorboardX
-    import os
     logdir = os.path.join(os.getcwd(), "logs",
                           "gtsrb-pretrained-"+datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
     print('TensorBoard log directory:', logdir)
@@ -49,13 +49,8 @@ except ImportError as e:
 # 
 # ### Downloading the data
 
-local_scratch = os.getenv('LOCAL_SCRATCH')
-
-datapath = local_scratch if local_scratch is not None else '/scratch/project_2005299/data'
-datapath = os.path.join(datapath, 'gtsrb/train-5535')
-
-if local_scratch is not None and not os.path.exists(datapath):
-    os.system('tar xf /scratch/project_2005299/data/gtsrb.tar -C ' + local_scratch)
+datapath = os.getenv('DATADIR', '/scratch/project_2005299/data')
+datapath = os.path.join(datapath, 'dogs-vs-cats/train-2000')
 
 (nimages_train, nimages_validation, nimages_test) = (5535, 999, 12630)
 

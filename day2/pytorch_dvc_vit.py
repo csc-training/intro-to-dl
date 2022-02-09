@@ -14,6 +14,8 @@ import torch.optim as optim
 from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
 from distutils.version import LooseVersion as LV
+import os
+from datetime import datetime
 
 from transformers import ViTFeatureExtractor, ViTForImageClassification
 from transformers import __version__ as transformers_version
@@ -38,10 +40,8 @@ assert(LV(torch.__version__) >= LV("1.0.0"))
 
 try:
     import tensorboardX
-    import os
-    import datetime
     logdir = os.path.join(os.getcwd(), "logs",
-                          "dvc-"+datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
+                          "dvc-"+datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
     print('TensorBoard log directory:', logdir)
     os.makedirs(logdir)
     log = tensorboardX.SummaryWriter(logdir)
@@ -57,13 +57,8 @@ except ImportError:
 #
 # ### Downloading the data
 
-local_scratch = os.getenv('LOCAL_SCRATCH')
-
-datapath = local_scratch if local_scratch is not None else '/scratch/project_2005299/data'
+datapath = os.getenv('DATADIR', '/scratch/project_2005299/data')
 datapath = os.path.join(datapath, 'dogs-vs-cats/train-2000')
-
-if local_scratch is not None and not os.path.exists(datapath):
-    os.system('tar xf /scratch/project_2005299/data/dogs-vs-cats.tar -C ' + local_scratch)
 
 print("Loading data from", datapath)
 
@@ -207,7 +202,6 @@ epochs = 10
 train_scores = {}
 valid_scores = {}
 
-from datetime import datetime
 start_time = datetime.now()
 
 for epoch in range(1, epochs + 1):
