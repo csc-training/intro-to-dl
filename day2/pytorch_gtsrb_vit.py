@@ -94,7 +94,7 @@ noop_transform = transforms.Compose([
 
 VITMODEL = 'google/vit-base-patch16-224'
 model = ViTForImageClassification.from_pretrained(VITMODEL,
-                                                  num_labels=1,
+                                                  num_labels=43,
                                                   ignore_mismatched_sizes=True).to(device)
 optimizer = optim.Adam(model.parameters(), lr=1e-5)
 
@@ -109,7 +109,7 @@ class ImageClassificationCollator:
         
     def __call__(self, batch):
         x = self.feature_extractor([x[0] for x in batch], return_tensors='pt')
-        x['labels'] = torch.tensor([x[1] for x in batch], dtype=torch.float32)
+        x['labels'] = torch.tensor([x[1] for x in batch], dtype=torch.int64)
         return x
 
 collator = ImageClassificationCollator(feature_extractor)
@@ -216,8 +216,8 @@ def evaluate(loader, scores=None, iteration=-1):
 
         loss += output.loss.data.item()
 
-        pred = output.logits>0.5
-        lab = data["labels"].unsqueeze(1)
+        _, pred = output.logits.max(1)
+        lab = data["labels"]
         correct += pred.eq(lab).cpu().sum()
 
     loss /= len(loader.dataset)
@@ -240,7 +240,7 @@ def evaluate(loader, scores=None, iteration=-1):
         log.add_scalar('val_acc', accuracy, iteration)
 
 
-epochs = 4
+epochs = 5
 
 train_scores = {}
 valid_scores = {}
@@ -252,6 +252,7 @@ for epoch in range(1, epochs + 1):
     with torch.no_grad():
         print('Validation:')
         evaluate(validation_loader, valid_scores, epoch-1)
+
 end_time = datetime.now()
 print('Total training time: {}.'.format(end_time - start_time))
 
