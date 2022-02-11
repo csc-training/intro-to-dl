@@ -113,7 +113,7 @@ You can use TensorBoard either via the new Puhti web user interface, or via the 
 
    ```bash
    module purge
-   module load tensorflow
+   module load tensorflow/2.4-hvd
    tensorboard --logdir=intro-to-dl/day2/logs --port=PORT
    ```
 
