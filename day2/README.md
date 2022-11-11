@@ -82,9 +82,9 @@
 
 ## Optional: TensorBoard
 
-You can use TensorBoard either via the new Puhti web user interface, or via the terminal using ssh port forwarding. Both approaches are explained below.
+You can use TensorBoard either via the new Puhti web user interface (recommended), or via the terminal using ssh port forwarding. Both approaches are explained below.
 
-### Via the Puhti web interface
+### Via the Puhti web interface (the recommended method)
 
 1. Go to <https://www.puhti.csc.fi/>
 2. Log in with CSC account (training account given during lecture)
@@ -112,8 +112,8 @@ You can use TensorBoard either via the new Puhti web user interface, or via the 
 
    ```bash
    module purge
-   module load tensorflow/2.4-hvd
-   tensorboard --logdir=intro-to-dl/day2/logs --port=PORT
+   module load tensorflow
+   apptainer_wrapper exec tensorboard --logdir=intro-to-dl/day2/logs --port=PORT --bind_all
    ```
 
 3. To access TensorBoard, point your web browser to *localhost:PORT* .
