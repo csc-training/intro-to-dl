@@ -5,7 +5,6 @@
 * [Exercise 5: Image classification](Exercise_5.md)
 * [Exercise 6: Text categorization](Exercise_6.md)
 * [Exercise 7: Using multiple GPUs](Exercise_7.md)
-* [Exercise X: Hyperparameter optimization](Exercise_X.md)
 
 ## Setup
 
@@ -18,7 +17,7 @@
      ```
    In both options you need the training username and password given in the lecture.
         
-2. Set up the module environment for using TensorFlow 2 (and Keras):
+2. Set up the module environment for using TensorFlow (and Keras):
 
    ```bash
    module purge
@@ -91,7 +90,7 @@ You can use TensorBoard either via the new Puhti web user interface, or via the 
 2. Log in with CSC account (training account given during lecture)
 3. Select menu item: Apps → TensorBoard
 4. In the form:
-   - Select course project: project_2005299
+   - Select course project: project_2006678
    - Specify the "TensorBoard log directory", it's where you have cloned the course repository plus "day2/logs", for example:
   `~/intro-to-dl/day2/logs`. You can run `pwd` in the terminal to find out the full path where you are working.
    - Leave rest at default settings
