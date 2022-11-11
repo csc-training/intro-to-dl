@@ -57,7 +57,7 @@ except ImportError:
 #
 # ### Downloading the data
 
-datapath = os.getenv('DATADIR', '/scratch/project_2005299/data')
+datapath = os.getenv('DATADIR', '/scratch/project_2006678/data')
 datapath = os.path.join(datapath, 'dogs-vs-cats/train-2000')
 
 print("Loading data from", datapath)

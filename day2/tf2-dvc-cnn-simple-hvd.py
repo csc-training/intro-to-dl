@@ -54,7 +54,7 @@ if gpus:
 if 'DATADIR' in os.environ:
     DATADIR = os.environ['DATADIR']
 else:
-    DATADIR = "/scratch/project_2005299/data/"
+    DATADIR = "/scratch/project_2006678/data/"
 
 if hvd.rank() == 0:
     print('Using DATADIR', DATADIR)

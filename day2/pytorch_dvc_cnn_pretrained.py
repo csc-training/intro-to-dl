@@ -52,7 +52,7 @@ except ImportError as e:
 # 
 # ### Downloading the data
 
-datapath = os.getenv('DATADIR', '/scratch/project_2005299/data')
+datapath = os.getenv('DATADIR', '/scratch/project_2006678/data')
 datapath = os.path.join(datapath, 'dogs-vs-cats/train-2000')
 
 (nimages_train, nimages_validation, nimages_test) = (2000, 1000, 22000)

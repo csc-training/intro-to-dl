@@ -35,7 +35,7 @@ print('Using TensorFlow version:', tf.__version__,
 if 'DATADIR' in os.environ:
     DATADIR = os.environ['DATADIR']
 else:
-    DATADIR = "/scratch/project_2005299/data/"
+    DATADIR = "/scratch/project_2006678/data/"
 
 print('Using DATADIR', DATADIR)
 datapath = os.path.join(DATADIR, "dogs-vs-cats/train-2000/")

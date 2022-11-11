@@ -36,7 +36,7 @@ print('Using Tensorflow version: {}, and Keras version: {}.'.format(
 if 'DATADIR' in os.environ:
     DATADIR = os.environ['DATADIR']
 else:
-    DATADIR = "/scratch/project_2005299/data/"
+    DATADIR = "/scratch/project_2006678/data/"
 
 print('Using DATADIR', DATADIR)
 datapath = os.path.join(DATADIR, "gtsrb/train-5535/")

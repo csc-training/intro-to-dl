@@ -64,7 +64,7 @@ assert(LV(torch.__version__) >= LV("1.0.0"))
 if 'DATADIR' in os.environ:
     DATADIR = os.environ['DATADIR']
 else:
-    DATADIR = "/scratch/project_2005299/data/"
+    DATADIR = "/scratch/project_2006678/data/"
 
 TEXT_DATA_DIR = os.path.join(DATADIR, "20_newsgroup")
 
