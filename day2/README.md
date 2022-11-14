@@ -2,7 +2,7 @@
 
 ## Exercise sessions
 
-* [Exercise 5: Image classification](Exercise_5.md)
+* [Exercise 5: Image classification](ex5/README.md)
 * [Exercise 6: Text categorization](Exercise_6.md)
 * [Exercise 7: Using multiple GPUs](Exercise_7.md)
 
