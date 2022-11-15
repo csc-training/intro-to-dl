@@ -19,6 +19,8 @@ import os, datetime
 import random
 import pathlib
 
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
+
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers
@@ -123,11 +125,6 @@ validation_dataset = validation_dataset.prefetch(buffer_size=tf.data.AUTOTUNE)
 
 # ### Initialization
 
-# We first choose either VGG16 or MobileNet as our pretrained network:
-
-pretrained = 'VGG16'
-#pretrained = 'MobileNet'
-
 # Due to the small number of training images, a large network will
 # easily overfit. Therefore, to make the most of our limited number of
 # training examples, we'll apply random augmentation transformations
@@ -149,20 +146,11 @@ x = layers.RandomFlip(mode="horizontal")(x)
 # We load the pretrained network, remove the top layers, and
 # freeze the pre-trained weights.
 
-if pretrained == 'VGG16':
-    pt_model = applications.VGG16(weights='imagenet', include_top=False,      
-                                  input_tensor=x)
-    finetuning_first_trainable_layer = "block5_conv1" 
-elif pretrained == 'MobileNet':
-    pt_model = applications.MobileNet(weights='imagenet', include_top=False,
-                                      input_tensor=x)
-    finetuning_first_trainable_layer = "conv_dw_12"
-else:
-    assert 0, "Unknown model: "+pretrained
-    
+pt_model = applications.VGG16(weights='imagenet', include_top=False,
+                              input_tensor=x)
 pt_name = pt_model.name
-print('Using "{}" pre-trained model with {} layers'
-      .format(pt_name, len(pt_model.layers)))
+
+print('Using {} pre-trained model with {} layers'.format(pt_name, len(pt_model.layers)))
 
 for layer in pt_model.layers:
     layer.trainable = False
@@ -210,7 +198,8 @@ model.save(fname)
 print('Setting last pre-trained layers to be trainable')
 train_layer = False
 for layer in model.layers:
-    if layer.name == finetuning_first_trainable_layer:
+    # set layers to trainable from this name onwards
+    if layer.name == 'block5_conv1':
         train_layer = True
     layer.trainable = train_layer
     
