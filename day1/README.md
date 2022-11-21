@@ -66,6 +66,9 @@ We will use Jupyter Notebooks for all exercises on Day 1. There are several ways
     * select *"Python 3"* as the kernel for the notebook
     * write some Python code to a Jupyter *cell*
     * execute the cell with *shift-enter*
+
+#### :warning: Note
+The notebook sessions have a limited time (8h) after which they, and any data or changes, will be *destroyed*. If you wish to save any files, you need to download them.
     
 ### 2. Running Jupyter on your laptop
 
