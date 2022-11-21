@@ -8,7 +8,8 @@
 #SBATCH --account=project_2006678
 #SBATCH --reservation dlintro
 
-module load tensorflow
+module purge
+module load tensorflow/2.8
 module list
 
 export DATADIR=$LOCAL_SCRATCH

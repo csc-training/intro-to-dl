@@ -17,6 +17,11 @@
 #
 # First, the needed imports.
 
+import io, sys, os, datetime
+from zipfile import ZipFile
+
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
+
 import tensorflow as tf
 from tensorflow.keras.utils import plot_model
 from tensorflow.keras.callbacks import TensorBoard
@@ -29,9 +34,6 @@ from distutils.version import LooseVersion as LV
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
 
-import io, sys, os, datetime
-
-from zipfile import ZipFile
 import numpy as np
 
 print('Using TensorFlow version:', tf.__version__,

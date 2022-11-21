@@ -8,7 +8,7 @@ Convert a script or scripts from [Exercise 5](Exercise_5.md) or [Exercise
 6](Exercise_6.md) to use multiple GPUs.
 
 - Do you get improvements in speed?
-- Do you get the same accuracy than with a single GPU?
+- Do you get the same accuracy as with a single GPU?
 
 ## Extracurricular 1
 

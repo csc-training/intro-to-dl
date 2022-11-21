@@ -15,16 +15,18 @@
 # 
 # First, the needed imports.
 
+from zipfile import ZipFile
+import os, datetime
+import sys
+
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
+
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers
 from tensorflow.keras.preprocessing import sequence, text
 from tensorflow.keras.utils import to_categorical
 from tensorflow.keras.callbacks import TensorBoard
-
-from zipfile import ZipFile
-import os, datetime
-import sys
 
 import numpy as np
 
