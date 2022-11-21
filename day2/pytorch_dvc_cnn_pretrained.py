@@ -198,7 +198,7 @@ def evaluate(loader, scores=None, iteration=-1):
 class PretrainedNet(nn.Module):
     def __init__(self):
         super(PretrainedNet, self).__init__()
-        self.vgg_features = models.vgg16(pretrained=True).features
+        self.vgg_features = models.vgg16(weights=models.VGG16_Weights.DEFAULT).features
 
         # Freeze the VGG16 layers
         for param in self.vgg_features.parameters():
