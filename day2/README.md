@@ -21,7 +21,7 @@
 
    ```bash
    module purge
-   module load tensorflow
+   module load tensorflow/2.8
    ```
 
    For PyTorch:
