@@ -10,15 +10,15 @@ Introduction to Notebooks, Keras fundamentals.
 
 ### Exercise 2
 
-Classification with MLPs.
+MNIST classification with MLPs.
 
 * *02-tf2-mnist-mlp.ipynb*<br/>[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/02-tf2-mnist-mlp.ipynb)
 
 <details><summary>Optional exercises</summary>
 
-* *pytorch-mnist-mlp.ipynb*<br/>[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/optional/pytorch-mnist-mlp.ipynb)
+* *pytorch-mnist-mlp.ipynb* (Pytorch version)<br/>[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/optional/pytorch-mnist-mlp.ipynb)
 
-* *tf2-chd-mlp.ipynb*<br/>[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/optional/tf2-chd-mlp.ipynb)
+* *tf2-chd-mlp.ipynb* (Regression with MLPs)<br/>[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/optional/tf2-chd-mlp.ipynb)
 
 </details>
 
@@ -36,9 +36,9 @@ Text sentiment classification with RNNs.
 
 <details><summary>Optional exercises</summary>
 
-* *tf2-imdb-cnn.ipynb*<br/>[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/optional/tf2-imdb-cnn.ipynb)
+* *tf2-imdb-cnn.ipynb* (Text sentiment classification with CNNs)<br/>[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/optional/tf2-imdb-cnn.ipynb)
 
-* *tf2-mnist-rnn.ipynb*<br/>[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/optional/tf2-mnist-rnn.ipynb)
+* *tf2-mnist-rnn.ipynb* (MNIST classification with RNNs)<br/>[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/optional/tf2-mnist-rnn.ipynb)
 
 </details>
 
@@ -53,9 +53,12 @@ We will use Jupyter Notebooks for all exercises on Day 1. There are several ways
 * Point your browser to https://notebooks.csc.fi
 * Login using
     * Haka or CSC account if you have one, or
-    * a separate username and password that you will receive during the course
-* Find *Course Practical Deep Learning - 2022* and click “Launch new”
-* Wait until the “Open in browser” link appears, then click on it
+    * a separate training username and password that you will receive during the course
+* Click the "Join workspace" button in the top right corner
+    * Enter Join Code that will be shared in the course
+* You should now see the application *Practical Deep Learning, Nov 2022*
+    * click the big circular ON button ("Start session")
+    * wait for the session to start...
 * The jupyter notebook dashboard should appear
 * Navigate to `intro-to-dl/day1` 
 * if you are not familiar with Jupyter, take a moment to get to know the interface
@@ -63,6 +66,9 @@ We will use Jupyter Notebooks for all exercises on Day 1. There are several ways
     * select *"Python 3"* as the kernel for the notebook
     * write some Python code to a Jupyter *cell*
     * execute the cell with *shift-enter*
+
+#### :warning: Note
+The notebook sessions have a limited time (8h) after which they, and any data or changes, will be *destroyed*. If you wish to save any files, you need to download them.
     
 ### 2. Running Jupyter on your laptop
 
