@@ -117,12 +117,6 @@ end of the run.
 - [tf2-dvc-vit.py](tf2-dvc-vit.py): _Dogs vs. cats_ with a pre-trained ViT
 - [tf2-gtsrb-vit.py](tf2-gtsrb-vit.py): _German traffic signs_ with a pre-trained ViT
 
-**Note:** you might need to upgrade HuggingFace Transformers to a newer version.
-This can be done locally by the user like this:
-
-```bash
-pip install --user --upgrade transformers
-```
 <details><summary><b>How to do the same with PyTorch</b></summary>
   
 There are corresponding PyTorch scripts if you want to try that:

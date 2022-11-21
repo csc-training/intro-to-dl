@@ -11,6 +11,11 @@
 #
 # First, the needed imports.
 
+import os, sys, datetime
+import pathlib
+
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
+
 from transformers import __version__ as transformers_version
 from transformers.utils import check_min_version
 check_min_version("4.13.0.dev0")
@@ -20,9 +25,6 @@ import tensorflow as tf
 from tensorflow.keras.utils import plot_model
 from tensorflow.keras.callbacks import TensorBoard
 from PIL import Image
-
-import os, sys, datetime
-import pathlib
 
 import numpy as np
 
