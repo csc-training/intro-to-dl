@@ -53,9 +53,12 @@ We will use Jupyter Notebooks for all exercises on Day 1. There are several ways
 * Point your browser to https://notebooks.csc.fi
 * Login using
     * Haka or CSC account if you have one, or
-    * a separate username and password that you will receive during the course
-* Find *Course Practical Deep Learning - 2022* and click “Launch new”
-* Wait until the “Open in browser” link appears, then click on it
+    * a separate training username and password that you will receive during the course
+* Click the "Join workspace" button in the top right corner
+    * Enter Join Code that will be shared in the course
+* You should now see the application *Practical Deep Learning, Nov 2022*
+    * click the big circular ON button ("Start session")
+    * wait for the session to start...
 * The jupyter notebook dashboard should appear
 * Navigate to `intro-to-dl/day1` 
 * if you are not familiar with Jupyter, take a moment to get to know the interface
