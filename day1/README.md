@@ -50,22 +50,29 @@ We will use Jupyter Notebooks for all exercises on Day 1. There are several ways
 
 *The default option.* CSC Notebooks (https://notebooks.csc.fi) provides easy-to-use environments for working with data and programming. You can access everything via your web browser and CSC cloud environment computes on the background. There should be enough resources for launching a notebooks instance for everyone, but unfortunately no GPUs. 
 
-* Point your browser to https://notebooks.csc.fi
-* Login using
-    * Haka or CSC account if you have one, or
-    * a separate training username and password that you will receive during the course
-* Click the "Join workspace" button in the top right corner
-    * Enter Join Code that will be shared in the course
-* You should now see the application *Practical Deep Learning, Nov 2022*
-    * click the big circular ON button ("Start session")
-    * wait for the session to start...
-* The jupyter notebook dashboard should appear
-* Navigate to `intro-to-dl/day1` 
-* if you are not familiar with Jupyter, take a moment to get to know the interface
-    * open a new notebook (*File* -> *New* -> *Notebook*, on menubar) 
-    * select *"Python 3"* as the kernel for the notebook
-    * write some Python code to a Jupyter *cell*
-    * execute the cell with *shift-enter*
+1. Go to the [CSC Notebooks](https://notebooks.csc.fi) frontpage
+2. Login according to selected login method:
+   - **Haka or Virtu** (users from Finnish universities and research institutes)
+       1. Press Login button on the frontpage
+       2. Press Haka or Virtu button
+       3. Select right organization
+       4. Enter login information
+   - **Special login** (if you have been given separate username and password for the course)
+       1. Press "Special Login" button on the Notebooks frontpage (below the Login button)
+       2. Enter login information (username goes to email slot)
+3. Join workspace
+   - Press "Join workspace" button (Top right corner)
+   - Enter the Join Code **given in the lecture**
+   - You should now see the workspace "Practical Deep Learning Course, Nov 2022"
+4. Start Notebook session
+   - In order to launch the Notebook "Practical Deep Learning, Nov 2022", click the round start button next to it.
+   - Wait for session to launch
+5. Once the Jupyter Notebook dashboard should appears navigate to `intro-to-dl/day1` 
+6. If you are not familiar with Jupyter, take a moment to get to know the interface
+   - open a new notebook (*File* -> *New* -> *Notebook*, on menubar) 
+   - select *"Python 3"* as the kernel for the notebook
+   - write some Python code to a Jupyter *cell*
+   - execute the cell with *shift-enter*
 
 #### :warning: Note
 The notebook sessions have a limited time (8h) after which they, and any data or changes, will be *destroyed*. If you wish to save any files, you need to download them.
