@@ -10,12 +10,15 @@
 
 1. Login to Puhti using either:
    - ~~the web user interface at <https://www.puhti.csc.fi/> and start "Login node shell" (in the "Tools" menu), or~~
-   - with an SSH client:
- 
+   - login with the given username and password using SSH to `puhti.csc.fi`
+     * On **Mac and Linux**, open a Terminal window and run (replacing `trainingXYZ` with the username from the table below):
+
      ```bash
-     ssh -l trainingNNN puhti.csc.fi
+     ssh -l trainingXYZ puhti.csc.fi
      ```
-   In both options you need the training username and password given in the lecture.
+     * In **Windows** you can use SSH in PowerShell with the above command. Alternatively, you can install and use a separate SSH client, such as [MobaXterm](https://mobaxterm.mobatek.net/) or [PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/).
+   
+       To connect with PuTTY in Windows, specify `puhti.csc.fi` as Host Name (using the default port 22 and SSH connection type). Clicking the Open button starts a new terminal session and asks for the username and password.
         
 2. Set up the module environment for using TensorFlow (and Keras):
 
