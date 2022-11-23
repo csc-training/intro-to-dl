@@ -11,7 +11,7 @@
 1. Login to Puhti using either:
    - ~~the web user interface at <https://www.puhti.csc.fi/> and start "Login node shell" (in the "Tools" menu), or~~
    - login with the given username and password using SSH to `puhti.csc.fi`
-     * On **Mac and Linux**, open a Terminal window and run (replacing `trainingXYZ` with the username from the table below):
+     * On **Mac and Linux**, open a Terminal window and run (replacing `trainingXYZ` with the username given in the lecture):
 
      ```bash
      ssh -l trainingXYZ puhti.csc.fi
