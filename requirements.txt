@@ -1,0 +1,6 @@
+tensorflow
+matplotlib
+seaborn
+notebook
+pydot
+scikit-learn
