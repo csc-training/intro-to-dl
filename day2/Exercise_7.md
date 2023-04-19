@@ -1,35 +1,45 @@
-# Exercise 7
+# Exercise 6
 
-In this exercise, we try using multiple GPUs.
+In this exercise, we study text categorization using the [_20
+newsgroups_](http://www.cs.cmu.edu/afs/cs.cmu.edu/project/theo-20/www/data/news20.html)
+(20ng) dataset. The dataset contains 20,000 text documents (Usenet messages)
+in 20 categories (newsgroups or topics). 
 
 ## Task 1
 
-Convert a script or scripts from [Exercise 5](Exercise_5.md) or [Exercise
-6](Exercise_6.md) to use multiple GPUs.
+Try three different approaches for text classification with the _20 newsgroups_
+(20ng) dataset:
 
-- Do you get improvements in speed?
-- Do you get the same accuracy as with a single GPU?
+- Recurrent neural network (RNN): [tf2-20ng-rnn.py](tf2-20ng-rnn.py)
+- Convolutional neural network (CNN): [tf2-20ng-cnn.py](tf2-20ng-cnn.py)
+- BERT finetuning: [tf2-20ng-bert.py](tf2-20ng-bert.py)
 
-## Extracurricular 1
+Run all three models and compare their accuracies and run times. (There is no
+separate evaluation script this time, test set accuracies are printed at the end
+of the run.)
 
-Use local storage in Puhti to speed up disk access. See
-[run-lscratch.sh](run-lscratch.sh), which copies the _Dogs vs. cats_ dataset to
-`$LOCAL_SCRATCH`, and try for example with
-[tf2-dvc-cnn-simple.py](tf2-dvc-cnn-simple.py).
+<details><summary><b>How to do the same with PyTorch</b></summary>
 
-Also, see CSC's guide on [Data storage for machine
-learning](https://docs.csc.fi/support/tutorials/ml-data/#fast-local-drive) for
-more information.
+Corresponding PyTorch scripts:
 
-## Extracurricular 2
+- Recurrent neural network (RNN): [pytorch_20ng_rnn.py](pytorch_20ng_rnn.py)
+- Convolutional neural network (CNN): [pytorch_20ng_cnn.py](pytorch_20ng_cnn.py)
+- BERT finetuning: [pytorch_20ng_bert.py](pytorch_20ng_bert.py)
 
-Experiment with Horovod to implement multi-GPU training. For TensorFlow 2/Keras, see
-[run-hvd.sh](run-hvd.sh) and
-[tf2-dvc-cnn-simple-hvd.py](tf2-dvc-cnn-simple-hvd.py).
-
-<details><summary><b>PyTorch and Horovod</b></summary>
-  
-For PyTorch see [run-pytorch-hvd.sh](run-pytorch-hvd.sh) and
-[pytorch_dvc_cnn_simple_hvd.py](pytorch_dvc_cnn_simple_hvd.py).
-  
 </details>
+
+
+## Task 2
+
+Pick one model (RNN, CNN or BERT) and try to improve the results, e.g., by
+tweaking the model or the training parameters (optimizer, batch size, number of
+epochs, etc.). 
+
+You can also work on replacing BERT with another Transformers model (for example
+[DistilBert](https://huggingface.co/docs/transformers/master/en/model_doc/distilbert)). 
+See also the [HuggingFace Transformers documentation](https://huggingface.co/transformers/).
+
+## Extracurricular
+
+See <https://keras.io/examples/nlp/> for more Keras examples on natural language
+processing.
