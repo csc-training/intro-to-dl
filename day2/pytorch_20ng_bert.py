@@ -27,7 +27,7 @@ from transformers import BertTokenizer, BertConfig
 from transformers import BertForSequenceClassification
 from transformers import AdamW, get_linear_schedule_with_warmup
 
-from distutils.version import LooseVersion as LV
+from packaging.version import Version as LV
 
 from sklearn.model_selection import train_test_split
 

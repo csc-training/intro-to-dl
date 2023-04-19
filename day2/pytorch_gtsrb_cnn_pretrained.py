@@ -15,7 +15,7 @@ import torch.nn.functional as F
 import torch.optim as optim
 from torch.utils.data import DataLoader
 from torchvision import datasets, transforms, models
-from distutils.version import LooseVersion as LV
+from packaging.version import Version as LV
 from datetime import datetime
 import os
 

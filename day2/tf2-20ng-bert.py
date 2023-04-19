@@ -29,7 +29,7 @@ from tensorflow.keras.callbacks import TensorBoard
 from transformers import BertTokenizer, TFBertForSequenceClassification
 from transformers import __version__ as transformers_version
 
-from distutils.version import LooseVersion as LV
+from packaging.version import Version as LV
 
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix

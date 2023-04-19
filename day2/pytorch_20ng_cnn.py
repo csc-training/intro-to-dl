@@ -20,7 +20,7 @@ import torch.optim as optim
 from torch.autograd import Variable
 from torch.utils.data import TensorDataset, DataLoader
 
-from distutils.version import LooseVersion as LV
+from packaging.version import Version as LV
 
 from gensim.utils import simple_preprocess
 from gensim.corpora import Dictionary

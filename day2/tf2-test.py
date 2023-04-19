@@ -23,7 +23,7 @@ from tensorflow.keras.datasets import mnist, fashion_mnist, imdb
 
 from sklearn.model_selection import train_test_split
 
-from distutils.version import LooseVersion as LV
+from packaging.version import Version as LV
 
 import numpy as np
 
