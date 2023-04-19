@@ -5,7 +5,7 @@
 #SBATCH --time=1:00:00
 #SBATCH --mem=64G
 #SBATCH --cpus-per-task=10
-#SBATCH --account=project_2006678
+#SBATCH --account=project_2007759
 #SBATCH --reservation dlintro
 
 module purge
@@ -13,11 +13,11 @@ module load tensorflow/2.8
 module list
 
 export DATADIR=$LOCAL_SCRATCH
-export KERAS_HOME=/scratch/project_2006678/keras-cache
-export TRANSFORMERS_CACHE=/scratch/project_2006678/transformers-cache
+export KERAS_HOME=/scratch/project_2007759/keras-cache
+export TRANSFORMERS_CACHE=/scratch/project_2007759/transformers-cache
 
 set -xv
 
-tar xf /scratch/project_2006678/data/dogs-vs-cats.tar -C $LOCAL_SCRATCH
+tar xf /scratch/project_2007759/data/dogs-vs-cats.tar -C $LOCAL_SCRATCH
 
 python3 $*
