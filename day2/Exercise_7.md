@@ -1,4 +1,4 @@
-# Exercise 6
+# Exercise 7
 
 In this exercise, we study text categorization using the [_20
 newsgroups_](http://www.cs.cmu.edu/afs/cs.cmu.edu/project/theo-20/www/data/news20.html)
@@ -11,8 +11,8 @@ Try three different approaches for text classification with the _20 newsgroups_
 (20ng) dataset:
 
 - Recurrent neural network (RNN): [tf2-20ng-rnn.py](tf2-20ng-rnn.py)
-- Convolutional neural network (CNN): [tf2-20ng-cnn.py](tf2-20ng-cnn.py)
 - BERT finetuning: [tf2-20ng-bert.py](tf2-20ng-bert.py)
+- Convolutional neural network (CNN): [tf2-20ng-cnn.py](tf2-20ng-cnn.py)
 
 Run all three models and compare their accuracies and run times. (There is no
 separate evaluation script this time, test set accuracies are printed at the end
@@ -23,8 +23,8 @@ of the run.)
 Corresponding PyTorch scripts:
 
 - Recurrent neural network (RNN): [pytorch_20ng_rnn.py](pytorch_20ng_rnn.py)
-- Convolutional neural network (CNN): [pytorch_20ng_cnn.py](pytorch_20ng_cnn.py)
 - BERT finetuning: [pytorch_20ng_bert.py](pytorch_20ng_bert.py)
+- Convolutional neural network (CNN): [pytorch_20ng_cnn.py](pytorch_20ng_cnn.py)
 
 </details>
 
@@ -41,5 +41,5 @@ See also the [HuggingFace Transformers documentation](https://huggingface.co/tra
 
 ## Extracurricular
 
-See <https://keras.io/examples/nlp/> for more Keras examples on natural language
-processing.
+See <https://keras.io/examples/nlp/> and <https://keras.io/keras_nlp/>
+for more Keras examples on natural language processing.
