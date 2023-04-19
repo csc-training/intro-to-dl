@@ -8,7 +8,7 @@
 #SBATCH --account=project_2007759
 
 module purge
-module load tensorflow/2.8
+module load tensorflow
 module list
 
 export DATADIR=/scratch/project_2007759/data
