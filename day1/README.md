@@ -36,7 +36,7 @@ Text sentiment classification with RNNs.
 
 <details><summary>Optional exercises</summary>
 
-* *tf2-imdb-cnn.ipynb* (Text sentiment classification with BERT)<br/>[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/optional/tf2-aclImdb-bert.ipynb)
+* *tf2-aclImdb-bert.ipynb* (Text sentiment classification with BERT)<br/>[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/optional/tf2-aclImdb-bert.ipynb)
 
 * *tf2-imdb-cnn.ipynb* (Text sentiment classification with CNNs)<br/>[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/optional/tf2-imdb-cnn.ipynb)
 
