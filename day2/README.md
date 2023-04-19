@@ -3,13 +3,15 @@
 ## Exercise sessions
 
 * [Exercise 5: Image classification](Exercise_5.md)
-* [Exercise 6: Text categorization](Exercise_6.md)
-* [Exercise 7: Using multiple GPUs](Exercise_7.md)
+* [Exercise 6: Image generation](Exercise_6.md)
+* [Exercise 7: Text categorization](Exercise_7.md)
+* [Exercise 8: Text generation](Exercise_8.md)
+* [Exercise 9: Using multiple GPUs](Exercise_9.md)
 
 ## Setup
 
 1. Login to Puhti using either:
-   - ~~the web user interface at <https://www.puhti.csc.fi/> and start "Login node shell" (in the "Tools" menu), or~~
+   - the web user interface at <https://www.puhti.csc.fi/> and start "Login node shell" (in the "Tools" menu), or
    - login with the given username and password using SSH to `puhti.csc.fi`
      * On **Mac and Linux**, open a Terminal window and run (replacing `trainingXYZ` with the username given in the lecture):
 
@@ -44,7 +46,7 @@
 ## Edit and submit jobs
 
 1. Edit Python script, either by:
-   - ~~Navigating to the file in the Puhti web UI file browser (Files → Home Directory → intro-to-dl → day2) and selecting "Edit" on that file (under the three dots "⋮" menu).~~
+   - Navigating to the file in the Puhti web UI file browser (Files → Home Directory → intro-to-dl → day2) and selecting "Edit" on that file (under the three dots "⋮" menu).
    - Opening with your favorite text editor in the terminal, for example:
      ```bash
      nano tf2-test.py
@@ -87,19 +89,19 @@
 
 You can use TensorBoard either via the new Puhti web user interface (recommended), or via the terminal using ssh port forwarding. Both approaches are explained below.
 
-### ~~Via the Puhti web interface (the recommended method)~~
+### Via the Puhti web interface (the recommended method)
 
-1. ~~Go to <https://www.puhti.csc.fi/>~~
-2. ~~Log in with CSC account (training account given during lecture)~~
-3. ~~Select menu item: Apps → TensorBoard~~
-4. ~~In the form:~~
-   - ~~Select course project: project_2006678~~
-   - ~~Specify the "TensorBoard log directory", it's where you have cloned the course repository plus "day2/logs", for example:
-  `~/intro-to-dl/day2/logs`. You can run `pwd` in the terminal to find out the full path where you are working.~~
-   - ~~Leave rest at default settings~~
-6. ~~Click "Launch"~~
-7. ~~Wait until you see the "Connect to Tensorboard" button, then click that.~~
-8. ~~When you're done using TensorBoard, please go to "My Interactive Sessions" in the Puhti web user interface and "Delete" the session. (It will automatically terminate once the reserved time is up, but it's always better to release the resource as soon as possible so that others can use it.)~~
+1. Go to <https://www.puhti.csc.fi/>
+2. Log in with CSC account (training account given during lecture)
+3. Select menu item: Apps → TensorBoard
+4. In the form:
+   - Select course project: project_2007759
+   - Specify the "TensorBoard log directory", it's where you have cloned the course repository plus "day2/logs", for example:
+  `~/intro-to-dl/day2/logs`. You can run `pwd` in the terminal to find out the full path where you are working.
+   - Leave rest at default settings
+6. Click "Launch"
+7. Wait until you see the "Connect to Tensorboard" button, then click that.
+8. When you're done using TensorBoard, please go to "My Interactive Sessions" in the Puhti web user interface and "Delete" the session. (It will automatically terminate once the reserved time is up, but it's always better to release the resource as soon as possible so that others can use it.)
 
 ### Via SSH port forwarding
 
