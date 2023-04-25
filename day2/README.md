@@ -11,31 +11,26 @@
 ## Setup
 
 1. Login to Puhti using either:
-   - the web user interface at <https://www.puhti.csc.fi/> and start "Login node shell" (in the "Tools" menu), or
-   - login with the given username and password using SSH to `puhti.csc.fi`
-     * On **Mac and Linux**, open a Terminal window and run (replacing `trainingXYZ` with the username given in the lecture):
-
-     ```bash
-     ssh -l trainingXYZ puhti.csc.fi
-     ```
-     * In **Windows** you can use SSH in PowerShell with the above command. Alternatively, you can install and use a separate SSH client, such as [MobaXterm](https://mobaxterm.mobatek.net/) or [PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/).
-   
-       To connect with PuTTY in Windows, specify `puhti.csc.fi` as Host Name (using the default port 22 and SSH connection type). Clicking the Open button starts a new terminal session and asks for the username and password.
-        
-2. Set up the module environment for using TensorFlow (and Keras):
+   - the web user interface at <https://www.puhti.csc.fi/> and start "Login node shell", or
+   - login with your username and password using SSH to `puhti.csc.fi`, for more instructions see: <https://docs.csc.fi/computing/connecting/>
+      
+2. In the login node shell, or SSH session, set up the module environment for using TensorFlow (and Keras):
 
    ```bash
    module purge
    module load tensorflow
    ```
-
-   For PyTorch:
    
+   If you are using LUMI, you need to run:
    ```bash
    module purge
-   module load pytorch
+   module use /appl/local/csc/modulefiles/
+   module load tensorflow
    ```
    
+   If you want to use PyTorch instead of TensorFlow, replace `tensorflow` with `pytorch` in the above commands.
+
+
 3. Clone and change into the exercise repository:
 
    ```bash
