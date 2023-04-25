@@ -73,7 +73,7 @@
 3. See the status of your jobs or the queue you are using:
 
    ```bash
-   squeue -l -u $USER
+   squeue -l --me
    squeue -l -p gpu
    ```
 
