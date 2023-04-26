@@ -1,4 +1,15 @@
-# # Example taken from https://keras.io/examples/generative/ddim/
+#
+# # Denoising Diffusion Implicit Models
+# Example taken from https://keras.io/examples/generative/ddim/
+#
+# In this example we train a denoising diffusion model on a given
+# dataset. We then use that model to generate new samples from that
+# dataset. The diffusion model technique is the same one (although in
+# a much larger) that is used in e.g. Dall-E 2. In such text-to-image
+# models, we are using text to steer the generation - here we are just
+# randomly generating images.
+#
+
 
 # # Setup
 
@@ -9,6 +20,7 @@ import tensorflow as tf
 from tensorflow import keras
 from keras import layers
 import pathlib
+
 
 # # Hyperparameters
 
@@ -54,6 +66,8 @@ dataset_name = "oxford_flowers102"
 #dataset_name = "food101"
 #dataset_name = "cars196"
 
+# The default training/testing split is a bit imbalanced, we make a
+# new 80%-20% split
 train_dataset = tfds.load(dataset_name, data_dir=data_dir, 
                           split="train[:80%]+test[:80%]", shuffle_files=True)
 val_dataset = tfds.load(dataset_name, data_dir=data_dir, 
@@ -82,7 +96,6 @@ val_dataset = tfds.load(dataset_name, data_dir=data_dir,
 #     image_count = len(image_paths)
 #     return image_paths
 
-# # +
 # dataset_name = "gtsrb"
 
 # datapath = os.path.join(data_dir, "gtsrb/train-5535/")
@@ -100,7 +113,7 @@ val_dataset = tfds.load(dataset_name, data_dir=data_dir,
 # val_dataset = tf.data.Dataset.from_tensor_slices(val_imagepaths)
 # val_dataset = val_dataset.map(load_image, num_parallel_calls=tf.data.AUTOTUNE)
 
-#
+
 def preprocess_image(data):
     # center crop image
     height = tf.shape(data["image"])[0]
@@ -139,6 +152,11 @@ val_dataset = prepare_dataset(val_dataset)
 
 
 # # Kernel inception distance
+#
+# Kernel inception distance, introduced in this paper:
+# https://arxiv.org/abs/1801.01401 is simply a way to measure the
+# quality of generated images (compared to some validation set of real
+# images).
 
 class KID(keras.metrics.Metric):
     def __init__(self, name, **kwargs):
@@ -204,6 +222,18 @@ class KID(keras.metrics.Metric):
 
 
 # # Network architecture
+#
+# The basic architecture is a U-Net
+#
+# Input: the noise image, and the variance of the noise (encoded with
+# sinusoidal embedding).
+#
+# Using variance is equivalent to using the time step (as shown in the
+# lecture slides) as variance increases monotonically with the time
+# step. Using variance instead has some practical advantages (e.g.,
+# you can change the sample rate after training).
+#
+#
 
 def sinusoidal_embedding(x):
     embedding_min_frequency = 1.0
@@ -287,7 +317,23 @@ def get_network(image_size, widths, block_depth):
 
     return keras.Model([noisy_images, noise_variances], x, name="residual_unet")
 
+
+
 # # Diffusion model
+#
+# Training procedure - train_step() and denoise():
+# - sample random time steps
+# - mix training images with random Gaussian noise with variance
+#   corresponding to the time step
+# - train model to separate the noisy image to the clean image and the
+#   Gaussian noise components
+#
+# Sampling, i.e., generating images with reverse_diffusion():
+# - Starting from pure noise, and time=1.0 (i.e., "maximum" noise variance)
+# - Separate noise from image with denoise()
+# - Proceed to next step (with one time step less noise variance)
+# - Until time is 0.0 (minimum noise variance)
+#
 
 class DiffusionModel(keras.Model):
     def __init__(self, image_size, widths, block_depth):
@@ -471,6 +517,7 @@ class DiffusionModel(keras.Model):
         #plt.show()
         #plt.close()
 
+
 # # Train model
 
 # create and compile the model
@@ -497,7 +544,6 @@ checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(
 model.normalizer.adapt(train_dataset)
 
 # run training and plot generated images periodically
-#num_epochs=1
 model.fit(
     train_dataset,
     epochs=num_epochs,
@@ -512,5 +558,5 @@ model.fit(
 # # Inference
 
 # load the best model and generate images
-# model.load_weights(checkpoint_path)
-# model.plot_images()
+model.load_weights(checkpoint_path)
+model.plot_images()

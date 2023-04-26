@@ -5,6 +5,9 @@ is based on the ["Denoising Diffusion Implicit Models"
 tutorial](https://keras.io/examples/generative/ddim/) from the Keras
 web site.
 
+![Reverse diffusion with flowers](imgs/flowers-diffusion.gif)
+
+
 All the code is in one file:
 
 - [tf2-diff-models.py](tf2-diff-models.py)
@@ -17,18 +20,25 @@ normal module. You can install it as follows:
     module load tensorflow
     pip install --user tensorflow_datasets
 
-You can run the code as:
+## Task 1
+
+Train the diffusion model to generate pictures of flowers:
 
     sbatch run.sh tf2-diff-models.py
 
-By default it trains on the [Oxford Flowers 102
+The code uses the [Oxford Flowers 102
 dataset](https://www.tensorflow.org/datasets/catalog/oxford_flowers102),
 and after each epoch it will produce 18 sample flowers that it has
 generated. You can find these in the folder
 `generated_images/oxford_flowers102`, each file is named after the
 epoch number.
 
-![Reverse diffusion with flowers](imgs/flowers-diffusion.gif)
+During training, monitor the generated images and see what kinds of
+images it generates after the first epoch, and how it (hopefully)
+improves over time.
 
-You can also change the code to generate cars or German traffic signs
-(take a look at the commented out parts).
+
+## Task 2
+
+Modify the code to run on another dataset, for example cars or German
+traffic signs (take a look at the commented out parts).
