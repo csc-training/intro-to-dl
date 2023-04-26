@@ -25,7 +25,7 @@ for example:
 
 As a reminder, you can check the status of your runs with the command:
 
-    squeue -l -u $USER
+    squeue -l --me
 
 The output of the run will appear in a file named `slurm-RUN_ID.out` where 
 `RUN_ID` is the Slurm batch job id.
