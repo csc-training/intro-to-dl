@@ -28,4 +28,7 @@ generated. You can find these in the folder
 `generated_images/oxford_flowers102`, each file is named after the
 epoch number.
 
-You can also change the code to generate cars or Germal trafic signs.
+![Reverse diffusion with flowers](imgs/flowers-diffusion.gif)
+
+You can also change the code to generate cars or German traffic signs
+(take a look at the commented out parts).
