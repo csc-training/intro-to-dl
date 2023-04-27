@@ -16,8 +16,6 @@ The script needs an additional package [TensorFlow
 Datasets](https://www.tensorflow.org/datasets) which isn't part of the
 normal module. You can install it as follows:
 
-    module purge
-    module load tensorflow
     pip install --user tensorflow_datasets
 
 ## Task 1
