@@ -27,7 +27,7 @@
    ```bash
    module purge
    module use /appl/local/csc/modulefiles/
-   module load tensorflow
+   module load tensorflow/2.8
    ```
    
    If you want to use PyTorch instead of TensorFlow, replace `tensorflow` with `pytorch` in the above commands.
