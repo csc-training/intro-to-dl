@@ -54,6 +54,8 @@
    ```bash
    sbatch run.sh tf2-test.py
    ```
+   
+   For LUMI, substitute `run.sh` with `run-lumi.sh`.
 
    There is a separate slurm script for PyTorch, e.g.:
    
