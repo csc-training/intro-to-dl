@@ -35,6 +35,7 @@ During training, monitor the generated images and see what kinds of
 images it generates after the first epoch, and how it (hopefully)
 improves over time.
 
+**Note:** In LUMI we also need to do `pip install --user protobuf==3.20.3 tensorflow_addons` and change the `optimizer`in the `model.compile()` (see the comments in the code).
 
 ## Task 2
 
