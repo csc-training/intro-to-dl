@@ -14,7 +14,7 @@
    - the web user interface at <https://www.puhti.csc.fi/> and start "Login node shell", or
    - login with your username and password using SSH to `puhti.csc.fi`, for more instructions see: <https://docs.csc.fi/computing/connecting/>
    
-   If you are using LUMI instead of Puhti, see [the LUMI documentation](https://docs.lumi-supercomputer.eu/firststeps/getstarted/).
+   If you are using LUMI instead of Puhti, only SSH is supported at the moment. See [the LUMI documentation](https://docs.lumi-supercomputer.eu/firststeps/getstarted/).
       
 2. In the login node shell, or SSH session, set up the module environment for using TensorFlow (and Keras):
 
