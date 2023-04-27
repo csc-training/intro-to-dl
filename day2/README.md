@@ -13,6 +13,8 @@
 1. Login to Puhti using either:
    - the web user interface at <https://www.puhti.csc.fi/> and start "Login node shell", or
    - login with your username and password using SSH to `puhti.csc.fi`, for more instructions see: <https://docs.csc.fi/computing/connecting/>
+   
+   If you are using LUMI instead of Puhti, only SSH is supported at the moment. See [the LUMI documentation](https://docs.lumi-supercomputer.eu/firststeps/getstarted/).
       
 2. In the login node shell, or SSH session, set up the module environment for using TensorFlow (and Keras):
 
@@ -25,7 +27,7 @@
    ```bash
    module purge
    module use /appl/local/csc/modulefiles/
-   module load tensorflow
+   module load tensorflow/2.8
    ```
    
    If you want to use PyTorch instead of TensorFlow, replace `tensorflow` with `pytorch` in the above commands.
@@ -52,6 +54,8 @@
    ```bash
    sbatch run.sh tf2-test.py
    ```
+   
+   For LUMI, substitute `run.sh` with `run-lumi.sh`.
 
    There is a separate slurm script for PyTorch, e.g.:
    

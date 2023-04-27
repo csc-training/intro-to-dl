@@ -44,6 +44,13 @@ Check the output file of the evaluation run to see the test set accuracy.
 
 Which model gave the best result? Does finetuning improve the result?
 
+**Note:** the BigTransfer (BiT) model may require the `tensorflow_hub` package, you can install it yourself with the commands:
+
+```
+pip install --user tensorflow-hub
+```
+
+
 ### German traffic signs
 
 Repeat the experiment with the _German traffic signs_ (gtsrb) database. Which
