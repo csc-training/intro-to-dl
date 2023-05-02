@@ -47,6 +47,7 @@ Which model gave the best result? Does finetuning improve the result?
 **Note:** the BigTransfer (BiT) model may require the `tensorflow_hub` package, you can install it yourself with the commands:
 
 ```
+module load tensorflow   # or tensorflow/2.8 on LUMI
 pip install --user tensorflow-hub
 ```
 
