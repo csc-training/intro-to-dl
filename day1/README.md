@@ -65,9 +65,9 @@ We will use Jupyter Notebooks for all exercises on Day 1. There are several ways
 3. Join workspace
    - Press "Join workspace" button (Top right corner)
    - Enter the Join Code **given in the lecture**
-   - You should now see the workspace "Practical Deep Learning Course, Nov 2022"
+   - You should now see the workspace "Practical Deep Learning Course, May 2023"
 4. Start Notebook session
-   - In order to launch the Notebook "Practical Deep Learning, Nov 2022", click the round start button next to it.
+   - In order to launch the Notebook "Practical Deep Learning, May 2023", click the round start button next to it.
    - Wait for session to launch
 5. Once the Jupyter Notebook dashboard should appears navigate to `intro-to-dl/day1` 
 6. If you are not familiar with Jupyter, take a moment to get to know the interface
