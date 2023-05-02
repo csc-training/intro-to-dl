@@ -6,6 +6,13 @@ entire [aclImdb](https://ai.stanford.edu/~amaas/data/sentiment/)
 dataset (both labeled and unlabeled reviews) containing 100,000 movies
 reviews from the Internet Movie Database.
 
+You will probably need to install additional packages:
+
+```bash
+module load tensorflow   # or tensorflow/2.8 on LUMI
+pip install --user keras_nlp
+```
+
 ## Task 1
 
 Train the GPT model by running the script [tf2-aclImdb-gpt.py](tf2-aclImdb-gpt.py).
