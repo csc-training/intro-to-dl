@@ -16,6 +16,7 @@ The script needs an additional package [TensorFlow
 Datasets](https://www.tensorflow.org/datasets) which isn't part of the
 normal module. You can install it as follows:
 
+    module load tensorflow   # or tensorflow/2.8 on LUMI
     pip install --user tensorflow_datasets
 
 ## Task 1
