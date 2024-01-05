@@ -1,20 +1,19 @@
 #!/bin/bash
-#SBATCH --partition=gpu
-#SBATCH --nodes=1
-#SBATCH --gres=gpu:v100:1,nvme:100
+#SBATCH --account=project_462000450
+#SBATCH --partition=small-g
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=7
+#SBATCH --gpus-per-task=1
+#SBATCH --mem=60G
 #SBATCH --time=1:00:00
-#SBATCH --mem=64G
-#SBATCH --cpus-per-task=10
-#SBATCH --account=project_2007759
-#SBATCH --reservation=dlintro
+##SBATCH --reservation=dlintro
 
 module purge
-module load tensorflow
-module list
+module use /appl/local/csc/modulefiles/
+module load pytorch
 
-export DATADIR=/scratch/project_2007759/data
-export KERAS_HOME=/scratch/project_2007759/keras-cache
-export TRANSFORMERS_CACHE=/scratch/project_2007759/transformers-cache
+export DATADIR=/scratch/${SLURM_JOB_ACCOUNT}/data
+export TORCH_HOME=/scratch/${SLURM_JOB_ACCOUNT}/torch-cache
 
 set -xv
 python3 $*
