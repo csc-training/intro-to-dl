@@ -1,41 +1,36 @@
 # Exercise 8
 
-In this exercise, we train a small GPT model from scratch for
-generating IMDB movie reviews. For training the model, we'll use the
-entire [aclImdb](https://ai.stanford.edu/~amaas/data/sentiment/)
-dataset (both labeled and unlabeled reviews) containing 100,000 movies
-reviews from the Internet Movie Database.
-
-You will probably need to install additional packages:
-
-```bash
-module load tensorflow   # or tensorflow/2.8 on LUMI
-pip install --user keras_nlp
-```
+In this exercise, we try using multiple GPUs.
 
 ## Task 1
 
-Train the GPT model by running the script [tf2-aclImdb-gpt.py](tf2-aclImdb-gpt.py).
+Convert a script or scripts from [Exercise 5](Exercise_5.md) or [Exercise
+7](Exercise_7.md) to use multiple GPUs. An easy option is to work with
+the script [tf2-dvc-cnn-simple.py](tf2-dvc-cnn-simple.py).
 
-   ```bash
-   sbatch run.sh tf2-aclImdb-gpt.py
-   ```
+- Do you get improvements in speed?
+- Do you get the same accuracy as with a single GPU?
 
-Take a look at the generated movie reviews in the Slurm output file.
+## Extracurricular 1
 
-## Task 2
+Use local storage in Puhti to speed up disk access. See
+[run-lscratch.sh](run-lscratch.sh), which copies the _Dogs vs. cats_ dataset to
+`$LOCAL_SCRATCH`, and try for example with
+[tf2-dvc-cnn-simple.py](tf2-dvc-cnn-simple.py).
 
-Experiment with different beginnings of reviews. You can enter a
-beginning by adding it as a quoted command line argument to the
-script.  When you run the script again, it uses the model trained and
-saved to disk in Task 1.
+Also, see CSC's guide on [Data storage for machine
+learning](https://docs.csc.fi/support/tutorials/ml-data/#fast-local-drive) for
+more information.
 
-   ```bash
-   sbatch run.sh tf2-aclImdb-gpt.py "This movie was not great"
-   ```
+## Extracurricular 2
 
-## Task 3
+Experiment with Horovod to implement multi-GPU training. For TensorFlow 2/Keras, see
+[run-hvd.sh](run-hvd.sh) and
+[tf2-dvc-cnn-simple-hvd.py](tf2-dvc-cnn-simple-hvd.py).
 
-Take a look at the used network architecture and experiment with the
-training hyperparameters in the script. You can restart the training
-by deleting or renaming the saved model file `aclImdb-gpt.h5`.
+<details><summary><b>PyTorch and Horovod</b></summary>
+  
+For PyTorch see [run-pytorch-hvd.sh](run-pytorch-hvd.sh) and
+[pytorch_dvc_cnn_simple_hvd.py](pytorch_dvc_cnn_simple_hvd.py).
+  
+</details>

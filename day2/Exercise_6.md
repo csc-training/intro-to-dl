@@ -1,44 +1,28 @@
 # Exercise 6
 
-In this exercise, we play around with image generation.  This example
-is based on the ["Denoising Diffusion Implicit Models"
-tutorial](https://keras.io/examples/generative/ddim/) from the Keras
-web site.
-
-![Reverse diffusion with flowers](imgs/flowers-diffusion.gif)
-
-
-All the code is in one file:
-
-- [tf2-diff-models.py](tf2-diff-models.py)
-
-The script needs an additional package [TensorFlow
-Datasets](https://www.tensorflow.org/datasets) which isn't part of the
-normal module. You can install it as follows:
-
-    module load tensorflow   # or tensorflow/2.8 on LUMI
-    pip install --user tensorflow_datasets
+In this exercise, we study text categorization using the [_20
+newsgroups_](http://www.cs.cmu.edu/afs/cs.cmu.edu/project/theo-20/www/data/news20.html)
+(20ng) dataset. The dataset contains 20,000 text documents (Usenet messages)
+in 20 categories (newsgroups or topics). 
 
 ## Task 1
 
-Train the diffusion model to generate pictures of flowers:
+Try three different approaches for text classification with the _20 newsgroups_
+(20ng) dataset:
 
-    sbatch run.sh tf2-diff-models.py
+- Recurrent neural network (RNN): [pytorch_20ng_rnn.py](pytorch_20ng_rnn.py)
+- BERT finetuning: [pytorch_20ng_bert.py](pytorch_20ng_bert.py)
+- Convolutional neural network (CNN): [pytorch_20ng_cnn.py](pytorch_20ng_cnn.py)
 
-The code uses the [Oxford Flowers 102
-dataset](https://www.tensorflow.org/datasets/catalog/oxford_flowers102),
-and after each epoch it will produce 18 sample flowers that it has
-generated. You can find these in the folder
-`generated_images/oxford_flowers102`, each file is named after the
-epoch number.
-
-During training, monitor the generated images and see what kinds of
-images it generates after the first epoch, and how it (hopefully)
-improves over time.
-
-**Note:** In LUMI we also need to do `pip install --user protobuf==3.20.3 tensorflow_addons` and change the `optimizer`in the `model.compile()` (see the comments in the code).
+Run all three models and compare their accuracies and run times.
 
 ## Task 2
 
-Modify the code to run on another dataset, for example cars or German
-traffic signs (take a look at the commented out parts).
+Pick one model (RNN, CNN or BERT) and try to improve the results, e.g., by
+tweaking the model or the training parameters (optimizer, batch size, number of
+epochs, etc.). 
+
+You can also work on replacing BERT with another Transformers model (for example
+[DistilBert](https://huggingface.co/docs/transformers/master/en/model_doc/distilbert)). 
+See also the [HuggingFace Transformers documentation](https://huggingface.co/transformers/).
+

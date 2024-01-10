@@ -1,28 +1,41 @@
 # Exercise 7
 
-In this exercise, we study text categorization using the [_20
-newsgroups_](http://www.cs.cmu.edu/afs/cs.cmu.edu/project/theo-20/www/data/news20.html)
-(20ng) dataset. The dataset contains 20,000 text documents (Usenet messages)
-in 20 categories (newsgroups or topics). 
+In this exercise, we train a small GPT model from scratch for
+generating IMDB movie reviews. For training the model, we'll use the
+entire [aclImdb](https://ai.stanford.edu/~amaas/data/sentiment/)
+dataset (both labeled and unlabeled reviews) containing 100,000 movies
+reviews from the Internet Movie Database.
+
+You will probably need to install additional packages:
+
+```bash
+module load tensorflow   # or tensorflow/2.8 on LUMI
+pip install --user keras_nlp
+```
 
 ## Task 1
 
-Try three different approaches for text classification with the _20 newsgroups_
-(20ng) dataset:
+Train the GPT model by running the script [tf2-aclImdb-gpt.py](tf2-aclImdb-gpt.py).
 
-- Recurrent neural network (RNN): [pytorch_20ng_rnn.py](pytorch_20ng_rnn.py)
-- BERT finetuning: [pytorch_20ng_bert.py](pytorch_20ng_bert.py)
-- Convolutional neural network (CNN): [pytorch_20ng_cnn.py](pytorch_20ng_cnn.py)
+   ```bash
+   sbatch run.sh tf2-aclImdb-gpt.py
+   ```
 
-Run all three models and compare their accuracies and run times.
+Take a look at the generated movie reviews in the Slurm output file.
 
 ## Task 2
 
-Pick one model (RNN, CNN or BERT) and try to improve the results, e.g., by
-tweaking the model or the training parameters (optimizer, batch size, number of
-epochs, etc.). 
+Experiment with different beginnings of reviews. You can enter a
+beginning by adding it as a quoted command line argument to the
+script.  When you run the script again, it uses the model trained and
+saved to disk in Task 1.
 
-You can also work on replacing BERT with another Transformers model (for example
-[DistilBert](https://huggingface.co/docs/transformers/master/en/model_doc/distilbert)). 
-See also the [HuggingFace Transformers documentation](https://huggingface.co/transformers/).
+   ```bash
+   sbatch run.sh tf2-aclImdb-gpt.py "This movie was not great"
+   ```
 
+## Task 3
+
+Take a look at the used network architecture and experiment with the
+training hyperparameters in the script. You can restart the training
+by deleting or renaming the saved model file `aclImdb-gpt.h5`.

@@ -3,10 +3,9 @@
 ## Exercise sessions
 
 * [Exercise 5: Image classification](Exercise_5.md)
-* [Exercise 6: Image generation](Exercise_6.md)
-* [Exercise 7: Text categorization](Exercise_7.md)
-* [Exercise 8: Text generation](Exercise_8.md)
-* [Exercise 9: Using multiple GPUs](Exercise_9.md)
+* [Exercise 6: Text categorization](Exercise_6.md)
+* [Exercise 7: Text generation](Exercise_7.md)
+* [Exercise 8: Using multiple GPUs](Exercise_8.md)
 
 ## Setup
 
