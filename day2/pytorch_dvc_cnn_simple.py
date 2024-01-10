@@ -100,7 +100,7 @@ def train(data_loader, model, criterion, optimizer):
 
     return {
         'loss': total_loss/num_batches,
-        'acc': total_correct/num_items
+        'accuracy': total_correct/num_items
         }
 
 
@@ -131,23 +131,14 @@ def test(test_loader, model, criterion):
 
     return {
         'loss': test_loss/num_batches,
-        'acc': total_correct/num_items
+        'accuracy': total_correct/num_items
     }
 
 
-def log_measures(ret, log, prefix, epoch=None):
-    print(prefix, end='')
-    if epoch is not None:
-        print(f", epoch {epoch+1}", end='')
-    print(': ', end='')
-
-    for key, value in ret.items():
-        print(f"{key}: {value:.2%}", end=' ')
-
-        # Add to TensorBoard log
-        if log is not None:
+def log_measures(ret, log, prefix, epoch):
+    if log is not None:
+        for key, value in ret.items():
             log.add_scalar(prefix + "_" + key, value, epoch)
-    print()
 
 
 def main():
@@ -234,19 +225,21 @@ def main():
     # Training loop
     start_time = datetime.now()
     for epoch in range(num_epochs):
-        ret = train(train_loader, model, criterion, optimizer)
-        log_measures(ret, log, "train", epoch)
+        train_ret = train(train_loader, model, criterion, optimizer)
+        log_measures(train_ret, log, "train", epoch)
 
-        ret = test(validation_loader, model, criterion)
-        log_measures(ret, log, "val", epoch)
+        val_ret = test(validation_loader, model, criterion)
+        log_measures(val_ret, log, "val", epoch)
+        print(f"Epoch {epoch+1}: "
+              f"train accuracy: {train_ret['accuracy']:.2%}, "
+              f"val accuracy: {val_ret['accuracy']:.2%}")
 
     end_time = datetime.now()
     print('Total training time: {}.'.format(end_time - start_time))
 
     # Inference
-
     ret = test(test_loader, model, criterion)
-    log_measures(ret, log, "test")
+    print(f"\nTesting: accuracy: {ret['accuracy']:.2%}")
 
 
 if __name__ == "__main__":
