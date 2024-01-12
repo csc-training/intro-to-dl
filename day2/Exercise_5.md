@@ -37,9 +37,9 @@ Use `tail -f` if you want to continuously follow the progress of the
 output. (Press Ctrl-C when you want to stop following the file.)
 
 After training, the script runs an evaluation on the test set, you
-should find the results of that in the output log under the title of
-"Testing" and we're particularly interested in the value for
-"Accuracy".
+should find the results of that towards the end of the output log on a
+line starting with "Testing". It should contain the accuracy
+(percentage of correctly classified images).
 
 Check the outputs of each run. Note that the pre-trained model will
 print out two results, once after pre-training, and again after

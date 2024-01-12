@@ -4,9 +4,9 @@ In this exercise, we try using multiple GPUs.
 
 ## Task 1
 
-Convert a script or scripts from [Exercise 5](Exercise_5.md) or [Exercise
-7](Exercise_7.md) to use multiple GPUs. An easy option is to work with
-the script [tf2-dvc-cnn-simple.py](tf2-dvc-cnn-simple.py).
+Convert a script or scripts from [Exercise 5](Exercise_5.md) or
+[Exercise 6](Exercise_6.md) to use multiple GPUs. An easy option is to
+work with the script [pytorch_dvc_cnn_simple.py](pytorch_dvc_cnn_simple.py).
 
 - Do you get improvements in speed?
 - Do you get the same accuracy as with a single GPU?

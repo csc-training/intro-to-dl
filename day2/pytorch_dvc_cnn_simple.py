@@ -21,7 +21,7 @@ from torchvision import datasets, transforms
 from packaging.version import Version as LV
 from datetime import datetime
 import os
-
+import sys
 
 torch.manual_seed(42)
 
@@ -168,6 +168,9 @@ def main():
     # https://pytorch.org/docs/stable/torchvision/transforms.html
 
     datapath = os.getenv('DATADIR')
+    if datapath is None:
+        print("Please set DATADIR environment variable!")
+        sys.exit(1)
     datapath = os.path.join(datapath, 'dogs-vs-cats/train-2000')
 
     input_image_size = (150, 150)
