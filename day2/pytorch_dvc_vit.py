@@ -3,8 +3,10 @@
 
 # # Dogs-vs-cats classification with CNNs
 #
-# Using Vision transformers (ViT)
-#
+# In this script, we'll finetune a Vision Transformer
+# (https://arxiv.org/abs/2010.11929) (ViT) to classify images of cats
+# and dogs using PyTorch and HuggingFace Transformers:
+# https://github.com/huggingface/transformers
 
 import torch
 import torch.nn as nn
