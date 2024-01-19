@@ -71,7 +71,7 @@
 
 You can use TensorBoard either via the LUMI web user interface (recommended), or via the terminal using ssh port forwarding. Both approaches are explained below.
 
-### Via the Puhti web interface (the recommended method)
+### Via the LUMI web interface (the recommended method)
 
 1. Log in via <https://www.lumi.csc.fi/>
 2. Select menu item: Apps → TensorBoard
