@@ -291,6 +291,7 @@ def main():
         log_measures(val_ret, log, "val", epoch)
 
         print(f"Epoch {epoch+1}: "
+              f"train loss: {train_ret['loss']:.6f} "
               f"train accuracy: {train_ret['accuracy']:.2%}, "
               f"val accuracy: {val_ret['accuracy']:.2%}")
 
