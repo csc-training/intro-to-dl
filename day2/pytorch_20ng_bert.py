@@ -62,11 +62,13 @@ def train(data_loader, model, scheduler, optimizer):
                        attention_mask=input_mask, labels=labels)
 
         loss = output[0]
+        logits = output[1]
+
         total_loss += loss
         num_batches += 1
 
         # Count number of correct
-        # total_correct += correct(output, target)
+        total_correct += correct(logits, labels)
         num_items += len(labels)
 
         # Backpropagation
