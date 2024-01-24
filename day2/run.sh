@@ -12,8 +12,11 @@ module purge
 module use /appl/local/csc/modulefiles/
 module load pytorch
 
-export DATADIR=/scratch/${SLURM_JOB_ACCOUNT}/data
-export TORCH_HOME=/scratch/${SLURM_JOB_ACCOUNT}/torch-cache
+COURSE_SCRATCH="/scratch/${SLURM_JOB_ACCOUNT}"
+
+export DATADIR=$COURSE_SCRATCH/data
+export TORCH_HOME=$COURSE_SCRATCH/torch-cache
+export HF_HOME=$COURSE_SCRATCH/hf-cache
 
 set -xv
 python3 $*
