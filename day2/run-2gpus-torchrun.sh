@@ -17,6 +17,7 @@ COURSE_SCRATCH="/scratch/${SLURM_JOB_ACCOUNT}"
 export DATADIR=$COURSE_SCRATCH/data
 export TORCH_HOME=$COURSE_SCRATCH/torch-cache
 export HF_HOME=$COURSE_SCRATCH/hf-cache
+export MLFLOW_TRACKING_URI=$COURSE_SCRATCH/data/users/$USER/mlruns
 
 set -xv
 torchrun --standalone --nnodes=1 --nproc_per_node=2 $*

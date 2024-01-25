@@ -16,7 +16,9 @@ Run the fine-tuning of the GPT-2 model by running the script
 You can tweak some of the parameters in the script. For example
 `max_steps` in `TrainingArguments` tells for how many batches it will
 train. It's by default set to `max_steps=5000`, which runs for about
-15 minutes on LUMI.
+15 minutes on LUMI. Here are Hugging Face's notes on the many things
+that can be tried for improving training:
+<https://huggingface.co/docs/transformers/perf_train_gpu_one>
 
 At the end of the run it prints the perplexity on the test set. This
 is a measure of how well our trained model predicts the test set
