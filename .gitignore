@@ -8,3 +8,4 @@ data/
 __pycache__/
 day1/**/model.png
 day1/optional/pml_utils.py
+day2/mlruns/
