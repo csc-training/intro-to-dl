@@ -33,8 +33,9 @@ datapath = os.getenv('DATADIR')
 if datapath is None:
     print("Please set DATADIR environment variable!")
     sys.exit(1)
-user_datapath = os.path.join(datapath, os.getenv('USER'))
+user_datapath = os.path.join(datapath, "users", os.getenv('USER'))
 os.makedirs(user_datapath, exist_ok=True)
+
 
 # ## IMDB data set
 #
@@ -162,11 +163,13 @@ tokenizer.add_special_tokens({'pad_token': '[PAD]'})
 output_dir = os.path.join(user_datapath, "gpt-imdb-model")
 training_args = TrainingArguments(
     output_dir=output_dir,
+    overwrite_output_dir=True,
     evaluation_strategy="steps",
     eval_steps=1000,
     learning_rate=2e-5,
     weight_decay=0.01,
-    per_device_train_batch_size=16,
+    # per_device_train_batch_size=4,
+    # per_device_eval_batch_size=4,
     max_steps=5000,
 )
 
@@ -183,13 +186,16 @@ trainer.train()
 print()
 print("Training done, you can find all the model checkpoints in", output_dir)
 
+# Calculate perplexity
 eval_results = trainer.evaluate()
 print(f'Perplexity: {math.exp(eval_results["eval_loss"]):.2f}')
 
+# Let's print a few sample generated reviews
+prompt = "This movie was awful because"
+input_ids = tokenizer(prompt, return_tensors='pt').input_ids.to(device)
+outputs = model.generate(input_ids, do_sample=True, max_length=80, num_return_sequences=4)
+decoded_outputs = tokenizer.batch_decode(outputs, skip_special_tokens=True)
 
-# generator = pipeline("text-generation", model=output_dir)
-# output = generator("This movie was awful because")
-# print("Example generated output:")
-# print(output[0]['generated_text'])
-
-# max_steps=5000, bs=8, 15 mins, Perplexity: 49.41
+print('Sample generated review:')
+for txt in decoded_outputs:
+    print('-', txt)
