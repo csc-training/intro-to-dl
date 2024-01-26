@@ -50,7 +50,7 @@ We will use Jupyter Notebooks for all exercises on Day 1. There are several ways
    - write some Python code to a Jupyter *cell*
    - execute the cell with *shift-enter*
 
-### 1. CSC Notebooks
+### 2. CSC Notebooks
 
 CSC Notebooks (https://notebooks.csc.fi) provides easy-to-use environments for working with data and programming. You can access everything via your web browser and CSC cloud environment computes on the background. There should be enough resources for launching a notebooks instance for everyone, but unfortunately no GPUs. 
 
@@ -78,12 +78,12 @@ CSC Notebooks (https://notebooks.csc.fi) provides easy-to-use environments for w
 #### :warning: Note
 The notebook sessions have a limited time (4h) after which they, and any data or changes, will be *destroyed*. If you wish to save any files, you need to download them.
     
-### 2. Running Jupyter on your laptop
+### 3. Running Jupyter on your laptop
 
-If you have a laptop that has both jupyter and the other necessary python packages installed, it is possible to use it. In particular, if the laptop has an Nvidia GPU and it that has been properly set up (CUDA, cuDNN).
+If you have a laptop that has both jupyter and the other necessary python packages installed, it is possible to use it. In particular, if the laptop has an NVIDIA or AMD GPU and it that has been properly set up (CUDA, cuDNN or ROCm).
 
 * `git clone https://github.com/csc-training/intro-to-dl.git`   
-* try to run the `day1/01-tf2-test-setup.ipynb` notebook without errors
+* try to run the `day1/01-pytorch-test-setup.ipynb` notebook without errors
 
 ### 3. Google Colaboratory
 
