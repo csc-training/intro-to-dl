@@ -85,7 +85,7 @@ If you have a laptop that has both jupyter and the other necessary python packag
 * `git clone https://github.com/csc-training/intro-to-dl.git`   
 * try to run the `day1/01-pytorch-test-setup.ipynb` notebook without errors
 
-### 3. Google Colaboratory
+### 4. Google Colaboratory
 
 Google has a free Jupyter Notebooks service you may want to try out. No guarantees, but it does have GPUs available! A Google account is needed to use Colaboratory. 
 
