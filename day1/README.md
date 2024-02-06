@@ -89,14 +89,6 @@ If you have a laptop that has both jupyter and the other necessary python packag
 
 Google has a free Jupyter Notebooks service you may want to try out. No guarantees, but it does have GPUs available! A Google account is needed to use Colaboratory. 
 
-* Click the corresponding colab link above in this document (https://github.com/csc-training/intro-to-dl/tree/master/day1/README.md)
-* If needed, sign in to your Google account using the "Sign in" button in the top-right corner
-* To use a GPU, select: Runtime => Change runtime type => Hardware accelerator: GPU
-
-OR
-
-* Point your browser to https://github.com/csc-training/intro-to-dl/tree/master/day1 
-* Select a notebook file
-* At the end of the file, there is a link: “Run this notebook in Google Colaboratory using this link”
+* Click the corresponding Colab link [above in this document](#exercise-sessions)
 * If needed, sign in to your Google account using the "Sign in" button in the top-right corner
 * To use a GPU, select: Runtime => Change runtime type => Hardware accelerator: GPU
