@@ -1,4 +1,4 @@
-tensorflow
+pytorch
 matplotlib
 seaborn
 notebook
