@@ -69,15 +69,16 @@ epochs, etc.).
 
 ## Extracurricular 1
 
-There is another, small dataset [Aliens and predators](imgs/avp.png)
-(avp) with 694 training and 200 validation images in the directory
-`/scratch/project_462000450/data/avp` on LUMI.  Modify the scripts for
-_Dogs vs. cats_ to classify between them.
-
-## Extracurricular 2
-
 There are scripts for both _Dogs vs. cats_ and _German traffic signs_ using
 Vision Transformers (ViTs). Compare these with the previous approaches.
 
 - [pytorch_dvc_vit.py](pytorch_dvc_vit.py): _Dogs vs. cats_ with a pre-trained ViT
 - [pytorch_gtsrb_vit.py](pytorch_gtsrb_vit.py): _German traffic signs_ with a pre-trained ViT
+
+## Extracurricular 2
+
+There is another, small dataset [Aliens and predators](imgs/avp.png)
+(avp) with 694 training and 200 validation images in the directory
+`/scratch/project_462000450/data/avp` on LUMI.  Modify the scripts for
+_Dogs vs. cats_ to classify between them.
+
