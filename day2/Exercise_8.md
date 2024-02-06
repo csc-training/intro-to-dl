@@ -2,30 +2,30 @@
 
 In this exercise, we try using multiple GPUs.
 
-Convert a script or scripts from one of the earlier exercises to use
-multiple GPUs. 
+We have prepared a few examples where one of the earlier exercises
+have been converted to using either DataParallel (DP) or
+DistributedDataParallel (DDP).
 
-The easiest option is to work with the script
-[pytorch_dvc_cnn_simple.py](pytorch_dvc_cnn_simple.py), but more
-complex models may benefit more from scaling up to multiple GPUs.
-
-- Do you get improvements in speed?
-- Do you get the same accuracy as with a single GPU?
-
-We have prepared a few examples if you don't want to try it yourself:
-
-- `pytorch_dvc_cnn_simple_multigpu.py` which implements PyTorch
-  Distributed on the simple dogs-vs-cats CNN. You can run this with
-  the `run-2gpus.sh` to run this with 2 GPUs.
+- `pytorch_dvc_cnn_simple_multigpu.py` which implements PyTorch DP on
+  the simple dogs-vs-cats CNN. You can run this with the
+  `run-2gpus.sh` to run this with 2 GPUs.
   
 - `pytorch_dvc_cnn_pretrained_multigpu.py` which implements PyTorch
-  Data Distributed on the pre-trained CNN for cats-vs-dogs. You can
-  try this with the `run-2gpus-torchrun.sh` script.
+  DDP on the pre-trained CNN for cats-vs-dogs. You can try this with
+  the `run-2gpus-torchrun.sh` script.
   
-- `pytorch_imdb_gpt_multigpu.py` which implements PyTorch Data
-  Distributed with the Hugging Face trainer (basically it works
-  out-of-the-box, we've just added some things for nice printing). Use
-  `run-2gpus-torchrun.sh`.
+- `pytorch_imdb_gpt_multigpu.py` which implements PyTorch DDP with the
+  Hugging Face trainer (basically it works out-of-the-box, we've just
+  added some things for nice printing). Use `run-2gpus-torchrun.sh`.
+
+Run these scripts and then convert them to run on 4 GPUs as
+well. This should only require changing the run-scripts, not the
+Python scripts.
+
+- Can you see any speed improvement between using 1, 2 or 4 GPUs?
+- Do you get the same accuracy?
+- Anything else to note? Consider how the batch size per GPU changes
+  when you scale up.
 
 You can check if your runs are actually using multiple GPUs with the
 `rocm-smi` command. Check the `JOBID` of your running job with `squeue
