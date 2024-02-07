@@ -3,7 +3,7 @@
 In this exercise, we study text categorization using the [_20
 newsgroups_](http://www.cs.cmu.edu/afs/cs.cmu.edu/project/theo-20/www/data/news20.html)
 (20ng) dataset. The dataset contains 20,000 text documents (Usenet messages)
-in 20 categories (newsgroups or topics). 
+in 20 categories (newsgroups or topics). For the embeddings we are using pre-trained 100-dimensional [GloVe](https://nlp.stanford.edu/projects/glove/) vectors.
 
 ## Task 1
 

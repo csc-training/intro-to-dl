@@ -36,15 +36,17 @@ We will use Jupyter Notebooks for all exercises on Day 1. There are several ways
 *The default option.*
 
 1. Go to the [LUMI web user interface](https://www.lumi.csc.fi/).
-2. Login with Haka...
+2. Login with Haka (Finnish university or research institute) or CSC account (anyone with valid CSC account)
 3. Click "Jupyter for courses" (this works only if you have been added to the course project)
 4. Make sure the selections are correct:
-   Project: project_462000450
-   Course module: PracticalDeepLearning-Feb2024
-   Working directory: /users/your-username-here
-5. Click "Launch"
-6. Once the applications has started click "Connect to Jupyter"
-7. If you are not familiar with Jupyter, take a moment to get to know the interface
+   - Reservation: PDL_CPU (during course day 1), No reservation (otherwise)
+   - Project: project_462000450
+   - Course module: PracticalDeepLearning-Feb2024
+     * if you do not see the course module listed, try "Restart Web Server" from the top-right "question-mark-inside-a-circle" menu item 
+   - Working directory: /users/your-username-here
+6. Click "Launch"
+7. Once the applications has started click "Connect to Jupyter"
+8. If you are not familiar with Jupyter, take a moment to get to know the interface
    - open a new notebook (*File* -> *New* -> *Notebook*, on menubar) 
    - select *"Python 3"* as the kernel for the notebook
    - write some Python code to a Jupyter *cell*
