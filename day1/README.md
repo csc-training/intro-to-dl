@@ -36,7 +36,7 @@ We will use Jupyter Notebooks for all exercises on Day 1. There are several ways
 *The default option.*
 
 1. Go to the [LUMI web user interface](https://www.lumi.csc.fi/).
-2. Login with Haka...
+2. Login with Haka (Finnish university or research institute) or CSC account (anyone with valid CSC account)
 3. Click "Jupyter for courses" (this works only if you have been added to the course project)
 4. Make sure the selections are correct:
    - Reservation: PDL_CPU (during course day 1), No reservation (otherwise)
