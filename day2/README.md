@@ -86,7 +86,7 @@ You can use TensorBoard either via the LUMI web user interface (recommended), or
 
 ### Via SSH port forwarding
 
-1. Login again in a second terminal window to Puhti with SSH port forwarding:
+1. Login again in a second terminal window to LUMI with SSH port forwarding:
 
    ```bash
    ssh -L PORT:localhost:PORT lumi.csc.fi
