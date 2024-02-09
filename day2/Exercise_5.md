@@ -58,7 +58,7 @@ The scripts are named in the same way as before, just replace "dvc" with
 
 - CNN trained from scratch: [pytorch_gtsrb_cnn_simple.py](pytorch_gtsrb_cnn_simple.py)
 - Using a pre-trained CNN (VGG16) and fine tuning:
-  [pytorch_gtsrb_cnn_simple.py](pytorch_gtsrb_cnn_simple.py)
+  [pytorch_gtsrb_cnn_pretrained.py](pytorch_gtsrb_cnn_pretrained.py)
 
 
 ## Task 2
