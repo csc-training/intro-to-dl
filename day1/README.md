@@ -22,9 +22,10 @@ Image classification with CNNs.
 
 ### Exercise 4
 
-Text sentiment classification with RNNs.
+Text sentiment classification with RNNs and using a pre-trained DistilBERT from Hugging Face.
 
-* *04-pytorch-imdb-rnn.ipynb*<br/>[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/04-pytorch-imdb-rnn.ipynb)
+* *04a-pytorch-imdb-rnn.ipynb*<br/>[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/04a-pytorch-imdb-rnn.ipynb)
+* 04b-pytorch-imdb-huggingface.ipynb*<br/>[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/04b-pytorch-imdb-huggingface.ipynb)
 
 ## Setup
 
@@ -39,9 +40,9 @@ We will use Jupyter Notebooks for all exercises on Day 1. There are several ways
 2. Login with Haka (Finnish university or research institute) or CSC account (anyone with valid CSC account)
 3. Click "Jupyter for courses" (this works only if you have been added to the course project)
 4. Make sure the selections are correct:
-   - Reservation: PDL_CPU (during course day 1), No reservation (otherwise)
-   - Project: project_462000450
-   - Course module: PracticalDeepLearning-Feb2024
+   - Reservation: PDL_CSC_CPU (during course day 1), No reservation (otherwise)
+   - Project: project_462000698
+   - Course module: Practical_Deep_Learning_CSC
      * if you do not see the course module listed, try "Restart Web Server" from the top-right "question-mark-inside-a-circle" menu item 
    - Working directory: /users/your-username-here
 6. Click "Launch"
