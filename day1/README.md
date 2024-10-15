@@ -95,3 +95,8 @@ Google has a free Jupyter Notebooks service you may want to try out. No guarante
 * Click the corresponding Colab link [above in this document](#exercise-sessions)
 * If needed, sign in to your Google account using the "Sign in" button in the top-right corner
 * To use a GPU, select: Runtime => Change runtime type => Hardware accelerator: GPU
+* Some exercises require the `datasets` library which isn't pre-installed on Colab. You can just run this in a cell:
+
+```
+!pip install datasets==2.21.0
+```
