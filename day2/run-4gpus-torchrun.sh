@@ -2,9 +2,9 @@
 #SBATCH --account=project_462000698
 #SBATCH --partition=small-g
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=7
-#SBATCH --gpus-per-task=1
-#SBATCH --mem=60G
+#SBATCH --cpus-per-task=14
+#SBATCH --gpus-per-node=4
+#SBATCH --mem=120G
 #SBATCH --time=1:00:00
 ##SBATCH --reservation=PDL_CSC_GPU
 
@@ -20,4 +20,4 @@ export HF_HOME=$COURSE_SCRATCH/hf-cache
 export MLFLOW_TRACKING_URI=$COURSE_SCRATCH/data/users/$USER/mlruns
 
 set -xv
-python3 $*
+torchrun --standalone --nnodes=1 --nproc_per_node=4 $*

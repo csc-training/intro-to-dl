@@ -3,10 +3,10 @@
 #SBATCH --partition=small-g
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=14
-#SBATCH --gpus-per-task=2
+#SBATCH --gpus-per-node=2
 #SBATCH --mem=120G
 #SBATCH --time=1:00:00
-#SBATCH --reservation=PDL_GPU
+##SBATCH --reservation=PDL_CSC_GPU
 
 module purge
 module use /appl/local/csc/modulefiles/
