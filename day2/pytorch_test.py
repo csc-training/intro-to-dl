@@ -7,11 +7,6 @@ from torch.utils.data import DataLoader
 from torchvision import datasets
 import torchvision.transforms as transforms
 
-from torchtext import datasets
-import torchtext.transforms as T
-from torchtext.data.utils import get_tokenizer
-from torchtext.vocab import build_vocab_from_iterator
-
 from packaging.version import Version as LV
 from tqdm import tqdm
 
