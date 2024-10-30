@@ -59,5 +59,5 @@ You can also try a model that we prepared earlier that has trained for
 a full hour:
 
 ```
-path_to_model = "/scratch/project_462000698/data/users/mvsjober/gpt-imdb-model-test/checkpoint-65000/"
+path_to_model = "/scratch/project_462000698/data/users/mvsjober/gpt-imdb-model/checkpoint-65000/"
 ```
