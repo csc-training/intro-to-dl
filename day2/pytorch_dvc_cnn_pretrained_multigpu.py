@@ -201,7 +201,7 @@ def main():
         ])
 
     # Data loaders
-    batch_size = 25//dist.get_world_size()
+    batch_size = 25
 
     train_dataset = datasets.ImageFolder(root=datapath+'/train',
                                          transform=data_transform)

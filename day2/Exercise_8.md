@@ -24,8 +24,7 @@ Python scripts.
 
 - Can you see any speed improvement between using 1, 2 or 4 GPUs?
 - Do you get the same accuracy?
-- Anything else to note? Consider how the batch size per GPU changes
-  when you scale up.
+- Consider per-GPU batch size vs effective batch size. (Hint: with DDP you can check number of GPUs with `dist.get_world_size()`)
 
 You can check if your runs are actually using multiple GPUs with the
 `rocm-smi` command. Check the `JOBID` of your running job with `squeue

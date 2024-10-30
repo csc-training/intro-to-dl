@@ -192,7 +192,7 @@ def main():
         ])
 
     # Data loaders
-    batch_size = 25//num_gpus
+    batch_size = 25
 
     print('Train: ', end="")
     train_dataset = datasets.ImageFolder(root=datapath+'/train',
