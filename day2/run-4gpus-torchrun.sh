@@ -20,4 +20,4 @@ export HF_HOME=$COURSE_SCRATCH/hf-cache
 export MLFLOW_TRACKING_URI=$COURSE_SCRATCH/data/users/$USER/mlruns
 
 set -xv
-torchrun --standalone --nnodes=1 --nproc_per_node=4 $*
+torchrun --standalone --nnodes=1 --nproc_per_node=$SLURM_GPUS_PER_NODE $*
