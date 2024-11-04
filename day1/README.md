@@ -53,11 +53,11 @@ We will use Jupyter Notebooks for all exercises on Day 1. There are several ways
    - write some Python code to a Jupyter *cell*
    - execute the cell with *shift-enter*
 
-### 2. CSC Notebooks
+### 2. CSC Noppe
 
-CSC Notebooks (https://notebooks.csc.fi) provides easy-to-use environments for working with data and programming. You can access everything via your web browser and CSC cloud environment computes on the background. There should be enough resources for launching a notebooks instance for everyone, but unfortunately no GPUs. 
+CSC's Noppe (https://noppe.csc.fi) provides easy-to-use environments for working with data and programming. You can access everything via your web browser and CSC cloud environment computes on the background. There should be enough resources for launching a notebooks instance for everyone, but unfortunately no GPUs. 
 
-1. Go to the [CSC Notebooks](https://notebooks.csc.fi) frontpage
+1. Go to the [Noppe](https://noppe.csc.fi) frontpage
 2. Login according to selected login method:
    - **Haka or Virtu** (users from Finnish universities and research institutes)
        1. Press Login button on the frontpage
