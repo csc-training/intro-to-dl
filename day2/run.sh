@@ -6,7 +6,7 @@
 #SBATCH --gpus-per-task=1
 #SBATCH --mem=60G
 #SBATCH --time=1:00:00
-##SBATCH --reservation=PDL_CSC_GPU
+#SBATCH --reservation=PDL_CSC_GPU
 
 module purge
 module use /appl/local/csc/modulefiles/
