@@ -40,9 +40,9 @@ We will use Jupyter Notebooks for all exercises on Day 1. There are several ways
 2. Login with Haka (Finnish university or research institute) or CSC account (anyone with valid CSC account)
 3. Click "Jupyter for courses" (this works only if you have been added to the course project)
 4. Make sure the selections are correct:
-   - Reservation: PDL_CSC_CPU (during course day 1), No reservation (otherwise)
-   - Project: project_462000698
-   - Course module: Practical_Deep_Learning_CSC
+   - Reservation: PDL_CPU (during course day 1), No reservation (otherwise)
+   - Project: project_462000699
+   - Course module: Practical_Deep_Learning
      * if you do not see the course module listed, try "Restart Web Server" from the top-right "question-mark-inside-a-circle" menu item 
    - Working directory: /users/your-username-here
 6. Click "Launch"
