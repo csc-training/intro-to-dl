@@ -26,12 +26,12 @@ samples. The lower the value, the better.
 
 Also make a note of where the model is stored, it should be in a
 directory like
-`/scratch/project_462000698/data/users/$USER/gpt-imdb-model/`, where
+`/scratch/project_462000699/data/users/$USER/gpt-imdb-model/`, where
 `$USER` is replaced with your username on LUMI. Take a look into that
 directory:
 
 ```
-ls -ltr /scratch/project_462000698/data/users/$USER/gpt-imdb-model/
+ls -ltr /scratch/project_462000699/data/users/$USER/gpt-imdb-model/
 ```
 
 This should list all the files and subdirectories, with the most
@@ -48,7 +48,7 @@ courses". GPUs are not needed for generating text.
 
 You need to point the `path_to_model` variable to a checkpoint of the
 model you trained in Task 1. For example something like
-`/scratch/project_462000698/data/users/$USER/gpt-imdb-model/checkpoint-5000`
+`/scratch/project_462000699/data/users/$USER/gpt-imdb-model/checkpoint-5000`
 (here you need to replace `$USER` with your actual username).
 
 Experiment with different sampling strategies. At the end of the
@@ -59,5 +59,5 @@ You can also try a model that we prepared earlier that has trained for
 a full hour:
 
 ```
-path_to_model = "/scratch/project_462000698/data/users/mvsjober/gpt-imdb-model/checkpoint-65000/"
+path_to_model = "/scratch/project_462000699/data/users/mvsjober/gpt-imdb-model/checkpoint-65000/"
 ```
