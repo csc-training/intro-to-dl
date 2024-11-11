@@ -174,9 +174,9 @@ training_args = TrainingArguments(
     eval_steps=1000,
     learning_rate=2e-5,
     weight_decay=0.01,
-    # per_device_train_batch_size=4,
-    # per_device_eval_batch_size=4,
-    max_steps=1000,
+    per_device_train_batch_size=4,
+    per_device_eval_batch_size=4,
+    max_steps=5000,
 )
 
 trainer = Trainer(
