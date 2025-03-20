@@ -20,6 +20,7 @@
    module use /appl/local/csc/modulefiles/
    module load pytorch
    ```
+   (In the LUMI web UI login node shell you can use Shift-Insert to paste if you copy commands from here.)
    
 3. Go to the exercise directory:
    - if you ran the exercises of day 1 using LUMI's "Jupyter for courses", you should already have the repository cloned in your home directory
