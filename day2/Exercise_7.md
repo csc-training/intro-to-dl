@@ -1,12 +1,12 @@
 # Exercise 7
 
-In this exercise, we take a pre-trained GPT-2 model from the Hugging
-Face repository and fine-tune it with movie reviews for the IMDB
-dataset: http://ai.stanford.edu/~amaas/data/sentiment/
+In this exercise, we take a pre-trained GPT-3-like model from the
+Hugging Face repository and fine-tune it with movie reviews for the
+IMDB dataset: http://ai.stanford.edu/~amaas/data/sentiment/
 
 ## Task 1
 
-Run the fine-tuning of the GPT-2 model by running the script
+Run the fine-tuning of the GPT-3 model by running the script
 [pytorch_imdb_gpt.py](pytorch_imdb_gpt.py).
 
    ```bash
