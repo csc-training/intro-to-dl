@@ -200,10 +200,8 @@ def main():
     print('Initializing BertTokenizer')
 
     BERTMODEL = 'bert-base-uncased'
-    CACHE_DIR = os.path.join(datapath, 'transformers-cache')
 
-    tokenizer = BertTokenizer.from_pretrained(BERTMODEL, cache_dir=CACHE_DIR,
-                                              do_lower_case=True)
+    tokenizer = BertTokenizer.from_pretrained(BERTMODEL, do_lower_case=True)
 
     tokenized_train = [tokenizer.tokenize(s) for s in sentences_train]
     tokenized_test = [tokenizer.tokenize(s) for s in sentences_test]
@@ -318,7 +316,6 @@ def main():
     print('Initializing BertForSequenceClassification')
 
     model = BertForSequenceClassification.from_pretrained(BERTMODEL,
-                                                          cache_dir=CACHE_DIR,
                                                           num_labels=20)
     model = model.to(device)
 
