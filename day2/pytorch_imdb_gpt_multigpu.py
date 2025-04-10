@@ -131,8 +131,7 @@ if __name__ == "__main__":
     # If you have time, you can also test with a larger 1.3 billion
     # parameter version of the same model:
     # https://huggingface.co/EleutherAI/gpt-neo-1.3B
-
-    # pretrained_model = "EleutherAI/gpt-neo-1.3B"
+    #pretrained_model = "EleutherAI/gpt-neo-1.3B"
 
     # Load the tokenizer associated with the model
     print("Loading model and tokenizer")

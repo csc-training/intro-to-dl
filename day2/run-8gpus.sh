@@ -2,9 +2,9 @@
 #SBATCH --account=project_462000863
 #SBATCH --partition=small-g
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=14
-#SBATCH --gpus-per-node=2
-#SBATCH --mem=120G
+#SBATCH --cpus-per-task=56
+#SBATCH --gpus-per-node=8
+#SBATCH --mem=480G
 #SBATCH --time=1:00:00
 #SBATCH --reservation=pdl_day2-no-ood
 
