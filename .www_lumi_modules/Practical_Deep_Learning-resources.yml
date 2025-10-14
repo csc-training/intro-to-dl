@@ -1,0 +1,5 @@
+cores: 7
+time: "08:00:00"
+partition: "small-g"
+mem: "16GB"
+gpus: 1
