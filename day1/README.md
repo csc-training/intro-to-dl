@@ -40,20 +40,22 @@ We will use Jupyter Notebooks for all exercises on Day 1. There are several ways
 2. Login with Haka (Finnish university or research institute) or CSC account (anyone with valid CSC account)
 3. Click "Jupyter for courses" (this works only if you have been added to the course project)
 4. Make sure the selections are correct:
-   - Reservation: PDL_CPU (during course day 1), No reservation (otherwise)
-   - Project: project_462000863
+   - Reservation: PDL_Day1 (during course day 1), No reservation (otherwise)
+   - Project: project_462001095 (CSC Practical Deep Learning, Nov 2025)
    - Course module: Practical_Deep_Learning
      * if you do not see the course module listed, try "Restart Web Server" from the top-right "question-mark-inside-a-circle" menu item 
    - Working directory: /users/your-username-here
 6. Click "Launch"
-7. Once the applications has started click "Connect to Jupyter"
-8. If you are not familiar with Jupyter, take a moment to get to know the interface
+8. Once the application has started (this may take a few seconds), click the button "Connect to Jupyter"
+9. If you are not familiar with Jupyter, take a moment to get to know the interface
    - open a new notebook (*File* -> *New* -> *Notebook*, on menubar) 
    - select *"Python 3"* as the kernel for the notebook
    - write some Python code to a Jupyter *cell*
    - execute the cell with *shift-enter*
 
 ### 2. CSC Noppe
+
+*Alternative if the above doesn't work.*
 
 CSC's Noppe (https://noppe.csc.fi) provides easy-to-use environments for working with data and programming. You can access everything via your web browser and CSC cloud environment computes on the background. There should be enough resources for launching a notebooks instance for everyone, but unfortunately no GPUs. 
 
