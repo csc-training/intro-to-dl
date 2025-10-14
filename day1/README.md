@@ -6,26 +6,26 @@
 
 Introduction to Notebooks, PyTorch fundamentals.
 
-* *01-pytorch-test-setup.ipynb*<br/>[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/01-pytorch-test-setup.ipynb)
+* *01-pytorch-test-setup.ipynb*
 
 ### Exercise 2
 
 MNIST classification with MLPs.
 
-* *02-pytorch-mnist-mlp.ipynb*<br/>[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/02-pytorch-mnist-mlp.ipynb)
+* *02-pytorch-mnist-mlp.ipynb*
 
 ### Exercise 3
 
 Image classification with CNNs.
 
-* *03-pytorch-mnist-cnn.ipynb*<br/>[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/03-pytorch-mnist-cnn.ipynb)
+* *03-pytorch-mnist-cnn.ipynb*
 
 ### Exercise 4
 
 Text sentiment classification with RNNs and using a pre-trained DistilBERT from Hugging Face.
 
-* *04a-pytorch-imdb-rnn.ipynb*<br/>[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/04a-pytorch-imdb-rnn.ipynb)
-* 04b-pytorch-imdb-huggingface.ipynb*<br/>[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/04b-pytorch-imdb-huggingface.ipynb)
+* *04a-pytorch-imdb-rnn.ipynb*
+* *04b-pytorch-imdb-huggingface.ipynb*
 
 ## Setup
 
@@ -94,7 +94,7 @@ If you have a laptop that has both jupyter and the other necessary python packag
 
 Google has a free Jupyter Notebooks service you may want to try out. No guarantees, but it does have GPUs available! A Google account is needed to use Colaboratory. 
 
-* Click the corresponding Colab link [above in this document](#exercise-sessions)
+* Click the corresponding Colab link (see below)
 * If needed, sign in to your Google account using the "Sign in" button in the top-right corner
 * To use a GPU, select: Runtime => Change runtime type => Hardware accelerator: GPU
 * Some exercises require the `datasets` library which isn't pre-installed on Colab. You can just run this in a cell:
@@ -102,3 +102,12 @@ Google has a free Jupyter Notebooks service you may want to try out. No guarante
 ```
 !pip install datasets==2.21.0
 ```
+
+Here are direct to open each exercise in Colab:
+
+* [01-pytorch-test-setup.ipynb (Open In Colab)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/01-pytorch-test-setup.ipynb)
+* [02-pytorch-mnist-mlp.ipynb (Open In Colab)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/02-pytorch-mnist-mlp.ipynb)
+* [03-pytorch-mnist-cnn.ipynb (Open In Colab)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/03-pytorch-mnist-cnn.ipynb)
+* [04a-pytorch-imdb-rnn.ipynb (Open In Colab)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/04a-pytorch-imdb-rnn.ipynb)
+* [04b-pytorch-imdb-huggingface.ipynb (Open In Colab)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/04b-pytorch-imdb-huggingface.ipynb)
+
