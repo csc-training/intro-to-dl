@@ -52,6 +52,16 @@ We will use Jupyter Notebooks for all exercises on Day 1. There are several ways
    - select *"Python 3"* as the kernel for the notebook
    - write some Python code to a Jupyter *cell*
    - execute the cell with *shift-enter*
+  
+
+> [!TIP]
+> If you see parts of the notebook disappearing when you scroll, this is unfortunately [a known issue with newer versions of JupyterLab](https://github.com/jupyterlab/jupyterlab/issues/17023).
+> A workaround is to set the Windowing mode to "defer" as follows:
+> - Open "Settings" menu (top bar)
+> - Open "Settings Editor"
+> - Search for "windowing mode"
+> - Set it to "defer", rather than the default "full"
+
 
 ### 2. CSC Noppe
 
