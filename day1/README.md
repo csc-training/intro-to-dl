@@ -6,26 +6,26 @@
 
 Introduction to Notebooks, PyTorch fundamentals.
 
-* *01-pytorch-test-setup.ipynb*<br/>[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/01-pytorch-test-setup.ipynb)
+* *01-pytorch-test-setup.ipynb*
 
 ### Exercise 2
 
 MNIST classification with MLPs.
 
-* *02-pytorch-mnist-mlp.ipynb*<br/>[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/02-pytorch-mnist-mlp.ipynb)
+* *02-pytorch-mnist-mlp.ipynb*
 
 ### Exercise 3
 
 Image classification with CNNs.
 
-* *03-pytorch-mnist-cnn.ipynb*<br/>[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/03-pytorch-mnist-cnn.ipynb)
+* *03-pytorch-mnist-cnn.ipynb*
 
 ### Exercise 4
 
 Text sentiment classification with RNNs and using a pre-trained DistilBERT from Hugging Face.
 
-* *04a-pytorch-imdb-rnn.ipynb*<br/>[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/04a-pytorch-imdb-rnn.ipynb)
-* 04b-pytorch-imdb-huggingface.ipynb*<br/>[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/04b-pytorch-imdb-huggingface.ipynb)
+* *04a-pytorch-imdb-rnn.ipynb*
+* *04b-pytorch-imdb-huggingface.ipynb*
 
 ## Setup
 
@@ -40,20 +40,22 @@ We will use Jupyter Notebooks for all exercises on Day 1. There are several ways
 2. Login with Haka (Finnish university or research institute) or CSC account (anyone with valid CSC account)
 3. Click "Jupyter for courses" (this works only if you have been added to the course project)
 4. Make sure the selections are correct:
-   - Reservation: PDL_CPU (during course day 1), No reservation (otherwise)
-   - Project: project_462000863
+   - Reservation: PDL_Day1 (during course day 1), No reservation (otherwise)
+   - Project: project_462001095 (CSC Practical Deep Learning, Nov 2025)
    - Course module: Practical_Deep_Learning
      * if you do not see the course module listed, try "Restart Web Server" from the top-right "question-mark-inside-a-circle" menu item 
    - Working directory: /users/your-username-here
 6. Click "Launch"
-7. Once the applications has started click "Connect to Jupyter"
-8. If you are not familiar with Jupyter, take a moment to get to know the interface
+8. Once the application has started (this may take a few seconds), click the button "Connect to Jupyter"
+9. If you are not familiar with Jupyter, take a moment to get to know the interface
    - open a new notebook (*File* -> *New* -> *Notebook*, on menubar) 
    - select *"Python 3"* as the kernel for the notebook
    - write some Python code to a Jupyter *cell*
    - execute the cell with *shift-enter*
 
 ### 2. CSC Noppe
+
+*Alternative if the above doesn't work.*
 
 CSC's Noppe (https://noppe.csc.fi) provides easy-to-use environments for working with data and programming. You can access everything via your web browser and CSC cloud environment computes on the background. There should be enough resources for launching a notebooks instance for everyone, but unfortunately no GPUs. 
 
@@ -92,7 +94,7 @@ If you have a laptop that has both jupyter and the other necessary python packag
 
 Google has a free Jupyter Notebooks service you may want to try out. No guarantees, but it does have GPUs available! A Google account is needed to use Colaboratory. 
 
-* Click the corresponding Colab link [above in this document](#exercise-sessions)
+* Click the corresponding Colab link (see below)
 * If needed, sign in to your Google account using the "Sign in" button in the top-right corner
 * To use a GPU, select: Runtime => Change runtime type => Hardware accelerator: GPU
 * Some exercises require the `datasets` library which isn't pre-installed on Colab. You can just run this in a cell:
@@ -100,3 +102,12 @@ Google has a free Jupyter Notebooks service you may want to try out. No guarante
 ```
 !pip install datasets==2.21.0
 ```
+
+Here are direct to open each exercise in Colab:
+
+* [01-pytorch-test-setup.ipynb (Open In Colab)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/01-pytorch-test-setup.ipynb)
+* [02-pytorch-mnist-mlp.ipynb (Open In Colab)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/02-pytorch-mnist-mlp.ipynb)
+* [03-pytorch-mnist-cnn.ipynb (Open In Colab)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/03-pytorch-mnist-cnn.ipynb)
+* [04a-pytorch-imdb-rnn.ipynb (Open In Colab)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/04a-pytorch-imdb-rnn.ipynb)
+* [04b-pytorch-imdb-huggingface.ipynb (Open In Colab)](https://colab.research.google.com/github/csc-training/intro-to-dl/blob/master/day1/04b-pytorch-imdb-huggingface.ipynb)
+
