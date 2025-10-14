@@ -26,14 +26,14 @@
    - if you ran the exercises of day 1 using LUMI's "Jupyter for courses", you should already have the repository cloned in your home directory
    
    ```bash
-   cd PDL-2025-04/intro-to-dl/day2
+   cd PDL-2025-11/intro-to-dl/day2
    ```
    
    If you don't have it, you can also clone it yourself:
 
    ```bash
-   mkdir PDL-2025-04
-   cd PDL-2025-04
+   mkdir PDL-2025-11
+   cd PDL-2025-11
    git clone https://github.com/csc-training/intro-to-dl
    cd intro-to-dl/day2
    ```
@@ -41,7 +41,7 @@
 ## Edit and submit jobs
 
 1. Edit Python script, either by:
-   - Navigating to the file in the LUMI web UI file browser (Files → Home Directory → PDL-2025-04 → intro-to-dl → day2) and selecting "Edit" on that file (under the three dots "⋮" menu).
+   - Navigating to the file in the LUMI web UI file browser (Files → Home Directory → PDL-2025-11 → intro-to-dl → day2) and selecting "Edit" on that file (under the three dots "⋮" menu).
    - Opening with your favorite text editor in the terminal, for example:
      ```bash
      nano pytorch_test.py
@@ -77,9 +77,9 @@ You can use TensorBoard either via the LUMI web user interface (recommended), or
 1. Log in via <https://www.lumi.csc.fi/>
 2. Select menu item: Apps → TensorBoard
 4. In the form:
-   - Select course project: project_462000863
+   - Select course project: project_462001095
    - Specify the "TensorBoard log directory", it's where you have cloned the course repository plus "day2/logs", for example:
-  `~/PDL-2025-04/intro-to-dl/day2/logs`. You can run `pwd` in the terminal to find out the full path where you are working.
+  `~/PDL-2025-11/intro-to-dl/day2/logs`. You can run `pwd` in the terminal to find out the full path where you are working.
    - Leave rest at default settings
 6. Click "Launch"
 7. Wait until you see the "Connect to Tensorboard" button, then click that.
@@ -101,7 +101,7 @@ You can use TensorBoard either via the LUMI web user interface (recommended), or
    module purge
    module use use /appl/local/csc/modulefiles/
    module load tensorflow
-   singularity_wrapper exec tensorboard --logdir=PDL-2025-04/intro-to-dl/day2/logs --port=PORT --bind_all
+   singularity_wrapper exec tensorboard --logdir=PDL-2025-11/intro-to-dl/day2/logs --port=PORT --bind_all
    ```
 
 3. To access TensorBoard, point your web browser to *localhost:PORT* .

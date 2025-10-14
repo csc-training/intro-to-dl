@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --account=project_462000863
+#SBATCH --account=project_462001095
 #SBATCH --partition=small-g
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=7
