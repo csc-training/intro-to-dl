@@ -9,11 +9,12 @@
 # (https://github.com/huggingface/transformers).
 
 import torch
+from torch.optim import AdamW
 from torch.utils.data import (TensorDataset, DataLoader,
                               RandomSampler, SequentialSampler)
 from transformers import BertTokenizer
 from transformers import BertForSequenceClassification
-from transformers import AdamW, get_linear_schedule_with_warmup
+from transformers import get_linear_schedule_with_warmup
 
 from packaging.version import Version as LV
 
