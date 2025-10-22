@@ -55,9 +55,9 @@ Experiment with different sampling strategies. At the end of the
 notebook there is also code to try the original distilgpt2 model, does
 our fine-tuned model produce any better results?
 
-You can also try a model that we prepared earlier that has trained for
-a full hour:
+You can also try a model that we prepared earlier that was trained for
+several hours:
 
 ```
-path_to_model = "/scratch/project_462001095/data/users/mvsjober/gpt-imdb-model/checkpoint-65000/"
+path_to_model = "/scratch/project_462001095/data/users/mvsjober/gpt-imdb-model/checkpoint-145300/"
 ```
