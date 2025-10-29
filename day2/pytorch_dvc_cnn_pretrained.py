@@ -20,6 +20,7 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader
+from torch.utils.tensorboard import SummaryWriter
 from torchvision import datasets, transforms, models
 from packaging.version import Version as LV
 from datetime import datetime
@@ -134,22 +135,17 @@ def test(test_loader, model, criterion):
 
 
 def log_measures(ret, log, prefix, epoch):
-    if log is not None:
-        for key, value in ret.items():
-            log.add_scalar(prefix + "_" + key, value, epoch)
+    for key, value in ret.items():
+        log.add_scalar(prefix + "_" + key, value, epoch)
 
 
 def main():
     # TensorBoard for logging
-    try:
-        import tensorboardX
-        time_str = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-        logdir = os.path.join(os.getcwd(), "logs", "dvc-pretrained-" + time_str)
-        print('TensorBoard log directory:', logdir)
-        os.makedirs(logdir)
-        log = tensorboardX.SummaryWriter(logdir)
-    except ImportError:
-        log = None
+    time_str = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+    logdir = os.path.join(os.getcwd(), "logs", "dvc-pretrained-" + time_str)
+    print('TensorBoard log directory:', logdir)
+    os.makedirs(logdir)
+    log = SummaryWriter(logdir)
 
     # The training dataset consists of 2000 images of dogs and cats, split
     # in half.  In addition, the validation set consists of 1000 images,
@@ -274,10 +270,9 @@ def main():
 
     # Note that before continuing the training, we create a separate
     # TensorBoard log directory.
-    if log is not None:
-        logdir_pt = logdir + '-pretrained-finetune'
-        os.makedirs(logdir_pt)
-        log = tensorboardX.SummaryWriter(logdir_pt)
+    logdir_pt = logdir + '-pretrained-finetune'
+    os.makedirs(logdir_pt)
+    log = SummaryWriter(logdir_pt)
 
     prev_epochs = num_epochs
     num_epochs = 20

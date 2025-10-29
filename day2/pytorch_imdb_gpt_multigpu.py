@@ -11,6 +11,7 @@ import os
 import sys
 import time
 from pprint import pprint
+from datetime import datetime
 
 import torch
 import torch.distributed as dist
@@ -131,7 +132,8 @@ if __name__ == "__main__":
     # If you have time, you can also test with a larger 1.3 billion
     # parameter version of the same model:
     # https://huggingface.co/EleutherAI/gpt-neo-1.3B
-    #pretrained_model = "EleutherAI/gpt-neo-1.3B"
+
+    # pretrained_model = "EleutherAI/gpt-neo-1.3B"
 
     # Load the tokenizer associated with the model
     print("Loading model and tokenizer")
@@ -149,6 +151,9 @@ if __name__ == "__main__":
     train_batch_size = 32
     test_batch_size = 128
 
+    time_str = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+    logging_dir = os.path.join(os.getcwd(), "logs", "imdb-gpt-" + time_str)
+    
     output_dir = os.path.join(user_datapath, "gpt-imdb-model")
     training_args = TrainingArguments(
         output_dir=output_dir,
@@ -156,7 +161,7 @@ if __name__ == "__main__":
         save_strategy="steps",  # save a snapshot of the model every 
         save_steps=100,         # 100 steps
         save_total_limit=4,     # only keep the last 4 snapshots
-        logging_dir="logs",
+        logging_dir=logging_dir,
         eval_strategy="steps",
         eval_steps=1000,  # compute validation loss every 1000 steps
         learning_rate=2e-5,

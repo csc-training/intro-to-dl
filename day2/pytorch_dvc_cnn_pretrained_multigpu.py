@@ -139,31 +139,27 @@ def test(test_loader, model, criterion):
 
 
 def log_measures(ret, log, prefix, epoch):
-    if log is not None:
-        for key, value in ret.items():
-            log.add_scalar(prefix + "_" + key, value, epoch)
+    for key, value in ret.items():
+        log.add_scalar(prefix + "_" + key, value, epoch)
 
 
 def main():
     # Initialize PyTorch distributed
     dist.init_process_group(backend='nccl')
-    
+
     local_rank = int(os.environ['LOCAL_RANK'])
     torch.cuda.set_device(local_rank)
 
     rank_0 = dist.get_rank() == 0
-    
+
+    logdir = None
     # TensorBoard for logging
-    log = None
-    try:
-        if rank_0:
-            time_str = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-            logdir = os.path.join(os.getcwd(), "logs", "dvc-pretrained-" + time_str)
-            print('TensorBoard log directory:', logdir)
-            os.makedirs(logdir)
-            log = SummaryWriter(logdir)
-    except ImportError:
-        pass
+    if rank_0:
+        time_str = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+        logdir = os.path.join(os.getcwd(), "logs", "dvc-pretrained-" + time_str)
+        print('TensorBoard log directory:', logdir)
+        os.makedirs(logdir)
+        log = SummaryWriter(logdir)
 
     # The training dataset consists of 2000 images of dogs and cats, split
     # in half.  In addition, the validation set consists of 1000 images,
@@ -300,7 +296,7 @@ def main():
 
     # Note that before continuing the training, we create a separate
     # TensorBoard log directory.
-    if log is not None:
+    if rank_0:
         logdir_pt = logdir + '-pretrained-finetune'
         os.makedirs(logdir_pt)
         log = SummaryWriter(logdir_pt)
