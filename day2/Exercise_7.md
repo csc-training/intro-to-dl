@@ -44,7 +44,7 @@ best one.
 You can try generating some movie reviews interactively with the
 notebook [pytorch_generate_gpt.ipynb](pytorch_generate_gpt.ipynb). You
 should be able to open the Notebook as normal via "Jupyter for
-courses". GPUs are not needed for generating text.
+courses".
 
 You need to point the `path_to_model` variable to a checkpoint of the
 model you trained in Task 1. For example something like
@@ -59,5 +59,5 @@ You can also try a model that we prepared earlier that was trained for
 several hours:
 
 ```
-path_to_model = "/scratch/project_462001095/data/users/mvsjober/gpt-imdb-model/checkpoint-145300/"
+path_to_model = "/scratch/project_462001095/data/users/mvsjober/gpt-imdb-model-checkpoint-145300-backup/"
 ```
