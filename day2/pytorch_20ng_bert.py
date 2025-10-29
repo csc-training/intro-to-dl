@@ -9,6 +9,7 @@
 # (https://github.com/huggingface/transformers).
 
 import torch
+from torch.utils.tensorboard import SummaryWriter
 from torch.optim import AdamW
 from torch.utils.data import (TensorDataset, DataLoader,
                               RandomSampler, SequentialSampler)
@@ -116,21 +117,16 @@ def test(test_loader, model):
 
 
 def log_measures(ret, log, prefix, epoch):
-    if log is not None:
-        for key, value in ret.items():
-            log.add_scalar(prefix + "_" + key, value, epoch)
+    for key, value in ret.items():
+        log.add_scalar(prefix + "_" + key, value, epoch)
 
 
 def main():
-    try:
-        import tensorboardX
-        time_str = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-        logdir = os.path.join(os.getcwd(), "logs", "20ng-bert-" + time_str)
-        print('TensorBoard log directory:', logdir)
-        os.makedirs(logdir)
-        log = tensorboardX.SummaryWriter(logdir)
-    except (ImportError, FileExistsError):
-        log = None
+    time_str = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+    logdir = os.path.join(os.getcwd(), "logs", "20ng-bert-" + time_str)
+    print('TensorBoard log directory:', logdir)
+    os.makedirs(logdir)
+    log = SummaryWriter(logdir)
 
     datapath = os.getenv('DATADIR')
     if datapath is None:
