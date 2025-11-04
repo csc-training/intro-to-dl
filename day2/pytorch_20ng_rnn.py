@@ -317,9 +317,9 @@ def main():
 
     model = Net(embedding_matrix)
     model = model.to(device)
-    
-    optimizer = optim.RMSprop(model.parameters(), lr=0.005)
-    #optimizer = optim.Adam(model.parameters())
+
+    # optimizer = optim.RMSprop(model.parameters(), lr=0.005)
+    optimizer = optim.Adam(model.parameters(), lr=0.005)
     criterion = nn.CrossEntropyLoss()
 
     print(model)
