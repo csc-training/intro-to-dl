@@ -185,6 +185,9 @@ def main():
     # Data loaders
     batch_size = 25
 
+    # Note: we have switched train and test in this example to
+    # simulate having a larger training dataset.
+
     print('Train: ', end="")
     train_dataset = datasets.ImageFolder(root=datapath+'/test',
                                          transform=data_transform)

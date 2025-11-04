@@ -23,7 +23,8 @@ Run this example with two GPUs using the `run-2gpu.sh` script:
 sbatch run-2gpus.sh pytorch_dvc_cnn_pretrained_multigpu.py
 ```
 
-Can you see any speed improvement when going from 1 to 2 GPUs?
+Can you see any speed improvement when going from 1 to 2 GPUs? You can
+compare the main training time (ignore the fine-tuning part).
 
 You can check if your runs are actually using multiple GPUs with the
 `rocm-smi` command. Check the `JOBID` of your running job with `squeue
@@ -44,7 +45,8 @@ this view.
 ## Task 2
 
 We have also prepared another version of the dogs vs cats example
-which uses a larger training dataset. Try that first with one GPU:
+which uses a larger training dataset (22000 images rather than
+2000). Try that first with one GPU:
 
 ```bash
 sbatch run.sh pytorch_dvc_cnn_pretrained_largedata.py
@@ -60,7 +62,7 @@ Can you now see any improvement going from 1 to 2 GPUs.
 
 ## Extra: Task 3
 
-If you have time, try again with 8 GPUs, that is a full node of LUMI.
+If you have time, try also with 8 GPUs, that is a full node of LUMI.
 
 For the small training set:
 
@@ -75,6 +77,8 @@ For the large training set:
 sbatch run-8gpus.sh pytorch_dvc_cnn_pretrained_largedata_multigpu.py
 ```
 
+Compare training time to the 1 and 2 GPU cases.
+
 ## Extra: Task 4
 
 The prepared scripts `pytorch_dvc_cnn_pretrained_multigpu.py` and
@@ -84,4 +88,9 @@ size (strong scaling), does that affect the speed and accuracy?
 
 Hint: with DDP you can check number of GPUs with
 `dist.get_world_size()`.
+
+Hint 2: if you get errors about target size being different than input
+size, you can set `drop_last=True` to the data loaders. (This has to
+do with the fact that as we split batches differently, the last batch
+might not have enough items.)
 
