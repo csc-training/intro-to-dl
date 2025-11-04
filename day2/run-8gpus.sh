@@ -10,7 +10,7 @@
 
 module purge
 module use /appl/local/csc/modulefiles/
-module load pytorch/2.4
+module load pytorch/2.7
 
 COURSE_SCRATCH="/scratch/${SLURM_JOB_ACCOUNT}"
 
