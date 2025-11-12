@@ -1,6 +1,12 @@
-pytorch
+torch
+torchvision
 matplotlib
 seaborn
 notebook
 pydot
 scikit-learn
+tqdm
+datasets
+tokenizers
+transformers
+evaluate
