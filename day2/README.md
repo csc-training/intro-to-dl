@@ -13,14 +13,33 @@
    - the web user interface at <https://www.lumi.csc.fi/> ("Go to login") and start "Login node shell", or
    - login with your username and SSH key to `lumi.csc.fi`, for more instructions see: <https://docs.lumi-supercomputer.eu/firststeps/>
    
-2. In the login node shell, or SSH session, set up the module environment for using PyTorch:
+2. In the login node shell, or SSH session, set up the module environment for using PyTorch. In day2 exercises, we will use the container built by Laifs: https://docs.lumi-supercomputer.eu/laif/software/ai-environment/. 
 
    ```bash
    module purge
-   module use /appl/local/csc/modulefiles/
-   module load pytorch
+   module use /appl/local/laifs/modules
+   module load lumi-aif-singularity-bindings
+   export SIF=/appl/local/laifs/containers/lumi-multitorch-u24r64f21m43t29-20260124_092648/lumi-multitorch-full-u24r64f21m43t29-20260124_092648.sif
    ```
    (In the LUMI web UI login node shell you can use Shift-Insert to paste if you copy commands from here.)
+   
+   It includes most of the libraries we will use in the exercises, one can check the pre-installed libraries by running `pip list` inside the container.
+   
+   ```bash
+   singularity run $SIF pip list
+   ```
+   But if you need to install additional libraries, you can add more pip packages to container
+
+   ```bash
+   module purge
+   module use /appl/local/laifs/modules
+   module load lumi-aif-singularity-bindings
+   export SIF=/appl/local/laifs/containers/lumi-multitorch-u24r64f21m43t29-20260124_092648/lumi-multitorch-full-u24r64f21m43t29-20260124_092648.sif
+   singularity shell $SIF
+   Singularity> python -m venv myvenv --system-site-packages
+   Singularity> source myvenv/bin/activate
+   (myvenv) Singularity> pip install gensim seaborn scikit-learn
+   ```
    
 3. Go to the exercise directory:
    - if you ran the exercises of day 1 using LUMI's "Jupyter for courses", you should already have the repository cloned in your home directory
