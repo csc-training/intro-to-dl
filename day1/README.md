@@ -32,16 +32,16 @@ Text sentiment classification with RNNs and using a pre-trained DistilBERT from 
 We will use Jupyter Notebooks for all exercises on Day 1. There are several ways to set up a Jupyter environment for running the exercises:
 
 
-### 1. LUMI web user interface
+### 1. Mahti web user interface
 
 *The default option.*
 
-1. Go to the [LUMI web user interface](https://www.lumi.csc.fi/).
+1. Go to the [Mahti web user interface](https://www.mahti.csc.fi/).
 2. Login with Haka (Finnish university or research institute) or CSC account (anyone with valid CSC account)
 3. Click "Jupyter for courses" (this works only if you have been added to the course project)
 4. Make sure the selections are correct:
    - Reservation: PDL_Day1 (during course day 1), No reservation (otherwise)
-   - Project: project_462001095 (CSC Practical Deep Learning, Nov 2025)
+   - Project: project_2017617 (Practical Deep Learning (Arcada), March 2026)
    - Course module: Practical_Deep_Learning
      * if you do not see the course module listed, try "Restart Web Server" from the top-right "question-mark-inside-a-circle" menu item 
    - Working directory: /users/your-username-here

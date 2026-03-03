@@ -1,16 +1,13 @@
 #!/bin/bash
-#SBATCH --account=project_462001095
-#SBATCH --partition=small-g
+#SBATCH --account=project_2017617
+#SBATCH --partition=gpumedium
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=56
-#SBATCH --gpus-per-node=8
-#SBATCH --mem=480G
+#SBATCH --cpus-per-task=128
 #SBATCH --time=1:00:00
-#SBATCH --reservation=pdl-day2-no-ood
+#SBATCH --gres=gpu:a100:4,nvme:10
 
 module purge
-module use /appl/local/csc/modulefiles/
-module load pytorch/2.7
+module load pytorch/2.9
 
 COURSE_SCRATCH="/scratch/${SLURM_JOB_ACCOUNT}"
 

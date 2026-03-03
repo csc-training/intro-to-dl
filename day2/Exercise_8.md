@@ -62,25 +62,6 @@ Can you now see any improvement going from 1 to 2 GPUs.
 
 ## Extra: Task 3
 
-If you have time, try also with 8 GPUs, that is a full node of LUMI.
-
-For the small training set:
-
-```bash
-sbatch run-8gpus.sh pytorch_dvc_cnn_pretrained_multigpu.py
-```
-
-
-For the large training set:
-
-```bash
-sbatch run-8gpus.sh pytorch_dvc_cnn_pretrained_largedata_multigpu.py
-```
-
-Compare training time to the 1 and 2 GPU cases.
-
-## Extra: Task 4
-
 The prepared scripts `pytorch_dvc_cnn_pretrained_multigpu.py` and
 `pytorch_dvc_cnn_pretrained_largedata_multigpu.py` keep the per-GPU
 batch size constant (weak scaling). Implement constant effective batch

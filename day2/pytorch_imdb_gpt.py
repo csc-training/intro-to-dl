@@ -219,7 +219,7 @@ if __name__ == "__main__":
         print(f'Perplexity (test): {math.exp(test_results["eval_loss"]):.2f}')
 
         # Let's print a few sample generated reviews
-        prompt = "The movie about LUMI AI Factory was great because"
+        prompt = "The movie about supercomputers was great because"
         input_ids = tokenizer(prompt, return_tensors='pt').input_ids.to(device)
         outputs = model.generate(input_ids, do_sample=True, max_length=80,
                                  num_return_sequences=4)
