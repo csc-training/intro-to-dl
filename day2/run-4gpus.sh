@@ -5,6 +5,7 @@
 #SBATCH --cpus-per-task=128
 #SBATCH --time=1:00:00
 #SBATCH --gres=gpu:a100:4,nvme:10
+#SBATCH --reservation=pdl-day2-no-ood
 
 module purge
 module load pytorch/2.9
