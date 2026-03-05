@@ -1,12 +1,12 @@
 #!/bin/bash
-#SBATCH --account=project_462000131 # switch to the actual project
-#SBATCH --partition=small-g # switch to the actual partition
+#SBATCH --account=project_462001275
+#SBATCH --partition=small-g
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=7
 #SBATCH --gpus-per-task=1
 #SBATCH --mem=60G
-#SBATCH --time=1:00:00
-##SBATCH --reservation=pdl-day2-no-ood # uncomment this for the actual course
+#SBATCH --time=2:00:00
+#SBATCH --reservation=pdl-day2-no-ood
 
 module purge
 module use /appl/local/laifs/modules
@@ -27,5 +27,5 @@ export MIOPEN_USER_DB_PATH=""
 umask 002
 
 set -xv
-srun singularity exec $SIF bash -c "source myvenv/bin/activate && python3 $*"
+srun singularity run $SIF bash -c "source /scratch/$SLURM_JOB_ACCOUNT/$USER/myvenv/bin/activate && python3 $*"
 

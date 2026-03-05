@@ -1,12 +1,12 @@
 #!/bin/bash
-#SBATCH --account=project_462000131 # switch to the actual project
-#SBATCH --partition=dev-g # switch to the actual partition
+#SBATCH --account=project_462001275
+#SBATCH --partition=small-g
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=56
 #SBATCH --gpus-per-node=8
 #SBATCH --mem=480G
-#SBATCH --time=0:30:00
-##SBATCH --reservation=pdl-day2-no-ood # uncomment this for the actual course
+#SBATCH --time=1:00:00
+#SBATCH --reservation=pdl-day2-no-ood
 
 module purge
 module use /appl/local/laifs/modules
@@ -27,4 +27,4 @@ export MIOPEN_USER_DB_PATH=""
 umask 002
 
 set -xv
-singularity exec $SIF torchrun --standalone --nnodes=1 --nproc_per_node=$SLURM_GPUS_PER_NODE $*
+srun singularity run $SIF bash -c "source /scratch/$SLURM_JOB_ACCOUNT/$USER/myvenv/bin/activate && torchrun --standalone --nnodes=1 --nproc_per_node=$SLURM_GPUS_PER_NODE $*"

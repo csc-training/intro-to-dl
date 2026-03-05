@@ -28,16 +28,17 @@
    ```bash
    singularity run $SIF pip list
    ```
-   But if you need to install additional libraries, you can add more pip packages to container
+   But if you need to install additional libraries, you can add more pip packages to container. There is limited space in the home folder, so let us install the packages in the scratch folder.
 
    ```bash
    module purge
    module use /appl/local/laifs/modules
    module load lumi-aif-singularity-bindings
    export SIF=/appl/local/laifs/containers/lumi-multitorch-u24r64f21m43t29-20260124_092648/lumi-multitorch-full-u24r64f21m43t29-20260124_092648.sif
+   mkdir -p /scratch/project_462001275/$USER
    singularity shell $SIF
-   Singularity> python -m venv myvenv --system-site-packages
-   Singularity> source myvenv/bin/activate
+   Singularity> python -m venv /scratch/project_462001275/$USER/myvenv --system-site-packages
+   Singularity> source /scratch/project_462001275/$USER/myvenv/bin/activate
    (myvenv) Singularity> pip install gensim seaborn scikit-learn
    ```
    
@@ -96,7 +97,7 @@ You can use TensorBoard either via the LUMI web user interface (recommended), or
 1. Log in via <https://www.lumi.csc.fi/>
 2. Select menu item: Apps → TensorBoard
 4. In the form:
-   - Select course project: project_462001095
+   - Select course project: project_462001275
    - Specify the "TensorBoard log directory", it's where you have cloned the course repository plus "day2/logs", for example:
   `~/PDL-2025-11/intro-to-dl/day2/logs`. You can run `pwd` in the terminal to find out the full path where you are working.
    - Leave rest at default settings
