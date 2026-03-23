@@ -1,19 +1,19 @@
 embedding_dims = 50
-lstm_units = 32
+hidden_size = 32
 
 class TwoLayeredRNN(nn.Module):
     def __init__(self):
         super().__init__()
         self.emb = nn.Embedding(nb_words, embedding_dims)
         self.dropout = nn.Dropout(0.2)
-        self.lstm = nn.LSTM(embedding_dims, lstm_units, num_layers=2,
+        self.lstm = nn.LSTM(embedding_dims, hidden_size, num_layers=2,
                             batch_first=True)
-        self.linear = nn.Linear(lstm_units, 1)
+        self.linear = nn.Linear(hidden_size, 1)
 
         # With bidirectional
-        #self.lstm = nn.LSTM(embedding_dims, lstm_units, num_layers=2,
+        #self.lstm = nn.LSTM(embedding_dims, hidden_size, num_layers=2,
         #                    batch_first=True, bidirectional=True)
-        #self.linear = nn.Linear(lstm_units*2, 1)
+        #self.linear = nn.Linear(hidden_size*2, 1)
         
         self.sigmoid = nn.Sigmoid()
 
