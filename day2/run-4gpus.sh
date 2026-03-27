@@ -22,4 +22,4 @@ export TOKENIZERS_PARALLELISM=false
 umask 002
 
 set -xv
-torchrun --standalone --nnodes=1 --nproc_per_node=$SLURM_GPUS_PER_NODE $*
+torchrun --standalone --nnodes=1 --nproc_per_node=$SLURM_GPUS_ON_NODE $*
