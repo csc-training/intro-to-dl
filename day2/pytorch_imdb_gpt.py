@@ -196,7 +196,7 @@ if __name__ == "__main__":
     trainer = Trainer(
         model=model,
         args=training_args,
-        tokenizer=tokenizer,
+        processing_class=tokenizer,
         data_collator=collator,
         train_dataset=train_dataset_tokenized,
         eval_dataset=validate_dataset_tokenized,
