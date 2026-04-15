@@ -22,8 +22,9 @@ export HF_HOME=$COURSE_SCRATCH/hf-cache
 export MLFLOW_TRACKING_URI=$COURSE_SCRATCH/data/users/$USER/mlruns
 export TOKENIZERS_PARALLELISM=false
 
-export MIOPEN_DISABLE_CACHE=1
-export MIOPEN_USER_DB_PATH=""
+export MIOPEN_USER_DB_PATH=/tmp/${USER}-miopen-cache
+export MIOPEN_CUSTOM_CACHE_DIR=$MIOPEN_USER_DB_PATH
+
 umask 002
 
 set -xv
