@@ -118,7 +118,7 @@ You can use TensorBoard either via the LUMI web user interface (recommended), or
    ```bash
    module purge
    module use use /appl/local/csc/modulefiles/
-   module load tensorflow
+   module load tensorflow/2.12
    singularity_wrapper exec tensorboard --logdir=PDL-2026-04/intro-to-dl/day2/logs --port=PORT --bind_all
    ```
 
