@@ -31,8 +31,9 @@ export HF_HOME=$COURSE_SCRATCH/hf-cache # Cache location for Hugging Face models
 export MLFLOW_TRACKING_URI=$COURSE_SCRATCH/data/users/$USER/mlruns # Directory where MLflow experiment logs will be stored
 export TOKENIZERS_PARALLELISM=false # Disables MIOpen kernel cache (used for AMD GPUs)
  
-export MIOPEN_DISABLE_CACHE=1
-export MIOPEN_USER_DB_PATH=""
+#export MIOPEN_DISABLE_CACHE=1
+export MIOPEN_USER_DB_PATH=/tmp/${USER}-miopen-cache
+export MIOPEN_CUSTOM_CACHE_DIR=$MIOPEN_USER_DB_PATH
 umask 002 # Ensures group-write permissions for created files
 
 set -xv # Prints commands before executing them (useful for debugging)
