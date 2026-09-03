@@ -1,17 +1,20 @@
 #!/bin/bash
-#SBATCH --account=project_462001275
-#SBATCH --partition=small-g
-#SBATCH --ntasks=1
-#SBATCH --cpus-per-task=14
-#SBATCH --gpus-per-node=2
-#SBATCH --mem=120G
-#SBATCH --time=2:00:00
-#SBATCH --reservation=pdl-day2-no-ood
+#SBATCH --account=project_2014553 # Project account used for computing resources allocation
+#SBATCH --partition=gputest # Partition/queue to run the job (GPU partition)
+#SBATCH --nodes=1 # Number of nodes
+#SBATCH --ntasks=1              # One task per node; torchrun spawns the GPU processes itself
+#SBATCH --cpus-per-task=14 # Number of CPU cores allocated to the task
+#SBATCH --gres=gpu:gh200:2 # Number of GPUs allocated to the task
+#SBATCH --mem=120G # Total RAM allocated for the job
+#SBATCH --time=00:15:00 # Maximum runtime (HH:MM:SS)
 
-module purge
-module use /appl/local/laifs/modules
-module load lumi-aif-singularity-bindings
-export SIF=/appl/local/laifs/containers/lumi-multitorch-u24r64f21m43t29-20260124_092648/lumi-multitorch-full-u24r64f21m43t29-20260124_092648.sif
+
+# --------------------------------------------------
+# Clean environment and load required modules
+# --------------------------------------------------
+
+module purge # Removes all currently loaded modules to avoid conflicts
+module load python-pytorch/2.10 # Load the PyTorch 2.10 environment module
 
 COURSE_SCRATCH="/scratch/${SLURM_JOB_ACCOUNT}"
 
@@ -27,4 +30,4 @@ export MIOPEN_CUSTOM_CACHE_DIR=$MIOPEN_USER_DB_PATH
 umask 002
 
 set -xv
-srun singularity run $SIF torchrun --standalone --nnodes=1 --nproc_per_node=$SLURM_GPUS_PER_NODE $*
+srun torchrun --standalone --nnodes=1 --nproc_per_node=2 $*
