@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --account=project_2014553 # Project account used for computing resources allocation
+#SBATCH --account=project_2020307 # Project account used for computing resources allocation
 #SBATCH --partition=gputest # Partition/queue to run the job (GPU partition)
 #SBATCH --nodes=1 # Number of nodes
 #SBATCH --ntasks=1              # One task per node; torchrun spawns the GPU processes itself
