@@ -44,7 +44,7 @@ source /scratch/project_462001275/$USER/myvenv/bin/activate
    ```
    
 3. Go to the exercise directory:
-   - if you ran the exercises of day 1 using LUMI's "Jupyter for courses", you should already have the repository cloned in your home directory
+   - if you ran the exercises of day 1 using Roihu's "Jupyter for courses", you should already have the repository cloned in your home directory
    
    ```bash
    cd PDL-2026-04/intro-to-dl/day2
