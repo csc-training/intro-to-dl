@@ -112,6 +112,7 @@ Google has a free Jupyter Notebooks service you may want to try out. No guarante
 ```
 !pip install datasets==2.21.0
 !pip install torchinfo
+!pip install evaluate
 ```
 
 Here are direct to open each exercise in Colab:
