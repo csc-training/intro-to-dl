@@ -151,11 +151,9 @@ if __name__ == "__main__":
     output_dir = os.path.join(user_datapath, "gpt-imdb-model")
     training_args = TrainingArguments(
         output_dir=output_dir,
-        overwrite_output_dir=True,
         save_strategy="steps",  # save a snapshot of the model every 
         save_steps=100,         # 100 steps
         save_total_limit=4,     # only keep the last 4 snapshots
-        logging_dir=logging_dir,
         eval_strategy="steps",
         eval_steps=1000,  # compute validation loss every 1000 steps
         learning_rate=2e-5,
