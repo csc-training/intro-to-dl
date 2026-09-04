@@ -9,7 +9,7 @@
 
 ## Setup
 
-1. Login to LUMI using either:
+1. Login to ROIHU using either:
    - the web user interface at <https://www.roihu.csc.fi/> ("Go to login") and start "Login node shell (Roihu-GPU)", or
    - login with your username and SSH key to `roihu-gpu.csc.fi`, for more instructions see: <https://docs.csc.fi/support/tutorials/roihu/#ssh-client>
 
