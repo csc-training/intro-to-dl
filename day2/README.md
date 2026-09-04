@@ -22,7 +22,7 @@ ssh <username>@roihu-gpu.csc.fi
 
 ```bash
 module purge
-module load python-pytorch/2.10
+module load python-pytorch/2.13
 ```
    (In the Roihu web UI login node shell you can use Shift-Insert to paste if you copy commands from here.)
    
