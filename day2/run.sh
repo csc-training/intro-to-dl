@@ -5,7 +5,7 @@
 #SBATCH --cpus-per-task=7 # Number of CPU cores allocated to the task
 #SBATCH --gres=gpu:gh200:1 # Number of GPUs allocated to the task
 #SBATCH --mem=60G # Total RAM allocated for the job
-#SBATCH --time=00:30:00 # Maximum runtime (HH:MM:SS)
+#SBATCH --time=00:15:00 # Maximum runtime (HH:MM:SS)
 #SBATCH --reservation=pdl-day2-no-ood # Reservation slot being used for the job
 
 # --------------------------------------------------
