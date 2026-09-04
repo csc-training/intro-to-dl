@@ -10,34 +10,37 @@
 ## Setup
 
 1. Login to LUMI using either:
-   - the web user interface at <https://www.lumi.csc.fi/> ("Go to login") and start "Login node shell", or
-   - login with your username and SSH key to `lumi.csc.fi`, for more instructions see: <https://docs.lumi-supercomputer.eu/firststeps/>
-   
-2. In the login node shell, or SSH session, set up the module environment for using PyTorch. In day2 exercises, we will use the container built by LUMI AI Factory: https://docs.lumi-supercomputer.eu/laif/software/ai-environment/. 
+   - the web user interface at <https://www.roihu.csc.fi/> ("Go to login") and start "Login node shell (Roihu-GPU)", or
+   - login with your username and SSH key to `roihu-gpu.csc.fi`, for more instructions see: <https://docs.csc.fi/support/tutorials/roihu/#ssh-client>
 
-   ```bash
-   module purge
-   module use /appl/local/laifs/modules
-   module load lumi-aif-singularity-bindings
-   export SIF=/appl/local/laifs/containers/lumi-multitorch-u24r64f21m43t29-20260124_092648/lumi-multitorch-full-u24r64f21m43t29-20260124_092648.sif
-   ```
-   (In the LUMI web UI login node shell you can use Shift-Insert to paste if you copy commands from here.)
+ ```bash
+# Replace <username> with the name of your CSC user account.
+
+ssh <username>@roihu-gpu.csc.fi
+  ``` 
+2. In the login node shell (Roihu-GPU), or SSH session, set up the module environment for using PyTorch. In day2 exercises, we will use the preinstalled PyTorch on Roihu: https://docs.lumi-supercomputer.eu/laif/software/ai-environment/. 
+
+```bash
+module purge
+module load python-pytorch/2.10
+```
+   (In the Roihu web UI login node shell you can use Shift-Insert to paste if you copy commands from here.)
    
    It includes most of the libraries we will use in the exercises, one can check the pre-installed libraries by running `pip list` inside the container.
    
    ```bash
-   singularity run $SIF pip list
+   apptainer exec --nv $SIF pip list
    ```
    But if you need to install additional libraries, you can add more pip packages to container. There is limited space in the home folder, so let us install the packages in the scratch folder.
 
    ```bash
    # first, setup modules and export SIF as above
-   mkdir -p /scratch/project_462001275/$USER
-   singularity shell $SIF
-   Singularity> python -m venv /scratch/project_462001275/$USER/myvenv --system-site-packages
-   Singularity> source /scratch/project_462001275/$USER/myvenv/bin/activate
-   (myvenv) Singularity> pip install gensim seaborn scikit-learn
-   (myvenv) Singularity> exit   # exit from the container
+   mkdir -p /scratch/project_2020307/$USER
+   apptainer shell --nv --bind=$(csc-common-bind) $SIF
+Apptainer> python -m venv /scratch/<project_id>/$USER/myvenv --system-site-packages
+Apptainer> source /scratch/<project_id>/$USER/myvenv/bin/activate
+(myvenv) Apptainer> pip install gensim seaborn scikit-learn
+(myvenv) Apptainer> exit   # exit from the container
    ```
    
 3. Go to the exercise directory:
@@ -59,7 +62,7 @@
 ## Edit and submit jobs
 
 1. Edit Python script, either by:
-   - Navigating to the file in the LUMI web UI file browser (Files → Home Directory → PDL-2026-04 → intro-to-dl → day2) and selecting "Edit" on that file (under the three dots "⋮" menu).
+   - Navigating to the file in the Roihu web UI file browser (Files → Home Directory → PDL-2026-10 → intro-to-dl → day2) and selecting "Edit" on that file (under the three dots "⋮" menu).
    - Opening with your favorite text editor in the terminal, for example:
      ```bash
      nano pytorch_test.py
