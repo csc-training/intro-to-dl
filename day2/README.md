@@ -40,7 +40,7 @@ module load python-pytorch/2.13
 python3 -m venv /scratch/project_462001275/$USER/myvenv --system-site-packages
 source /scratch/project_462001275/$USER/myvenv/bin/activate
 (myvenv)> pip install gensim seaborn scikit-learn --no-build-isolation --cache-dir ./.pip-cache
-(myvenv)> exit   # exit from the container
+(myvenv)> deactivate   # exit from the container
    ```
    
 3. Go to the exercise directory:
