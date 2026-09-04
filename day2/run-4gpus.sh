@@ -15,7 +15,7 @@
 # --------------------------------------------------
 
 module purge # Removes all currently loaded modules to avoid conflicts
-module load python-pytorch/2.10 # Load the PyTorch 2.10 environment module
+module load python-pytorch/2.13 # Load the PyTorch 2.10 environment module
 
 COURSE_SCRATCH="/scratch/${SLURM_JOB_ACCOUNT}"
 
