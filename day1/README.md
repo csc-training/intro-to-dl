@@ -32,7 +32,7 @@ Text sentiment classification with RNNs and using a pre-trained DistilBERT from 
 We will use Jupyter Notebooks for all exercises on Day 1. There are several ways to set up a Jupyter environment for running the exercises:
 
 
-### 1. LUMI web user interface
+### 1. Roihu web user interface
 
 *The default option.*
 
