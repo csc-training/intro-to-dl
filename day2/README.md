@@ -26,10 +26,10 @@ module load python-pytorch/2.13
 ```
    (In the Roihu web UI login node shell you can use Shift-Insert to paste if you copy commands from here.)
    
-   It includes most of the libraries we will use in the exercises, one can check the pre-installed libraries by running `pip list` inside the container.
+   It includes most of the libraries we will use in the exercises, one can check the pre-installed libraries by running `pip list`.
    
    ```bash
-   apptainer exec --nv $SIF pip list
+   pip list
    ```
    But if you need to install additional libraries, you can add more pip packages to container. There is limited space in the home folder, so let us install the packages in the scratch folder.
 
