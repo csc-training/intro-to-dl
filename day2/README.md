@@ -36,11 +36,11 @@ module load python-pytorch/2.13
    ```bash
    # first, setup modules and export SIF as above
    mkdir -p /scratch/project_2020307/$USER
-   apptainer shell --nv --bind=$(csc-common-bind) $SIF
-Apptainer> python -m venv /scratch/<project_id>/$USER/myvenv --system-site-packages
-Apptainer> source /scratch/<project_id>/$USER/myvenv/bin/activate
-(myvenv) Apptainer> pip install gensim seaborn scikit-learn
-(myvenv) Apptainer> exit   # exit from the container
+
+python3 -m venv /scratch/project_462001275/$USER/myvenv --system-site-packages
+source /scratch/project_462001275/$USER/myvenv/bin/activate
+(myvenv)> pip install gensim seaborn scikit-learn --no-build-isolation --cache-dir ./.pip-cache
+(myvenv)> exit   # exit from the container
    ```
    
 3. Go to the exercise directory:
