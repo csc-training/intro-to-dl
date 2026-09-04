@@ -18,7 +18,7 @@
 
 ssh <username>@roihu-gpu.csc.fi
   ``` 
-2. In the login node shell (Roihu-GPU), or SSH session, set up the module environment for using PyTorch. In day2 exercises, we will use the preinstalled PyTorch on Roihu: [https://docs.lumi-supercomputer.eu/laif/software/ai-environment/. ](https://docs.csc.fi/apps/pytorch/).
+2. In the login node shell (Roihu-GPU), or SSH session, set up the module environment for using PyTorch. In day2 exercises, we will use the preinstalled PyTorch on Roihu: (https://docs.csc.fi/apps/pytorch/).
 
 ```bash
 module purge
