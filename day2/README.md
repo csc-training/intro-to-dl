@@ -91,7 +91,7 @@ source /scratch/project_2020307/$USER/myvenv/bin/activate
 
 ## Optional: TensorBoard
 
-You can use TensorBoard either via the LUMI web user interface (recommended), or via the terminal using ssh port forwarding. Both approaches are explained below.
+You can use TensorBoard either via the Roihu web user interface (recommended), or via the terminal using ssh port forwarding. Both approaches are explained below.
 
 ### Via the Roihu web interface (the recommended method)
 
