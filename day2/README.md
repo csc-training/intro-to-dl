@@ -121,7 +121,7 @@ You can use TensorBoard either via the LUMI web user interface (recommended), or
    ```bash
    module purge
    module load python-tensorflow/2.21
-   tensorboard --logdir=PDL-2026-04/intro-to-dl/day2/logs --port=PORT --bind_all
+   tensorboard --logdir=PDL-2026-10/intro-to-dl/day2/logs --port=PORT --bind_all
 
    ```
 
