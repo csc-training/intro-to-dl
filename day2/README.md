@@ -119,9 +119,10 @@ You can use TensorBoard either via the LUMI web user interface (recommended), or
 2. Set up the module environment and start the TensorBoard server:
 
    ```bash
-module purge
-module load python-tensorflow/2.21
-tensorboard --logdir=PDL-2026-04/intro-to-dl/day2/logs --port=PORT --bind_all
+   module purge
+   module load python-tensorflow/2.21
+   tensorboard --logdir=PDL-2026-04/intro-to-dl/day2/logs --port=PORT --bind_all
+
    ```
 
 3. To access TensorBoard, point your web browser to *localhost:PORT* .
