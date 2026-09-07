@@ -93,12 +93,12 @@ source /scratch/project_462001275/$USER/myvenv/bin/activate
 
 You can use TensorBoard either via the LUMI web user interface (recommended), or via the terminal using ssh port forwarding. Both approaches are explained below.
 
-### Via the LUMI web interface (the recommended method)
+### Via the Roihu web interface (the recommended method)
 
-1. Log in via <https://www.lumi.csc.fi/>
+1. Log in via <https://www.roihu.csc.fi/>
 2. Select menu item: Apps → TensorBoard
 4. In the form:
-   - Select course project: project_462001275
+   - Select course project: project_2020307
    - Specify the "TensorBoard log directory", it's where you have cloned the course repository plus "day2/logs", for example:
   `~/PDL-2026-04/intro-to-dl/day2/logs`. You can run `pwd` in the terminal to find out the full path where you are working.
    - Leave rest at default settings
