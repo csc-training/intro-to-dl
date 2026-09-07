@@ -78,7 +78,7 @@ source /scratch/project_2020307/$USER/myvenv/bin/activate
 
    ```bash
    squeue --me
-   squeue -p small-g
+   squeue -p gputest
    ```
 
 4. After the job has finished, examine the results:
