@@ -37,8 +37,8 @@ module load python-pytorch/2.13
    # first, setup modules and export SIF as above
    mkdir -p /scratch/project_2020307/$USER
 
-python3 -m venv /scratch/project_462001275/$USER/myvenv --system-site-packages
-source /scratch/project_462001275/$USER/myvenv/bin/activate
+python3 -m venv /scratch/project_2020307/$USER/myvenv --system-site-packages
+source /scratch/project_2020307/$USER/myvenv/bin/activate
 (myvenv)> pip install gensim seaborn scikit-learn --no-build-isolation --cache-dir ./.pip-cache
 (myvenv)> deactivate   # exit from the container
    ```
@@ -47,14 +47,14 @@ source /scratch/project_462001275/$USER/myvenv/bin/activate
    - if you ran the exercises of day 1 using Roihu's "Jupyter for courses", you should already have the repository cloned in your home directory
    
    ```bash
-   cd PDL-2026-04/intro-to-dl/day2
+   cd PDL-2026-10/intro-to-dl/day2
    ```
    
    If you don't have it, you can also clone it yourself:
 
    ```bash
-   mkdir PDL-2026-04
-   cd PDL-2026-04
+   mkdir PDL-2026-10
+   cd PDL-2026-10
    git clone https://github.com/csc-training/intro-to-dl
    cd intro-to-dl/day2
    ```
