@@ -37,7 +37,7 @@ We will use Jupyter Notebooks for all exercises on Day 1. There are several ways
 *The default option.*
 
 1. Go to the [Roihu web user interface](https://www.roihu.csc.fi/public/).
-2. Login with Haka (Finnish university or research institute) or CSC account (anyone with valid CSC account)
+2. Login with Haka (Finnish university or research institute), Virtu or CSC account (anyone with valid CSC account). Multi-factor authentication (MFA) is required. 
 3. Click "Jupyter for courses" (this works only if you have been added to the course project)
 4. Make sure the selections are correct:
    - Reservation: pdl-day1 (during course day 1), or No reservation (other days)
