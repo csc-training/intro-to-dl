@@ -108,21 +108,20 @@ You can use TensorBoard either via the LUMI web user interface (recommended), or
 
 ### Via SSH port forwarding
 
-1. Login again from a terminal window to LUMI with SSH port forwarding:
+1. Login again from a terminal window to Roihu with SSH port forwarding:
 
    ```bash
-   ssh -L PORT:localhost:PORT lumi.csc.fi
+   ssh -L PORT:localhost:PORT -i ~/path-to-your-key username@roihu-gpu.csc.fi
    ```
         
-   Replace `PORT` with a freely selectable port number (>1023). By default, TensorBoard uses the port 6006, but **select a different port** to avoid overlaps. 
+   Replace `PORT` with a freely selectable port number (>1023). By default, TensorBoard uses the port 6006, but **select a different port** to avoid overlaps. Replace username and the key path with your own CSC username and SSH key.
 
 2. Set up the module environment and start the TensorBoard server:
 
    ```bash
-   module purge
-   module use use /appl/local/csc/modulefiles/
-   module load tensorflow/2.12
-   singularity_wrapper exec tensorboard --logdir=PDL-2026-04/intro-to-dl/day2/logs --port=PORT --bind_all
+module purge
+module load python-tensorflow/2.21
+tensorboard --logdir=PDL-2026-04/intro-to-dl/day2/logs --port=PORT --bind_all
    ```
 
 3. To access TensorBoard, point your web browser to *localhost:PORT* .
