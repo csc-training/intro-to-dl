@@ -31,16 +31,23 @@ module load python-pytorch/2.13
    ```bash
    pip list
    ```
-   But if you need to install additional libraries, you can add more pip packages to container. There is limited space in the home folder, so let us install the packages in the scratch folder.
+   But if you need to install additional libraries, you can create a Python virtual environment on top of the loaded PyTorch module and install extra pip packages there. The `--system-site-packages` flag is required so that the venv can find the pre-installed packages from the base module. There is limited space in the home folder, so let us create the venv in the scratch folder.
 
    ```bash
-   # first, setup modules and export SIF as above
+   # the python-pytorch module loaded in step 2 must still be active
    mkdir -p /scratch/project_2020307/$USER
 
-python3 -m venv /scratch/project_2020307/$USER/myvenv --system-site-packages
-source /scratch/project_2020307/$USER/myvenv/bin/activate
-(myvenv)> pip install gensim seaborn scikit-learn --no-build-isolation --cache-dir ./.pip-cache
-(myvenv)> deactivate   # exit from the container
+   python3 -m venv /scratch/project_2020307/$USER/myvenv --system-site-packages
+   source /scratch/project_2020307/$USER/myvenv/bin/activate
+   (myvenv)> pip install gensim seaborn scikit-learn --no-build-isolation --cache-dir ./.pip-cache
+   (myvenv)> deactivate   # exit from the venv
+   ```
+
+   In later sessions (including in your job scripts), load the `python-pytorch` module first and then reactivate the venv:
+
+   ```bash
+   module load python-pytorch/2.13
+   source /scratch/project_2020307/$USER/myvenv/bin/activate
    ```
    
 3. Go to the exercise directory:
