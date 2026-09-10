@@ -104,7 +104,7 @@ You can use TensorBoard either via the Roihu web user interface (recommended), o
    - Leave rest at default settings
 6. Click "Launch"
 7. Wait until you see the "Connect to Tensorboard" button, then click that.
-8. When you're done using TensorBoard, please go to "My Interactive Sessions" in the LUMI web user interface and "Cancel" the session. (It will automatically terminate once the reserved time is up, but it's always better to release the resource as soon as possible so that others can use it.)
+8. When you're done using TensorBoard, please go to "My Interactive Sessions" in the Roihu web user interface and "Cancel" the session. (It will automatically terminate once the reserved time is up, but it's always better to release the resource as soon as possible so that others can use it.)
 
 ### Via SSH port forwarding
 

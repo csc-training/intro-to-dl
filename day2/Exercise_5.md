@@ -79,6 +79,6 @@ Vision Transformers (ViTs). Compare these with the previous approaches.
 
 There is another, small dataset [Aliens and predators](imgs/avp.png)
 (avp) with 694 training and 200 validation images in the directory
-`/scratch/project_462001275/data/avp` on LUMI.  Modify the scripts for
+`/scratch/project_2020307/data/avp` on Roihu.  Modify the scripts for
 _Dogs vs. cats_ to classify between them. There is no test dataset, use the validation dataset as the test dataset in this case.
 
