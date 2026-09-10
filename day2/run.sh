@@ -13,7 +13,7 @@
 # --------------------------------------------------
 
 module purge # Removes all currently loaded modules to avoid conflicts
-module load python-pytorch/2.13 # Load the PyTorch 2.10 environment module
+module load python-pytorch/2.13 # Load the PyTorch 2.13 environment module
 
 COURSE_SCRATCH="/scratch/${SLURM_JOB_ACCOUNT}" # Define scratch storage location
 
@@ -23,11 +23,8 @@ export HF_HOME=$COURSE_SCRATCH/hf-cache # Cache location for Hugging Face models
 
 
 export MLFLOW_TRACKING_URI=$COURSE_SCRATCH/data/users/$USER/mlruns # Directory where MLflow experiment logs will be stored
-export TOKENIZERS_PARALLELISM=false # Disables MIOpen kernel cache (used for AMD GPUs)
- 
-#export MIOPEN_DISABLE_CACHE=1
-export MIOPEN_USER_DB_PATH=/tmp/${USER}-miopen-cache
-export MIOPEN_CUSTOM_CACHE_DIR=$MIOPEN_USER_DB_PATH
+export TOKENIZERS_PARALLELISM=false # Disable HuggingFace tokenizers parallelism to avoid fork warnings
+
 umask 002 # Ensures group-write permissions for created files
 
 set -xv # Prints commands before executing them (useful for debugging)

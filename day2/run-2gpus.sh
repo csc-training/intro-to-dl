@@ -14,7 +14,7 @@
 # --------------------------------------------------
 
 module purge # Removes all currently loaded modules to avoid conflicts
-module load python-pytorch/2.13 # Load the PyTorch 2.10 environment module
+module load python-pytorch/2.13 # Load the PyTorch 2.13 environment module
 
 COURSE_SCRATCH="/scratch/${SLURM_JOB_ACCOUNT}"
 
@@ -24,8 +24,6 @@ export HF_HOME=$COURSE_SCRATCH/hf-cache
 
 export MLFLOW_TRACKING_URI=$COURSE_SCRATCH/data/users/$USER/mlruns
 export TOKENIZERS_PARALLELISM=false
-export MIOPEN_USER_DB_PATH=/tmp/${USER}-miopen-cache
-export MIOPEN_CUSTOM_CACHE_DIR=$MIOPEN_USER_DB_PATH
 
 umask 002
 
