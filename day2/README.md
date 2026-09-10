@@ -13,6 +13,8 @@
    - the web user interface at <https://www.roihu.csc.fi/> ("Go to login") and start "Login node shell (Roihu-GPU)", or
    - login with your username and SSH key to `roihu-gpu.csc.fi`, for more instructions see: <https://docs.csc.fi/support/tutorials/roihu/#ssh-client>
 
+   Note: Roihu has separate login nodes, `roihu-gpu.csc.fi` (GPU, ARM) and `roihu-cpu.csc.fi` (CPU, x86). These exercises use GPUs and the ARM PyTorch module, so always use the GPU login node; environments built there won't work on the CPU side.
+
  ```bash
 # Replace <username> with the name of your CSC user account.
 
