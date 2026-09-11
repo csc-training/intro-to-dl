@@ -5,7 +5,7 @@
 #SBATCH --ntasks=1              # One task per node; torchrun spawns the GPU processes itself
 #SBATCH --cpus-per-task=144 # Number of CPU cores allocated to the task
 #SBATCH --gres=gpu:gh200:2 # Number of GPUs allocated to the task
-#SBATCH --mem=434172 # Total RAM allocated for the job
+#SBATCH --mem=434172mb # Total RAM allocated for the job
 #SBATCH --time=00:15:00 # Maximum runtime (HH:MM:SS)
 #SBATCH --reservation=pdl-day2-no-ood
 
