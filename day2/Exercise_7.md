@@ -16,7 +16,7 @@ Run the fine-tuning of the GPT-3 model by running the script
 You can tweak some of the parameters in the script. For example
 `max_steps` in `TrainingArguments` tells for how many batches it will
 train. It's by default set to `max_steps=5000`, which runs for about
-15 minutes on LUMI. Here are Hugging Face's notes on the many things
+15 minutes on Roihu. Here are Hugging Face's notes on the many things
 that can be tried for improving training:
 <https://huggingface.co/docs/transformers/perf_train_gpu_one>
 
@@ -27,7 +27,7 @@ samples. The lower the value, the better.
 Also make a note of where the model is stored, it should be in a
 directory like
 `/scratch/project_2020307/data/users/$USER/gpt-imdb-model/`, where
-`$USER` is replaced with your username on LUMI. Take a look into that
+`$USER` is replaced with your username on Roihu. Take a look into that
 directory:
 
 ```

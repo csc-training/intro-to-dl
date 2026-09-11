@@ -13,6 +13,8 @@
    - the web user interface at <https://www.roihu.csc.fi/> ("Go to login") and start "Login node shell (Roihu-GPU)", or
    - login with your username and SSH key to `roihu-gpu.csc.fi`, for more instructions see: <https://docs.csc.fi/support/tutorials/roihu/#ssh-client>
 
+   Note: Roihu has separate login nodes, `roihu-gpu.csc.fi` (GPU, ARM) and `roihu-cpu.csc.fi` (CPU, x86). These exercises use GPUs and the ARM PyTorch module, so always use the GPU login node; environments built there won't work on the CPU side.
+
  ```bash
 # Replace <username> with the name of your CSC user account.
 
@@ -31,16 +33,23 @@ module load python-pytorch/2.13
    ```bash
    pip list
    ```
-   But if you need to install additional libraries, you can add more pip packages to container. There is limited space in the home folder, so let us install the packages in the scratch folder.
+   But if you need to install additional libraries, you can create a Python virtual environment on top of the loaded PyTorch module and install extra pip packages there. The `--system-site-packages` flag is required so that the venv can find the pre-installed packages from the base module. There is limited space in the home folder, so let us create the venv in the scratch folder.
 
    ```bash
-   # first, setup modules and export SIF as above
+   # the python-pytorch module loaded in step 2 must still be active
    mkdir -p /scratch/project_2020307/$USER
 
-python3 -m venv /scratch/project_2020307/$USER/myvenv --system-site-packages
-source /scratch/project_2020307/$USER/myvenv/bin/activate
-(myvenv)> pip install gensim seaborn scikit-learn --no-build-isolation --cache-dir ./.pip-cache
-(myvenv)> deactivate   # exit from the container
+   python3 -m venv /scratch/project_2020307/$USER/myvenv --system-site-packages
+   source /scratch/project_2020307/$USER/myvenv/bin/activate
+   (myvenv)> pip install gensim seaborn scikit-learn --no-build-isolation --cache-dir ./.pip-cache
+   (myvenv)> deactivate   # exit from the venv
+   ```
+
+   In later sessions (including in your job scripts), load the `python-pytorch` module first and then reactivate the venv:
+
+   ```bash
+   module load python-pytorch/2.13
+   source /scratch/project_2020307/$USER/myvenv/bin/activate
    ```
    
 3. Go to the exercise directory:
@@ -104,7 +113,7 @@ You can use TensorBoard either via the Roihu web user interface (recommended), o
    - Leave rest at default settings
 6. Click "Launch"
 7. Wait until you see the "Connect to Tensorboard" button, then click that.
-8. When you're done using TensorBoard, please go to "My Interactive Sessions" in the LUMI web user interface and "Cancel" the session. (It will automatically terminate once the reserved time is up, but it's always better to release the resource as soon as possible so that others can use it.)
+8. When you're done using TensorBoard, please go to "My Interactive Sessions" in the Roihu web user interface and "Cancel" the session. (It will automatically terminate once the reserved time is up, but it's always better to release the resource as soon as possible so that others can use it.)
 
 ### Via SSH port forwarding
 
