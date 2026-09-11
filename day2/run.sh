@@ -2,9 +2,9 @@
 #SBATCH --account=project_2020307 # Project account used for computing resources allocation
 #SBATCH --partition=gpumedium # Partition/queue to run the job (GPU partition)
 #SBATCH --nodes=1 # Number of nodes
-#SBATCH --cpus-per-task=7 # Number of CPU cores allocated to the task
+#SBATCH --cpus-per-task=72 # Number of CPU cores allocated to the task
 #SBATCH --gres=gpu:gh200:1 # Number of GPUs allocated to the task
-#SBATCH --mem=60G # Total RAM allocated for the job
+#SBATCH --mem=217086mb # Total RAM allocated for the job
 #SBATCH --time=00:15:00 # Maximum runtime (HH:MM:SS)
 #SBATCH --reservation=pdl-day2-no-ood # Reservation slot being used for the job
 
