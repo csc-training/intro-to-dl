@@ -33,24 +33,7 @@
    ```bash
    pip list
    ```
-   But if you need to install additional libraries, you can create a Python virtual environment on top of the loaded PyTorch module and install extra pip packages there. The `--system-site-packages` flag is required so that the venv can find the pre-installed packages from the base module. There is limited space in the home folder, so let us create the venv in the scratch folder.
-
-   ```bash
-   # the python-pytorch module loaded in step 2 must still be active
-   mkdir -p /scratch/project_2020307/$USER
-
-   python3 -m venv /scratch/project_2020307/$USER/myvenv --system-site-packages
-   source /scratch/project_2020307/$USER/myvenv/bin/activate
-   (myvenv)> pip install gensim seaborn scikit-learn --no-build-isolation --cache-dir ./.pip-cache
-   (myvenv)> deactivate   # exit from the venv
-   ```
-
-   In later sessions (including in your job scripts), load the `python-pytorch` module first and then reactivate the venv:
-
-   ```bash
-   module load python-pytorch/2.13
-   source /scratch/project_2020307/$USER/myvenv/bin/activate
-   ```
+   But if you need to install additional libraries, you can create a Python virtual environment on top of the loaded PyTorch module and install extra pip packages there. See [CSC's documentation on how to add packages to existing Python installations for more details](https://docs.csc.fi/support/tutorials/python-usage-guide/#installing-python-packages-to-existing-modules).
    
 3. Go to the exercise directory:
    - if you ran the exercises of day 1 using Roihu's "Jupyter for courses", you should already have the repository cloned in your home directory
@@ -107,7 +90,7 @@ You can use TensorBoard via the Roihu web user interface.
 4. In the form:
    - Select course project: project_2020307
    - Specify the "TensorBoard log directory", it's where you have cloned the course repository plus "day2/logs", for example:
-  `~/PDL-2026-04/intro-to-dl/day2/logs`. You can run `pwd` in the terminal to find out the full path where you are working.
+  `~/PDL-2026-10/intro-to-dl/day2/logs`. You can run `pwd` in the terminal to find out the full path where you are working.
    - Leave rest at default settings
 6. Click "Launch"
 7. Wait until you see the "Connect to Tensorboard" button, then click that.
