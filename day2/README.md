@@ -87,7 +87,7 @@
 
    ```bash
    squeue --me
-   squeue -p gputest
+   squeue -p gpumedium
    ```
 
 4. After the job has finished, examine the results:
@@ -100,9 +100,7 @@
 
 ## Optional: TensorBoard
 
-You can use TensorBoard either via the Roihu web user interface (recommended), or via the terminal using ssh port forwarding. Both approaches are explained below.
-
-### Via the Roihu web interface (the recommended method)
+You can use TensorBoard via the Roihu web user interface.
 
 1. Log in via <https://www.roihu.csc.fi/>
 2. Select menu item: Apps → TensorBoard
@@ -114,24 +112,3 @@ You can use TensorBoard either via the Roihu web user interface (recommended), o
 6. Click "Launch"
 7. Wait until you see the "Connect to Tensorboard" button, then click that.
 8. When you're done using TensorBoard, please go to "My Interactive Sessions" in the Roihu web user interface and "Cancel" the session. (It will automatically terminate once the reserved time is up, but it's always better to release the resource as soon as possible so that others can use it.)
-
-### Via SSH port forwarding
-
-1. Login again from a terminal window to Roihu with SSH port forwarding:
-
-   ```bash
-   ssh -L PORT:localhost:PORT -i ~/path-to-your-key username@roihu-gpu.csc.fi
-   ```
-        
-   Replace `PORT` with a freely selectable port number (>1023). By default, TensorBoard uses the port 6006, but **select a different port** to avoid overlaps. Replace username and the key path with your own CSC username and SSH key.
-
-2. Set up the module environment and start the TensorBoard server:
-
-   ```bash
-   module purge
-   module load python-tensorflow/2.21
-   tensorboard --logdir=PDL-2026-10/intro-to-dl/day2/logs --port=PORT --bind_all
-
-   ```
-
-3. To access TensorBoard, point your web browser to *localhost:PORT* .
