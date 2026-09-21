@@ -15,17 +15,17 @@
 
    Note: Roihu has separate login nodes, `roihu-gpu.csc.fi` (GPU, ARM) and `roihu-cpu.csc.fi` (CPU, x86). These exercises use GPUs and the ARM PyTorch module, so always use the GPU login node; environments built there won't work on the CPU side.
 
- ```bash
-# Replace <username> with the name of your CSC user account.
+   ```bash
+   # Replace <username> with the name of your CSC user account.
 
-ssh <username>@roihu-gpu.csc.fi
-  ``` 
+   ssh <username>@roihu-gpu.csc.fi
+   ``` 
 2. In the login node shell (Roihu-GPU), or SSH session, set up the module environment for using PyTorch. In day2 exercises, we will use the preinstalled PyTorch on Roihu: (https://docs.csc.fi/apps/pytorch/).
 
-```bash
-module purge
-module load python-pytorch/2.13
-```
+   ```bash
+   module purge
+   module load python-pytorch/2.13
+   ```
    (In the Roihu web UI login node shell you can use Shift-Insert to paste if you copy commands from here.)
    
    It includes most of the libraries we will use in the exercises, one can check the pre-installed libraries by running `pip list`.
