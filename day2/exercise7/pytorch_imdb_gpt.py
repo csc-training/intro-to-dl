@@ -108,10 +108,12 @@ if __name__ == "__main__":
     # Database, split into 25,000 reviews for training and 25,000 reviews
     # for testing and 50,000 without labels (unsupervised).
 
-    train_dataset = load_dataset("imdb", keep_in_memory=True,
-                                 split="train+unsupervised")
-    test_dataset = load_dataset("imdb", keep_in_memory=True,
-                                split="test")
+    train_dataset = load_dataset("stanfordnlp/imdb", keep_in_memory=True,
+                                 split="train+unsupervised",
+                                 trust_remote_code=False, cache_dir=datapath)
+    test_dataset = load_dataset("stanfordnlp/imdb", keep_in_memory=True,
+                                split="test",
+                                trust_remote_code=False, cache_dir=datapath)
 
     # Let's print one sample from the dataset.
     print('Sample from dataset')
