@@ -146,7 +146,7 @@ if __name__ == "__main__":
     test_batch_size = 128
 
     time_str = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-    logging_dir = os.path.join(os.getcwd(), "logs", "imdb-gpt-" + time_str)
+    logging_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "logs", "imdb-gpt-" + time_str)
 
     output_dir = os.path.join(user_datapath, "gpt-imdb-model")
     training_args = TrainingArguments(

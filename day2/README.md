@@ -2,10 +2,10 @@
 
 ## Exercise sessions
 
-* [Exercise 5: Image classification](Exercise_5.md)
-* [Exercise 6: Text categorization](Exercise_6.md)
-* [Exercise 7: Text generation](Exercise_7.md)
-* [Exercise 8: Using multiple GPUs](Exercise_8.md)
+* [Exercise 5: Image classification](exercise5/README.md)
+* [Exercise 6: Text categorization](exercise6/README.md)
+* [Exercise 7: Text generation](exercise7/README.md)
+* [Exercise 8: Using multiple GPUs](exercise8/README.md)
 
 ## Setup
 
@@ -53,8 +53,10 @@
 
 ## Edit and submit jobs
 
+Each exercise has its own directory (`exercise5`, `exercise6`, ...) containing its instructions and Python scripts. The Slurm scripts `run.sh`, `run-2gpus.sh` and `run-4gpus.sh` are shared and live in `day2`, so from inside an exercise directory you submit e.g. `sbatch ../run.sh pytorch_dvc_cnn_simple.py`. The test below is run directly from `day2`.
+
 1. Edit Python script, either by:
-   - Navigating to the file in the Roihu web UI file browser (Files → Home Directory → PDL-2026-10 → intro-to-dl → day2) and selecting "Edit" on that file (under the three dots "⋮" menu).
+   - Navigating to the file in the Roihu web UI file browser (Files → Home Directory → PDL-2026-10 → intro-to-dl → day2 → exerciseN) and selecting "Edit" on that file (under the three dots "⋮" menu).
    - Opening with your favorite text editor in the terminal, for example:
      ```bash
      nano pytorch_test.py
@@ -73,7 +75,7 @@
    squeue -p gpumedium
    ```
 
-4. After the job has finished, examine the results:
+4. After the job has finished, examine the results (the `slurm-xxxxxxxx.out` file is written to the directory you submitted the job from):
 
    ```bash
    less slurm-xxxxxxxx.out

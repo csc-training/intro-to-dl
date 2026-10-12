@@ -1,5 +1,13 @@
 # Exercise 7
 
+All commands below are run from this exercise's directory, i.e. `day2/exercise7`:
+
+```bash
+cd exercise7   # when starting from the day2 directory
+```
+
+The Slurm scripts (`run.sh`, `run-2gpus.sh`, `run-4gpus.sh`) are in the parent `day2` directory, so they are submitted as `sbatch ../run.sh <script>.py`.
+
 In this exercise, we take a pre-trained GPT-3-like model from the
 Hugging Face repository and fine-tune it with movie reviews for the
 IMDB dataset: http://ai.stanford.edu/~amaas/data/sentiment/
@@ -10,7 +18,7 @@ Run the fine-tuning of the GPT-3 model by running the script
 [pytorch_imdb_gpt.py](pytorch_imdb_gpt.py).
 
    ```bash
-   sbatch run.sh pytorch_imdb_gpt.py
+   sbatch ../run.sh pytorch_imdb_gpt.py
    ```
 
 You can tweak some of the parameters in the script. For example

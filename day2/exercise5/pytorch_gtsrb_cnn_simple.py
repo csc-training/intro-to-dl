@@ -2,14 +2,22 @@
 # coding: utf-8
 
 # # Traffic sign classification with CNNs
-# 
-# In this script, we'll finetune a Vision Transformer
-# (https://arxiv.org/abs/2010.11929) (ViT) to classify images of
-# traffic signs using PyTorch and HuggingFace Transformers:
-# https://github.com/huggingface/transformers
+#
+# In this script, we'll train a convolutional neural network (CNN) to
+# classify images of traffic signs from the German Traffic Sign
+# Recognition Benchmark:
+# https://benchmark.ini.rub.de/gtsrb_news.html
+#
+# ## Option 1: Train a small CNN from scratch
+#
+# Similarly as with MNIST digits, we can start from scratch and train
+# a CNN for the classification task. However, due to the small number
+# of training images, a large network will easily overfit, regardless
+# of the data augmentation.
 
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 import torch.optim as optim
 from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
@@ -18,9 +26,6 @@ from datetime import datetime
 import os
 import sys
 
-from transformers import AutoImageProcessor, ViTForImageClassification
-from transformers import __version__ as transformers_version
-
 torch.manual_seed(42)
 
 if torch.cuda.is_available():
@@ -28,10 +33,36 @@ if torch.cuda.is_available():
 else:
     device = torch.device('cpu')
 
-print('Using PyTorch version:', torch.__version__,
-      'Transformers version:', transformers_version,
-      'Device:', device)
-assert LV(torch.__version__) >= LV("1.0.0")
+print('Using PyTorch version:', torch.__version__, ' Device:', device)
+assert(LV(torch.__version__) >= LV("1.0.0"))
+
+
+class Net(nn.Module):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.layers = nn.Sequential(
+            nn.Conv2d(3, 32, (3, 3)),
+            nn.ReLU(),
+            nn.MaxPool2d((2, 2)),
+
+            nn.Conv2d(32, 32, (3, 3)),
+            nn.ReLU(),
+            nn.MaxPool2d((2, 2)),
+
+            nn.Conv2d(32, 64, (3, 3)),
+            nn.ReLU(),
+            nn.MaxPool2d((2, 2)),
+
+            nn.Flatten(),             # flatten 2D to 1D
+            nn.Linear(7*7*64, 128),
+            nn.ReLU(),
+            nn.Dropout(0.5),
+            nn.Linear(128, 43)
+        )
+
+    def forward(self, x):
+        return self.layers(x).squeeze()
+
 
 #
 # There are some broken folders, but we need to keep the class indices
@@ -56,6 +87,7 @@ def correct(output, target):
     correct_ones = (predicted == target).type(torch.float)
     return correct_ones.sum().item() # count number of correct ones
 
+
 def train(data_loader, model, criterion, optimizer):
     model.train()
 
@@ -64,14 +96,13 @@ def train(data_loader, model, criterion, optimizer):
 
     total_loss = 0
     total_correct = 0
-
     for data, target in data_loader:
         # Copy data and targets to GPU
         data = data.to(device)
         target = target.to(device)
 
         # Do a forward pass
-        output = model(data).logits #.squeeze()
+        output = model(data)
 
         # Calculate the loss
         loss = criterion(output, target)
@@ -109,7 +140,7 @@ def test(test_loader, model, criterion):
             target = target.to(device)
 
             # Do a forward pass
-            output = model(data).logits #.squeeze()
+            output = model(data)
 
             # Calculate the loss
             loss = criterion(output, target)
@@ -130,33 +161,25 @@ def log_measures(ret, log, prefix, epoch):
             log.add_scalar(prefix + "_" + key, value, epoch)
 
 
-class ImageClassificationCollator:
-    def __init__(self, processor):
-        self.processor = processor
-
-    def __call__(self, batch):
-        data = self.processor([x[0] for x in batch], do_rescale=False,
-                              return_tensors='pt').pixel_values
-        targets = torch.tensor([x[1] for x in batch]) #, dtype=torch.float32)
-        return data, targets
-
-
 def main():
     # TensorBoard for logging
     try:
         import tensorboardX
         time_str = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-        logdir = os.path.join(os.getcwd(), "logs", "gtsrb-vit-" + time_str)
+        logdir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "logs", "gtsrb-" + time_str)
         print('TensorBoard log directory:', logdir)
         os.makedirs(logdir)
         log = tensorboardX.SummaryWriter(logdir)
     except ImportError:
         log = None
 
-    # The training dataset consists of 2000 images of dogs and cats, split
-    # in half.  In addition, the validation set consists of 1000 images,
-    # and the test set of 22000 images.
+
+    # The training dataset consists of 5535 images of traffic signs of
+    # varying size. There are 43 different types of traffic signs.
     #
+    # The validation and test sets consist of 999 and 12630 images,
+    # respectively.
+
     # First, we'll resize all training and validation images to a fixed
     # size.
     #
@@ -173,51 +196,59 @@ def main():
         sys.exit(1)
     datapath = os.path.join(datapath, 'gtsrb/train-5535')
 
-    # Data loaders
-    batch_size = 32
+    input_image_size = (75, 75)
 
-    vitmodel = 'google/vit-base-patch16-224'
-    processor = AutoImageProcessor.from_pretrained(vitmodel)
-    collator = ImageClassificationCollator(processor)
+    data_transform = transforms.Compose([
+            transforms.Resize(input_image_size),
+            transforms.RandomAffine(degrees=0, translate=None,
+                                    scale=(0.8, 1.2), shear=0.2),
+            # transforms.RandomHorizontalFlip(),
+            transforms.ToTensor()
+        ])
+
+    noop_transform = transforms.Compose([
+            transforms.Resize(input_image_size),
+            transforms.ToTensor()
+        ])
+
+    # Data loaders
+    batch_size = 50
 
     print('Train: ', end="")
     train_dataset = datasets.ImageFolder(root=datapath+'/train',
-                                         transform=transforms.ToTensor())
+                                         transform=data_transform)
     train_loader = DataLoader(train_dataset, batch_size=batch_size,
-                              shuffle=True, num_workers=4,
-                              collate_fn=collator)
+                              shuffle=True, num_workers=4)
     print('Found', len(train_dataset), 'images belonging to',
           len(train_dataset.classes), 'classes')
 
     print('Validation: ', end="")
     validation_dataset = ImageFolderRemoveDirs(root=datapath+'/validation',
-                                               transform=transforms.ToTensor(),
+                                               transform=noop_transform,
                                                remove_dirs=['00027', '00039'])
     validation_loader = DataLoader(validation_dataset, batch_size=batch_size,
-                                   shuffle=False, num_workers=4,
-                                   collate_fn=collator)
+                                   shuffle=False, num_workers=4)
     print('Found', len(validation_dataset), 'images belonging to',
           len(validation_dataset.classes), 'classes')
 
     print('Test: ', end="")
     test_dataset = datasets.ImageFolder(root=datapath+'/test',
-                                        transform=transforms.ToTensor())
+                                        transform=noop_transform)
     test_loader = DataLoader(test_dataset, batch_size=batch_size,
-                             shuffle=False, num_workers=4,
-                             collate_fn=collator)
+                             shuffle=False, num_workers=4)
     print('Found', len(test_dataset), 'images belonging to',
           len(test_dataset.classes), 'classes')
 
     # Define the network and training parameters
-    model = ViTForImageClassification.from_pretrained(
-        vitmodel, num_labels=43, ignore_mismatched_sizes=True)
+    model = Net()
     model = model.to(device)
-    optimizer = optim.Adam(model.parameters(), lr=1e-5)
+    optimizer = optim.SGD(model.parameters(), lr=0.03)
+    #optimizer = optim.RMSprop(model.parameters())
     criterion = nn.CrossEntropyLoss()
 
     print(model)
 
-    num_epochs = 5
+    num_epochs = 50
 
     # Training loop
     start_time = datetime.now()

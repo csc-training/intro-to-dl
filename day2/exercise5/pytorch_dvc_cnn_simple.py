@@ -146,7 +146,7 @@ def main():
     try:
         import tensorboardX
         time_str = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-        logdir = os.path.join(os.getcwd(), "logs", "dvc-" + time_str)
+        logdir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "logs", "dvc-" + time_str)
         print('TensorBoard log directory:', logdir)
         os.makedirs(logdir)
         log = tensorboardX.SummaryWriter(logdir)

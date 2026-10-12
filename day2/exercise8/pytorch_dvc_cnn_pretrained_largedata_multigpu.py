@@ -156,7 +156,7 @@ def main():
     # TensorBoard for logging
     if rank_0:
         time_str = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-        logdir = os.path.join(os.getcwd(), "logs", "dvc-pretrained-" + time_str)
+        logdir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "logs", "dvc-pretrained-largedata-" + time_str)
         print('TensorBoard log directory:', logdir)
         os.makedirs(logdir)
         log = SummaryWriter(logdir)
@@ -199,7 +199,10 @@ def main():
     # Data loaders
     batch_size = 25
 
-    train_dataset = datasets.ImageFolder(root=datapath+'/train',
+    # Note: we have switched train and test in this example to
+    # simulate having a larger training dataset.
+    
+    train_dataset = datasets.ImageFolder(root=datapath+'/test',
                                          transform=data_transform)
     train_sampler = DistributedSampler(train_dataset, drop_last=True)
     train_loader = DataLoader(train_dataset, batch_size=batch_size,
@@ -219,7 +222,7 @@ def main():
         print('Found', len(validation_dataset), 'images belonging to',
               len(validation_dataset.classes), 'classes')
 
-    test_dataset = datasets.ImageFolder(root=datapath+'/test',
+    test_dataset = datasets.ImageFolder(root=datapath+'/train',
                                         transform=noop_transform)
     test_loader = DataLoader(test_dataset, batch_size=batch_size,
                              shuffle=False, num_workers=4)
