@@ -89,11 +89,13 @@ You can use TensorBoard via the Roihu web user interface.
 
 1. Log in via <https://www.roihu.csc.fi/>
 2. Select menu item: Apps → TensorBoard
-4. In the form:
-   - Select course project: project_2020307
+3. In the form:
+   - Project: select the course project "project_2020307"
+   - Partition: interactive
+   - Module: python-pytorch/2.13 (default)
    - Specify the "TensorBoard log directory", it's where you have cloned the course repository plus "day2/logs", for example:
-  `~/PDL-2026-10/intro-to-dl/day2/logs`. You can run `pwd` in the terminal to find out the full path where you are working.
-   - Leave rest at default settings
-6. Click "Launch"
-7. Wait until you see the "Connect to Tensorboard" button, then click that.
-8. When you're done using TensorBoard, please go to "My Interactive Sessions" in the Roihu web user interface and "Cancel" the session. (It will automatically terminate once the reserved time is up, but it's always better to release the resource as soon as possible so that others can use it.)
+  `~/PDL-2026-10/intro-to-dl/day2/logs`.
+   - Leave the rest at the default settings (Reservation: No reservation, 1 CPU core, 8 GiB memory, Time 0:30:00)
+4. Click "Launch"
+5. Wait until you see the "Connect to Tensorboard" button, then click that.
+6. When you're done using TensorBoard, please go to "My Interactive Sessions" in the Roihu web user interface and "Cancel" the session. (It will automatically terminate once the reserved time is up, but it's always better to release the resource as soon as possible so that others can use it.)
