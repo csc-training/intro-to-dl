@@ -94,7 +94,7 @@ You can use TensorBoard via the Roihu web user interface.
    - Partition: interactive
    - Module: python-pytorch/2.13 (default)
    - Specify the "TensorBoard log directory", it's where you have cloned the course repository plus "day2/logs", for example:
-  `~/PDL-2026-10/intro-to-dl/day2/logs`.
+  `~/PDL-2026-10/intro-to-dl/day2/logs`. You can run `pwd` in the terminal to find out the full path where you are working.
    - Leave the rest at the default settings (Reservation: No reservation, 1 CPU core, 8 GiB memory, Time 0:30:00)
 4. Click "Launch"
 5. Wait until you see the "Connect to Tensorboard" button, then click that.
