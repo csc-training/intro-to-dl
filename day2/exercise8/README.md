@@ -6,7 +6,7 @@ All commands below are run from this exercise's directory, i.e. `day2/exercise8`
 cd exercise8   # when starting from the day2 directory
 ```
 
-The Slurm scripts (`run.sh`, `run-2gpus.sh`, `run-4gpus.sh`) are in the parent `day2` directory, so they are submitted as `sbatch ../run.sh <script>.py`.
+This directory has Slurm scripts for 1, 2 and 4 GPUs: `run.sh`, `run-2gpus.sh` and `run-4gpus.sh`. Jobs are submitted as `sbatch run.sh <script>.py` (or `run-2gpus.sh`, `run-4gpus.sh`).
 
 In this exercise, we try using multiple GPUs.
 
@@ -28,7 +28,7 @@ diff -W 180 -y ../exercise5/pytorch_dvc_cnn_pretrained.py pytorch_dvc_cnn_pretra
 Run this example with two GPUs using the `run-2gpus.sh` script:
 
 ```bash
-sbatch ../run-2gpus.sh pytorch_dvc_cnn_pretrained_multigpu.py
+sbatch run-2gpus.sh pytorch_dvc_cnn_pretrained_multigpu.py
 ```
 
 Can you see any speed improvement when going from 1 to 2 GPUs? You can
@@ -57,13 +57,13 @@ which uses a larger training dataset (22000 images rather than
 2000). Try that first with one GPU:
 
 ```bash
-sbatch ../run.sh pytorch_dvc_cnn_pretrained_largedata.py
+sbatch run.sh pytorch_dvc_cnn_pretrained_largedata.py
 ```
 
 and then with 2 GPUs:
 
 ```bash
-sbatch ../run-2gpus.sh pytorch_dvc_cnn_pretrained_largedata_multigpu.py
+sbatch run-2gpus.sh pytorch_dvc_cnn_pretrained_largedata_multigpu.py
 ```
 
 Can you now see any improvement going from 1 to 2 GPUs.
@@ -75,14 +75,14 @@ If you have time, try also with 4 GPUs, that is a full node of Roihu.
 For the small training set:
 
 ```bash
-sbatch ../run-4gpus.sh pytorch_dvc_cnn_pretrained_multigpu.py
+sbatch run-4gpus.sh pytorch_dvc_cnn_pretrained_multigpu.py
 ```
 
 
 For the large training set:
 
 ```bash
-sbatch ../run-4gpus.sh pytorch_dvc_cnn_pretrained_largedata_multigpu.py
+sbatch run-4gpus.sh pytorch_dvc_cnn_pretrained_largedata_multigpu.py
 ```
 
 Compare training time to the 1 and 2 GPU cases.

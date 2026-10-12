@@ -53,7 +53,7 @@
 
 ## Edit and submit jobs
 
-Each exercise has its own directory (`exercise5`, `exercise6`, ...) containing its instructions and Python scripts. The Slurm scripts `run.sh`, `run-2gpus.sh` and `run-4gpus.sh` are shared and live in `day2`, so from inside an exercise directory you submit e.g. `sbatch ../run.sh pytorch_dvc_cnn_simple.py`. The test below is run directly from `day2`.
+Each exercise has its own directory (`exercise5`, `exercise6`, ...) containing its instructions, Python scripts and the Slurm script `run.sh`, so from inside an exercise directory you submit e.g. `sbatch run.sh pytorch_dvc_cnn_simple.py`. Exercise 8 also has `run-2gpus.sh` and `run-4gpus.sh` for multiple GPUs. The test below is run directly from `day2`, which has its own `run.sh` for it.
 
 1. Edit Python script, either by:
    - Navigating to the file in the Roihu web UI file browser (Files → Home Directory → PDL-2026-10 → intro-to-dl → day2 → exerciseN) and selecting "Edit" on that file (under the three dots "⋮" menu).

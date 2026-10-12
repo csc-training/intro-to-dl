@@ -1,0 +1,31 @@
+#!/bin/bash
+#SBATCH --account=project_2020307 # Project account used for computing resources allocation
+#SBATCH --partition=gpumedium # Partition/queue to run the job (GPU partition)
+#SBATCH --nodes=1 # Number of nodes
+#SBATCH --cpus-per-task=72 # Number of CPU cores allocated to the task
+#SBATCH --gres=gpu:gh200:1 # Number of GPUs allocated to the task
+#SBATCH --mem=217086mb # Total RAM allocated for the job
+#SBATCH --time=00:15:00 # Maximum runtime (HH:MM:SS)
+#SBATCH --reservation=pdl-day2-no-ood # Reservation slot being used for the job
+
+# --------------------------------------------------
+# Clean environment and load required modules
+# --------------------------------------------------
+
+module purge # Removes all currently loaded modules to avoid conflicts
+module load python-pytorch/2.13 # Load the PyTorch 2.13 environment module
+
+COURSE_SCRATCH="/scratch/${SLURM_JOB_ACCOUNT}" # Define scratch storage location
+
+export DATADIR=$COURSE_SCRATCH/data # Directory where datasets are stored
+export TORCH_HOME=$COURSE_SCRATCH/torch-cache # Cache location for PyTorch models and weights
+export HF_HOME=$COURSE_SCRATCH/hf-cache # Cache location for Hugging Face models/tokenizers
+
+
+export MLFLOW_TRACKING_URI=$COURSE_SCRATCH/data/users/$USER/mlruns # Directory where MLflow experiment logs will be stored
+export TOKENIZERS_PARALLELISM=false # Disable HuggingFace tokenizers parallelism to avoid fork warnings
+
+umask 002 # Ensures group-write permissions for created files
+
+set -xv # Prints commands before executing them (useful for debugging)
+srun python3 $*

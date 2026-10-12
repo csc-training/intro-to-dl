@@ -6,7 +6,7 @@ All commands below are run from this exercise's directory, i.e. `day2/exercise5`
 cd exercise5   # when starting from the day2 directory
 ```
 
-The Slurm scripts (`run.sh`, `run-2gpus.sh`, `run-4gpus.sh`) are in the parent `day2` directory, so they are submitted as `sbatch ../run.sh <script>.py`.
+Jobs are submitted with the Slurm script `run.sh` in this directory: `sbatch run.sh <script>.py`.
 
 In this exercise, we study image classification with two datasets:
 
@@ -29,7 +29,7 @@ accuracy with three different approaches:
 You can run the training directly with the corresponding script listed above,
 for example:
 
-    sbatch ../run.sh pytorch_dvc_cnn_simple.py
+    sbatch run.sh pytorch_dvc_cnn_simple.py
 
 As a reminder, you can check the status of your runs with the command:
 
