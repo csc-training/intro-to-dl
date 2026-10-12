@@ -123,7 +123,7 @@ def log_measures(ret, log, prefix, epoch):
 
 def main():
     time_str = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-    logdir = os.path.join(os.getcwd(), "logs", "20ng-bert-" + time_str)
+    logdir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "logs", "20ng-bert-" + time_str)
     print('TensorBoard log directory:', logdir)
     os.makedirs(logdir)
     log = SummaryWriter(logdir)

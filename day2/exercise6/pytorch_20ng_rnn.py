@@ -44,29 +44,18 @@ class Net(nn.Module):
     def __init__(self, embedding_matrix):
         super(Net, self).__init__()
         self.emb = nn.Embedding.from_pretrained(embedding_matrix, freeze=True)
-        self.layers = nn.Sequential(
-            nn.Conv1d(100, 128, 5),  # output: batch_size x 128 x seq_len-4
-            nn.ReLU(),
-            nn.MaxPool1d(5),         # output: bs x 128 x 199
-            nn.Conv1d(128, 128, 5),  # output: bs x 128 x 199
-            nn.ReLU(),
-            nn.MaxPool1d(5),         # output: bs x 128 x 39
-            nn.Conv1d(128, 128, 5),  # output: bs x 128 x 35
-            nn.ReLU(),
-            nn.AdaptiveMaxPool1d(1)  # output: bs x 128 x 1
-            )
-        self.linear_layers = nn.Sequential(
-            nn.Flatten(),
-            nn.Linear(128, 128),
-            nn.ReLU(),
-            nn.Linear(128, 20),
-        )
+        self.lstm = nn.LSTM(100, 128, num_layers=2, batch_first=True)
+        self.linear = nn.Linear(128,20)
 
     def forward(self, x):
-        x = self.emb(x)      # output from embedding: batch_size x seq_len x embedding dim.
-        x = x.transpose(1,2) # change to: batch_size x embedding_dim x seq_len
-        x = self.layers(x)
-        x = self.linear_layers(x)
+        x = self.emb(x)
+        
+        # LSTM also returns the values of the internal h_n and c_n parameters
+        x, (hn, cn) = self.lstm(x)
+        
+        # we pick only the last output after having processed the whole sequence
+        x = self.linear(x[:, -1, :])
+
         return x
 
 
@@ -153,7 +142,7 @@ def main():
     try:
         import tensorboardX
         time_str = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-        logdir = os.path.join(os.getcwd(), "logs", "20ng-cnn-" + time_str)
+        logdir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "logs", "20ng-rnn-" + time_str)
         print('TensorBoard log directory:', logdir)
         os.makedirs(logdir)
         log = tensorboardX.SummaryWriter(logdir)
@@ -328,15 +317,14 @@ def main():
 
     model = Net(embedding_matrix)
     model = model.to(device)
-    
-    # optimizer = optim.RMSprop(model.parameters(), lr=0.001)
-    optimizer = optim.Adam(model.parameters(), lr=0.0005)
-    
+
+    # optimizer = optim.RMSprop(model.parameters(), lr=0.005)
+    optimizer = optim.Adam(model.parameters(), lr=0.005)
     criterion = nn.CrossEntropyLoss()
 
     print(model)
 
-    num_epochs = 40
+    num_epochs = 20
 
     # Training loop
     start_time = datetime.now()

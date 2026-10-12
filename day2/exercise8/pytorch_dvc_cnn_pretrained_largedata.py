@@ -142,7 +142,7 @@ def log_measures(ret, log, prefix, epoch):
 def main():
     # TensorBoard for logging
     time_str = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-    logdir = os.path.join(os.getcwd(), "logs", "dvc-pretrained-" + time_str)
+    logdir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "logs", "dvc-pretrained-largedata-" + time_str)
     print('TensorBoard log directory:', logdir)
     os.makedirs(logdir)
     log = SummaryWriter(logdir)
@@ -185,8 +185,11 @@ def main():
     # Data loaders
     batch_size = 25
 
+    # Note: we have switched train and test in this example to
+    # simulate having a larger training dataset.
+
     print('Train: ', end="")
-    train_dataset = datasets.ImageFolder(root=datapath+'/train',
+    train_dataset = datasets.ImageFolder(root=datapath+'/test',
                                          transform=data_transform)
     train_loader = DataLoader(train_dataset, batch_size=batch_size,
                               shuffle=True, num_workers=4)
@@ -202,7 +205,7 @@ def main():
           len(validation_dataset.classes), 'classes')
 
     print('Test: ', end="")
-    test_dataset = datasets.ImageFolder(root=datapath+'/test',
+    test_dataset = datasets.ImageFolder(root=datapath+'/train',
                                         transform=noop_transform)
     test_loader = DataLoader(test_dataset, batch_size=batch_size,
                              shuffle=False, num_workers=4)

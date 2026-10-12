@@ -1,5 +1,13 @@
 # Exercise 8
 
+All commands below are run from this exercise's directory, i.e. `day2/exercise8`:
+
+```bash
+cd exercise8   # when starting from the day2 directory
+```
+
+This directory has Slurm scripts for 1, 2 and 4 GPUs: `run.sh`, `run-2gpus.sh` and `run-4gpus.sh`. Jobs are submitted as `sbatch run.sh <script>.py` (or `run-2gpus.sh`, `run-4gpus.sh`).
+
 In this exercise, we try using multiple GPUs.
 
 ## Task 1
@@ -13,7 +21,7 @@ Compare the Python code to see what changes were made to make them work on
 multiple GPUs. For example, a command like this could be used:
 
 ```bash
-diff -W 180 -y pytorch_dvc_cnn_pretrained.py pytorch_dvc_cnn_pretrained_multigpu.py | less
+diff -W 180 -y ../exercise5/pytorch_dvc_cnn_pretrained.py pytorch_dvc_cnn_pretrained_multigpu.py | less
 ```
 (navigate with PgUp/PgDn and press 'q' to quit the view).
 

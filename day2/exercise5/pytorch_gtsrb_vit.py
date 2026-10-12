@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # Dogs-vs-cats classification with CNNs
-#
+# # Traffic sign classification with CNNs
+# 
 # In this script, we'll finetune a Vision Transformer
-# (https://arxiv.org/abs/2010.11929) (ViT) to classify images of cats
-# and dogs using PyTorch and HuggingFace Transformers:
+# (https://arxiv.org/abs/2010.11929) (ViT) to classify images of
+# traffic signs using PyTorch and HuggingFace Transformers:
 # https://github.com/huggingface/transformers
 
 import torch
@@ -33,12 +33,28 @@ print('Using PyTorch version:', torch.__version__,
       'Device:', device)
 assert LV(torch.__version__) >= LV("1.0.0")
 
+#
+# There are some broken folders, but we need to keep the class indices
+# the same. We created a custom Dataset class to handle this.
+#
+class ImageFolderRemoveDirs(datasets.ImageFolder):
+    def __init__(self, root, transform, remove_dirs):
+        self.remove_dirs = remove_dirs
+        super(ImageFolderRemoveDirs, self).__init__(root=root, transform=transform)
+
+    def find_classes(self, directory):
+        classes, class_to_idx = super(ImageFolderRemoveDirs, self).find_classes(directory)
+        for d in self.remove_dirs:
+            print('Removing directory', d)
+            classes.remove(d)
+            del class_to_idx[d]
+        return classes, class_to_idx
+
 
 def correct(output, target):
-    class_pred = (output > 0).int()            # set to 0 for <0.5, 1 for >0.5
-    correct_ones = class_pred == target.int()  # 1 for correct, 0 for incorrect
-    return correct_ones.sum().item()           # count number of correct ones
-
+    predicted = output.argmax(1) # pick class with largest network output
+    correct_ones = (predicted == target).type(torch.float)
+    return correct_ones.sum().item() # count number of correct ones
 
 def train(data_loader, model, criterion, optimizer):
     model.train()
@@ -55,7 +71,7 @@ def train(data_loader, model, criterion, optimizer):
         target = target.to(device)
 
         # Do a forward pass
-        output = model(data).logits.squeeze()
+        output = model(data).logits #.squeeze()
 
         # Calculate the loss
         loss = criterion(output, target)
@@ -93,7 +109,7 @@ def test(test_loader, model, criterion):
             target = target.to(device)
 
             # Do a forward pass
-            output = model(data).logits.squeeze()
+            output = model(data).logits #.squeeze()
 
             # Calculate the loss
             loss = criterion(output, target)
@@ -121,7 +137,7 @@ class ImageClassificationCollator:
     def __call__(self, batch):
         data = self.processor([x[0] for x in batch], do_rescale=False,
                               return_tensors='pt').pixel_values
-        targets = torch.tensor([x[1] for x in batch], dtype=torch.float32)
+        targets = torch.tensor([x[1] for x in batch]) #, dtype=torch.float32)
         return data, targets
 
 
@@ -130,7 +146,7 @@ def main():
     try:
         import tensorboardX
         time_str = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-        logdir = os.path.join(os.getcwd(), "logs", "dvc-vit-" + time_str)
+        logdir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "logs", "gtsrb-vit-" + time_str)
         print('TensorBoard log directory:', logdir)
         os.makedirs(logdir)
         log = tensorboardX.SummaryWriter(logdir)
@@ -155,7 +171,7 @@ def main():
     if datapath is None:
         print("Please set DATADIR environment variable!")
         sys.exit(1)
-    datapath = os.path.join(datapath, 'dogs-vs-cats/train-2000')
+    datapath = os.path.join(datapath, 'gtsrb/train-5535')
 
     # Data loaders
     batch_size = 32
@@ -174,8 +190,9 @@ def main():
           len(train_dataset.classes), 'classes')
 
     print('Validation: ', end="")
-    validation_dataset = datasets.ImageFolder(root=datapath+'/validation',
-                                              transform=transforms.ToTensor())
+    validation_dataset = ImageFolderRemoveDirs(root=datapath+'/validation',
+                                               transform=transforms.ToTensor(),
+                                               remove_dirs=['00027', '00039'])
     validation_loader = DataLoader(validation_dataset, batch_size=batch_size,
                                    shuffle=False, num_workers=4,
                                    collate_fn=collator)
@@ -193,14 +210,14 @@ def main():
 
     # Define the network and training parameters
     model = ViTForImageClassification.from_pretrained(
-        vitmodel, num_labels=1, ignore_mismatched_sizes=True)
+        vitmodel, num_labels=43, ignore_mismatched_sizes=True)
     model = model.to(device)
     optimizer = optim.Adam(model.parameters(), lr=1e-5)
-    criterion = nn.BCEWithLogitsLoss()
+    criterion = nn.CrossEntropyLoss()
 
     print(model)
 
-    num_epochs = 10
+    num_epochs = 5
 
     # Training loop
     start_time = datetime.now()

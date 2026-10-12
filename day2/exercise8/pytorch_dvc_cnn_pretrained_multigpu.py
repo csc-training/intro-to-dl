@@ -27,6 +27,10 @@ from datetime import datetime
 import os
 import sys
 
+import torch.distributed as dist
+from torch.nn.parallel import DistributedDataParallel
+from torch.utils.data.distributed import DistributedSampler
+
 torch.manual_seed(42)
 
 if torch.cuda.is_available():
@@ -140,12 +144,22 @@ def log_measures(ret, log, prefix, epoch):
 
 
 def main():
+    # Initialize PyTorch distributed
+    dist.init_process_group(backend='nccl')
+
+    local_rank = int(os.environ['LOCAL_RANK'])
+    torch.cuda.set_device(local_rank)
+
+    rank_0 = dist.get_rank() == 0
+
+    logdir = None
     # TensorBoard for logging
-    time_str = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-    logdir = os.path.join(os.getcwd(), "logs", "dvc-pretrained-largedata-" + time_str)
-    print('TensorBoard log directory:', logdir)
-    os.makedirs(logdir)
-    log = SummaryWriter(logdir)
+    if rank_0:
+        time_str = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+        logdir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "logs", "dvc-pretrained-" + time_str)
+        print('TensorBoard log directory:', logdir)
+        os.makedirs(logdir)
+        log = SummaryWriter(logdir)
 
     # The training dataset consists of 2000 images of dogs and cats, split
     # in half.  In addition, the validation set consists of 1000 images,
@@ -185,40 +199,44 @@ def main():
     # Data loaders
     batch_size = 25
 
-    # Note: we have switched train and test in this example to
-    # simulate having a larger training dataset.
-
-    print('Train: ', end="")
-    train_dataset = datasets.ImageFolder(root=datapath+'/test',
+    train_dataset = datasets.ImageFolder(root=datapath+'/train',
                                          transform=data_transform)
+    train_sampler = DistributedSampler(train_dataset, drop_last=True)
     train_loader = DataLoader(train_dataset, batch_size=batch_size,
-                              shuffle=True, num_workers=4)
-    print('Found', len(train_dataset), 'images belonging to',
-          len(train_dataset.classes), 'classes')
+                              shuffle=False, num_workers=4,
+                              sampler=train_sampler)
+    if rank_0:
+        print('Train: ', end="")
+        print('Found', len(train_dataset), 'images belonging to',
+              len(train_dataset.classes), 'classes')
 
-    print('Validation: ', end="")
     validation_dataset = datasets.ImageFolder(root=datapath+'/validation',
                                               transform=noop_transform)
     validation_loader = DataLoader(validation_dataset, batch_size=batch_size,
                                    shuffle=False, num_workers=4)
-    print('Found', len(validation_dataset), 'images belonging to',
-          len(validation_dataset.classes), 'classes')
+    if rank_0:
+        print('Validation: ', end="")
+        print('Found', len(validation_dataset), 'images belonging to',
+              len(validation_dataset.classes), 'classes')
 
-    print('Test: ', end="")
-    test_dataset = datasets.ImageFolder(root=datapath+'/train',
+    test_dataset = datasets.ImageFolder(root=datapath+'/test',
                                         transform=noop_transform)
     test_loader = DataLoader(test_dataset, batch_size=batch_size,
                              shuffle=False, num_workers=4)
-    print('Found', len(test_dataset), 'images belonging to',
-          len(test_dataset.classes), 'classes')
+    if rank_0:
+        print('Test: ', end="")
+        print('Found', len(test_dataset), 'images belonging to',
+              len(test_dataset.classes), 'classes')
 
     # Define the network and training parameters
     model = PretrainedNet()
     model = model.to(device)
+    model = DistributedDataParallel(model, device_ids=[local_rank])
+    if rank_0:
+        print(model)
+   
     optimizer = optim.SGD(model.parameters(), lr=0.01)
     criterion = nn.BCELoss()
-
-    print(model)
 
     num_epochs = 10
 
@@ -226,21 +244,24 @@ def main():
     start_time = datetime.now()
     for epoch in range(num_epochs):
         train_ret = train(train_loader, model, criterion, optimizer)
-        log_measures(train_ret, log, "train", epoch)
+        if rank_0:
+            log_measures(train_ret, log, "train", epoch)
 
         val_ret = test(validation_loader, model, criterion)
-        log_measures(val_ret, log, "val", epoch)
-        print(f"Epoch {epoch+1}: "
-              f"train accuracy: {train_ret['accuracy']:.2%}, "
-              f"val accuracy: {val_ret['accuracy']:.2%}")
+        if rank_0:
+            log_measures(val_ret, log, "val", epoch)
+            print(f"Epoch {epoch+1}: "
+                  f"train accuracy: {train_ret['accuracy']:.2%}, "
+                  f"val accuracy: {val_ret['accuracy']:.2%}")
 
     end_time = datetime.now()
-    print('Total training time: {}.'.format(end_time - start_time))
+    if rank_0:
+        print('Total training time: {}.'.format(end_time - start_time))
 
-    # Inference
-    ret = test(test_loader, model, criterion)
-    print("\nTesting (pretrained, before fine-tuning): "
-          f"accuracy: {ret['accuracy']:.2%}\n")
+        # Inference
+        ret = test(test_loader, model, criterion)
+        print("\nTesting (pretrained, before fine-tuning): "
+              f"accuracy: {ret['accuracy']:.2%}\n")
 
     #  Fine-tuning
     #
@@ -254,15 +275,17 @@ def main():
     # with '+', frozen with '-'.  Other layers don't have trainable
     # parameters.
 
-    print("Marking layers for training (+) or frozen (-):")
-    for name, layer in model.vgg_features.named_children():
+    if rank_0:
+        print("Marking layers for training (+) or frozen (-):")
+    for name, layer in model.module.vgg_features.named_children():
         note = ' '
         for param in layer.parameters():
             note = '-'
             if int(name) >= 24:
                 param.requires_grad = True
                 note = '+'
-        print(name, note, layer, len(param))
+        if rank_0:
+            print(name, note, layer, len(param))
 
     # We set up the training, note that we need to give only the
     # parameters that are set to be trainable.
@@ -273,9 +296,10 @@ def main():
 
     # Note that before continuing the training, we create a separate
     # TensorBoard log directory.
-    logdir_pt = logdir + '-pretrained-finetune'
-    os.makedirs(logdir_pt)
-    log = SummaryWriter(logdir_pt)
+    if rank_0:
+        logdir_pt = logdir + '-pretrained-finetune'
+        os.makedirs(logdir_pt)
+        log = SummaryWriter(logdir_pt)
 
     prev_epochs = num_epochs
     num_epochs = 20
@@ -283,23 +307,28 @@ def main():
     start_time = datetime.now()
     for epoch in range(prev_epochs, prev_epochs+num_epochs):
         train_ret = train(train_loader, model, criterion, optimizer)
-        log_measures(train_ret, log, "train", epoch)
+        if rank_0:
+            log_measures(train_ret, log, "train", epoch)
 
         val_ret = test(validation_loader, model, criterion)
-        log_measures(val_ret, log, "val", epoch)
 
-        print(f"Epoch {epoch+1}: "
-              f"train loss: {train_ret['loss']:.6f} "
-              f"train accuracy: {train_ret['accuracy']:.2%}, "
-              f"val accuracy: {val_ret['accuracy']:.2%}")
+        if rank_0:
+            log_measures(val_ret, log, "val", epoch)
+            
+            print(f"Epoch {epoch+1}: "
+                  f"train loss: {train_ret['loss']:.6f} "
+                  f"train accuracy: {train_ret['accuracy']:.2%}, "
+                  f"val accuracy: {val_ret['accuracy']:.2%}")
 
     end_time = datetime.now()
-    print('Total fine-tuning time: {}.'.format(end_time - start_time))
+    if rank_0:
+        print('Total fine-tuning time: {}.'.format(end_time - start_time))
 
     # Inference
-    ret = test(test_loader, model, criterion)
-    print("\nTesting (pretrained, after fine-tuning): "
-          f"accuracy: {ret['accuracy']:.2%}\n")
+    if rank_0:
+        ret = test(test_loader, model, criterion)
+        print("\nTesting (pretrained, after fine-tuning): "
+              f"accuracy: {ret['accuracy']:.2%}\n")
 
 
 if __name__ == "__main__":

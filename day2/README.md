@@ -2,10 +2,10 @@
 
 ## Exercise sessions
 
-* [Exercise 5: Image classification](Exercise_5.md)
-* [Exercise 6: Text categorization](Exercise_6.md)
-* [Exercise 7: Text generation](Exercise_7.md)
-* [Exercise 8: Using multiple GPUs](Exercise_8.md)
+* [Exercise 5: Image classification](exercise5/README.md)
+* [Exercise 6: Text categorization](exercise6/README.md)
+* [Exercise 7: Text generation](exercise7/README.md)
+* [Exercise 8: Using multiple GPUs](exercise8/README.md)
 
 ## Setup
 
@@ -53,8 +53,10 @@
 
 ## Edit and submit jobs
 
+Each exercise has its own directory (`exercise5`, `exercise6`, ...) containing its instructions, Python scripts and the Slurm script `run.sh`, so from inside an exercise directory you submit e.g. `sbatch run.sh pytorch_dvc_cnn_simple.py`. Exercise 8 also has `run-2gpus.sh` and `run-4gpus.sh` for multiple GPUs. The test below is run directly from `day2`, which has its own `run.sh` for it.
+
 1. Edit Python script, either by:
-   - Navigating to the file in the Roihu web UI file browser (Files → Home Directory → PDL-2026-10 → intro-to-dl → day2) and selecting "Edit" on that file (under the three dots "⋮" menu).
+   - Navigating to the file in the Roihu web UI file browser (Files → Home Directory → PDL-2026-10 → intro-to-dl → day2 → exerciseN) and selecting "Edit" on that file (under the three dots "⋮" menu).
    - Opening with your favorite text editor in the terminal, for example:
      ```bash
      nano pytorch_test.py
@@ -73,7 +75,7 @@
    squeue -p gpumedium
    ```
 
-4. After the job has finished, examine the results:
+4. After the job has finished, examine the results (the `slurm-xxxxxxxx.out` file is written to the directory you submitted the job from):
 
    ```bash
    less slurm-xxxxxxxx.out
@@ -87,11 +89,13 @@ You can use TensorBoard via the Roihu web user interface.
 
 1. Log in via <https://www.roihu.csc.fi/>
 2. Select menu item: Apps → TensorBoard
-4. In the form:
-   - Select course project: project_2020307
+3. In the form:
+   - Project: select the course project "project_2020307"
+   - Partition: interactive
+   - Module: python-pytorch/2.13 (default)
    - Specify the "TensorBoard log directory", it's where you have cloned the course repository plus "day2/logs", for example:
   `~/PDL-2026-10/intro-to-dl/day2/logs`. You can run `pwd` in the terminal to find out the full path where you are working.
-   - Leave rest at default settings
-6. Click "Launch"
-7. Wait until you see the "Connect to Tensorboard" button, then click that.
-8. When you're done using TensorBoard, please go to "My Interactive Sessions" in the Roihu web user interface and "Cancel" the session. (It will automatically terminate once the reserved time is up, but it's always better to release the resource as soon as possible so that others can use it.)
+   - Leave the rest at the default settings (Reservation: No reservation, 1 CPU core, 8 GiB memory, Time 0:30:00)
+4. Click "Launch"
+5. Wait until you see the "Connect to Tensorboard" button, then click that.
+6. When you're done using TensorBoard, please go to "My Interactive Sessions" in the Roihu web user interface and "Cancel" the session. (It will automatically terminate once the reserved time is up, but it's always better to release the resource as soon as possible so that others can use it.)

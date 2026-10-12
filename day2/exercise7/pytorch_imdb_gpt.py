@@ -108,10 +108,12 @@ if __name__ == "__main__":
     # Database, split into 25,000 reviews for training and 25,000 reviews
     # for testing and 50,000 without labels (unsupervised).
 
-    train_dataset = load_dataset("imdb", keep_in_memory=True,
-                                 split="train+unsupervised")
-    test_dataset = load_dataset("imdb", keep_in_memory=True,
-                                split="test")
+    train_dataset = load_dataset("stanfordnlp/imdb", keep_in_memory=True,
+                                 split="train+unsupervised",
+                                 trust_remote_code=False, cache_dir=datapath)
+    test_dataset = load_dataset("stanfordnlp/imdb", keep_in_memory=True,
+                                split="test",
+                                trust_remote_code=False, cache_dir=datapath)
 
     # Let's print one sample from the dataset.
     print('Sample from dataset')
@@ -146,7 +148,7 @@ if __name__ == "__main__":
     test_batch_size = 128
 
     time_str = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-    logging_dir = os.path.join(os.getcwd(), "logs", "imdb-gpt-" + time_str)
+    logging_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "logs", "imdb-gpt-" + time_str)
 
     output_dir = os.path.join(user_datapath, "gpt-imdb-model")
     training_args = TrainingArguments(

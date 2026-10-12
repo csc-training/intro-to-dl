@@ -1,5 +1,13 @@
 # Exercise 6
 
+All commands below are run from this exercise's directory, i.e. `day2/exercise6`:
+
+```bash
+cd exercise6   # when starting from the day2 directory
+```
+
+Jobs are submitted with the Slurm script `run.sh` in this directory: `sbatch run.sh <script>.py`.
+
 In this exercise, we study text categorization using the [_20
 newsgroups_](http://www.cs.cmu.edu/afs/cs.cmu.edu/project/theo-20/www/data/news20.html)
 (20ng) dataset. The dataset contains 20,000 text documents (Usenet messages)

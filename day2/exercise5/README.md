@@ -1,5 +1,13 @@
 # Exercise 5
 
+All commands below are run from this exercise's directory, i.e. `day2/exercise5`:
+
+```bash
+cd exercise5   # when starting from the day2 directory
+```
+
+Jobs are submitted with the Slurm script `run.sh` in this directory: `sbatch run.sh <script>.py`.
+
 In this exercise, we study image classification with two datasets:
 
 - [_Dogs vs. cats_](imgs/dvc.png) (dvc), where we train on 2000 images, each
