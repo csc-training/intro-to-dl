@@ -14,3 +14,4 @@ day1/**/model.png
 day1/optional/pml_utils.py
 day2/mlruns/
 day2/exercise*/mlruns/
+day2/exercise*/*.txt

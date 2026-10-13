@@ -4,7 +4,7 @@
 
 * [Exercise 5: Image classification](exercise5/README.md)
 * [Exercise 6: Text categorization](exercise6/README.md)
-* [Exercise 7: Text generation](exercise7/README.md)
+* [Exercise 7: Base vs instruction-tuned LLM](exercise7/README.md)
 * [Exercise 8: Using multiple GPUs](exercise8/README.md)
 
 ## Setup
