@@ -57,6 +57,8 @@ def run_prompts(model_name, max_new_tokens):
     # Decode only the newly generated tokens
     new_tokens = outputs[:, inputs["input_ids"].shape[1]:]
     responses = processor.batch_decode(new_tokens, skip_special_tokens=not instruction_tuned)
+    # Remove the padding added after shorter responses in the batch, otherwise the parser mistakes it for the answer
+    responses = [response.replace(processor.tokenizer.pad_token, "") for response in responses]
 
     # Write the results to the current directory, e.g. gemma-4-E2B-it-style.txt
     output_file = model_name.split("/")[-1] + "-style.txt"
