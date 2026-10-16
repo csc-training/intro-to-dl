@@ -20,6 +20,7 @@ COURSE_SCRATCH="/scratch/${SLURM_JOB_ACCOUNT}" # Define scratch storage location
 export DATADIR=$COURSE_SCRATCH/data # Directory where datasets are stored
 export TORCH_HOME=$COURSE_SCRATCH/torch-cache # Cache location for PyTorch models and weights
 export HF_HOME=$COURSE_SCRATCH/hf-cache # Cache location for Hugging Face models/tokenizers
+export HF_HUB_OFFLINE=1 # Use only the models already in the cache, do not contact the Hugging Face Hub
 
 
 export MLFLOW_TRACKING_URI=$COURSE_SCRATCH/data/users/$USER/mlruns # Directory where MLflow experiment logs will be stored
