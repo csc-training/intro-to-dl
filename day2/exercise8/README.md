@@ -35,10 +35,11 @@ Can you see any speed improvement when going from 1 to 2 GPUs? You can
 compare the main training time (ignore the fine-tuning part).
 
 You can check if your runs are actually using multiple GPUs with the
-`nvidia-smi` command. Check the `JOBID` of your running job with `squeue
---me`, then run (replacing JOBID with the real number):
+`nvidia-smi` command. Check the node name of your running job with `squeue
+--me`, see the `NODELIST` column. Then run (replacing NODENAME with the
+real node name):
 
-    srun --overlap --pty --jobid=JOBID bash
+    ssh NODENAME
 
 This opens a new shell session in the same machine as your job. Here
 you can check your processes with `top` or the state of the GPUs with
