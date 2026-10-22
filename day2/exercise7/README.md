@@ -1,5 +1,7 @@
 # Exercise 7
 
+Note that this is not how you would use models in practice as you likely would use vLLM instead. Look at https://github.com/CSCfi/ai-inference-examples for good examples with CSC supercomputers.
+
 All commands below are run from this exercise's directory, i.e. `day2/exercise7`:
 
 ```bash
