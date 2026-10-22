@@ -7,7 +7,7 @@
 #SBATCH --gres=gpu:gh200:4 # Number of GPUs allocated to the task
 #SBATCH --mem=868344mb # Total RAM allocated for the job
 #SBATCH --time=00:15:00 # Maximum runtime (HH:MM:SS)
-#SBATCH --reservation=pdl-day2-no-ood
+#SBATCH --reservation=pdl-day2-no-ood2
 
 
 # --------------------------------------------------
